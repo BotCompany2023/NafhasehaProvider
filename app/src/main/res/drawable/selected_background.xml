@@ -1,0 +1,7 @@
+<!-- ملف res/drawable/selected_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/icon"
+        android:state_selected="true" />
+    <item android:drawable="@android:color/transparent" />
+</selector>
+

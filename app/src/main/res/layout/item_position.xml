@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp">
+
+
+        <ImageView
+            android:id="@+id/iv_chick_item"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/icons_un_chick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tajawal_medium"
+            android:text="@string/app_name"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_chick_item"
+            app:layout_constraintStart_toEndOf="@+id/iv_chick_item"
+            app:layout_constraintTop_toTopOf="@+id/iv_chick_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_auth"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mobileForgetPasswordFragment"
+            app:destination="@id/mobileForgetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyOtpFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.verify.VerifyOtpFragment"
+        android:label="VerifyOtpFragment"
+        tools:layout="@layout/fragment_verify_otp">
+        <argument
+            android:name="Mobile"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="typePage"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_mobileForgetPasswordFragment"
+            app:destination="@id/mobileForgetPasswordFragment" />
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileForgetPasswordFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.forgetPassword.CheckMobileFragment"
+        android:label="MobileForgetPasswordFragment" >
+        <action
+            android:id="@+id/action_mobileForgetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mobileForgetPasswordFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.forgetPassword.ResetPasswordFragment"
+        android:label="ResetPasswordFragment" >
+
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment" />
+        <argument
+            android:name="mobile"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

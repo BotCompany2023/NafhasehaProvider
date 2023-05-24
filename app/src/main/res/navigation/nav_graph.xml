@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_auth"
+    app:startDestination="@id/menuHome">
+    <fragment
+        android:id="@+id/menuHome"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.home.HomeFragment"
+         android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_menuHome_to_bottomSheetDialogRatingFragment"
+            app:destination="@id/bottomSheetDialogRatingFragment" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/menuOrders"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.orders.AllOrdersFragment"
+        android:label="AllOrdersFragment"
+        tools:layout="@layout/fragment_all_orders"/>
+    <fragment
+        android:id="@+id/menuSetting"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_menuSetting_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_frequentlyQuestionsFragment"
+            app:destination="@id/frequentlyQuestionsFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_termsConditionsFragment"
+            app:destination="@id/termsConditionsFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+         <action
+            android:id="@+id/action_menuSetting_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_bottomSheetLogOutFragment"
+            app:destination="@id/bottomSheetLogOutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.privacy.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_menuSetting"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.about.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_menuSetting2"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.contact_us.ContactUsFragment"
+        android:label="ContactUsFragment" >
+        <action
+            android:id="@+id/action_contactUsFragment_to_menuSetting"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/frequentlyQuestionsFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.fq.FrequentlyQuestionsFragment"
+        android:label="FrequentlyQuestionsFragment" >
+        <action
+            android:id="@+id/action_frequentlyQuestionsFragment_to_menuSetting"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuWallet"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.wallet.WalletFragment"
+        android:label="WalletFragment"
+        tools:layout="@layout/fragment_wallet">
+
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.myAccount.AccountFragment"
+        android:label="AccountFragment" >
+        <action
+            android:id="@+id/action_accountFragment_to_menuSetting"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsConditionsFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.tirm.TermsConditionsFragment"
+        android:label="TermsConditionsFragment" >
+        <action
+            android:id="@+id/action_termsConditionsFragment_to_menuSetting2"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetDialogRatingFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetRatingFragment"
+        android:label="BottomSheetDialogRatingFragment" />
+
+
+    <dialog
+        android:id="@+id/bottomSheetLogOutFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetLogOutFragment"
+        android:label="BottomSheetLogOutFragment" />
+
+    <dialog
+        android:id="@+id/bottomSheetDatePickerFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetDatePickerFragment"
+        android:label="BottomSheetDatePickerFragment"
+        tools:layout="@layout/fragment_bottom_sheet_date_picker"/>
+
+    <dialog
+        android:id="@+id/bottomSheetTimePickerFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetTimePickerFragment"
+        android:label="BottomSheetTimePickerFragment"
+        tools:layout="@layout/fragment_bottom_sheet_time_picker"/>
+
+
+</navigation>

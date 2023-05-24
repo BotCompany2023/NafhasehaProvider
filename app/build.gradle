@@ -1,0 +1,164 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+//    id "dagger.hilt.android.plugin"
+    id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+
+}
+
+android {
+    namespace 'com.sa.nafhasehaprovider'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.sa.nafhasehaprovider"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false  // Avoid conflicts with Instant Run
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    def nav_version = "2.5.3"
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //services location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:3.1.0'
+
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-messaging:23.1.2'
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics'
+
+
+    // Retrofit
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp-bom:$okhttp_version"
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+
+    // Moshi for json serialization / deserialization
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_moshi_converter_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutines_adapter_version"
+
+    //koin
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    //livedata
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+
+
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //alum upload gallery
+    implementation 'com.yanzhenjie:album:2.1.3'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    implementation 'io.github.ParkSangGwon:tedimagepicker:1.4.2'
+
+
+    //viewPager2 library
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+    //stepper library
+    implementation "com.tbuonomo:dotsindicator:4.3"
+    //sdp ssp
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    //lottie
+    implementation 'com.airbnb.android:lottie:5.2.0'
+    //password
+    implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    //otp
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
+    //indicator
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //swipe two sides
+    implementation 'ru.rambler.android:swipe-layout:1.1.0'
+    //html
+    implementation 'org.sufficientlysecure:html-textview:4.0'
+    //Animatoo
+    implementation 'com.github.AtifSayings:Animatoo:1.0.1'
+
+    implementation 'com.github.unaisulhadi:emojiratingbar:1.0.5'
+    //MotionToast
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+    //PersianSearchableSpinner
+    implementation 'com.github.bkhezry:PersianSearchableSpinner:1.4.2'
+    // tedpermission
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+
+    //MaterialExpansionPanel
+    implementation 'com.github.florent37:expansionpanel:1.2.4'
+
+    //noinspection GradleDependency
+//    implementation project(':checkboxgroup')
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+}
+apply plugin: 'com.google.gms.google-services'
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
