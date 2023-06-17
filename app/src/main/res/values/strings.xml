@@ -180,5 +180,18 @@
     <string name="do_you_have_home_service">Do you have home service?</string>
     <string name="choose_your_services">Choose your services</string>
     <string name="latest_requests">Latest requests</string>
+    <string name="i_withdraw_now">I withdraw now</string>
+    <string name="ratings">Ratings</string>
+    <string name="previous_works">Previous works</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="enter_the_current_password">Enter the current password</string>
+    <string name="recent_withdrawals">Recent withdrawals</string>
+    <string name="recent_shipments">Recent shipments</string>
+    <string name="the_code">The code </string>
+    <string name="km">Km</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order_details">Order Details</string>
 
 </resources>

@@ -44,7 +44,6 @@ class NafhasehaProviderApp : Application() {
                     packageModelModule,
                     walletModelModule,
                     myCarModelModule,
-                    serviceRequestViewModel,
                     ordersViewModel,
                 )
             )

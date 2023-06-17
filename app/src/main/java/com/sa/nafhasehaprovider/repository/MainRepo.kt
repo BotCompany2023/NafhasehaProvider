@@ -52,6 +52,11 @@ class MainRepo(private val api: APIEndPoint) {
         phone: String, countryId: Int
     ) = api.checkPhone(phone, countryId)
 
+
+    suspend fun changePassword(
+        oldPassword: String,newPassword: String
+    ) = api.changePassword(oldPassword, newPassword)
+
     suspend fun checkOtpCode(
         provider_id: Int, code: String
     ) = api.checkCode(provider_id, code)
@@ -69,19 +74,25 @@ class MainRepo(private val api: APIEndPoint) {
 
     suspend fun editProfile(
         image: MultipartBody.Part?,
+        provider_type: RequestBody,
         name: RequestBody,
-        countryId: RequestBody,
+        country_id: RequestBody,
         phone: RequestBody,
         email: RequestBody,
         address: RequestBody,
         lat: RequestBody,
-        lang: RequestBody,
+        long: RequestBody,
         city_id: RequestBody,
-        area_id: RequestBody
-    ) = api.editProfile(image, name, countryId, phone, email, address, lat, lang, city_id, area_id)
+        area_id: RequestBody,
+        services_from_home: RequestBody,
+        categories: List<Int>
+    ) = api.editProfile(
+        image,provider_type,name,country_id,
+        phone,email,address,lat,long,city_id,area_id, services_from_home, categories
+    )
 
     suspend fun notification() = api.getNotification()
-    suspend fun home() = api.getHome()
+    suspend fun home(page: Int, countPaginate: Int) = api.getHome(page, countPaginate)
 
     suspend fun showPackage(packageId: Int) = api.showPackage(packageId)
 
@@ -97,185 +108,14 @@ class MainRepo(private val api: APIEndPoint) {
 
     suspend fun getCarYears(page: Int, countPaginate: String) = api.getCarYears(page, countPaginate)
 
-    suspend fun addCar(
-        vehicle_type_id: RequestBody,
-        vehicle_brand_id: RequestBody,
-        vehicle_model_id: RequestBody,
-        vehicle_manufacture_year_id: RequestBody,
-        letters_ar: RequestBody,
-        numbers_ar: RequestBody,
-        letters_en: RequestBody,
-        numbers_en: RequestBody,
-        periodic_inspection: RequestBody,
-        image: MultipartBody.Part
-    ) = api.addCar(
-        vehicle_type_id,
-        vehicle_brand_id,
-        vehicle_model_id,
-        vehicle_manufacture_year_id,
-        letters_ar,
-        numbers_ar,
-        letters_en,
-        numbers_en,
-        periodic_inspection,
-        image
-    )
 
-
-    suspend fun updateCar(
-        vehicle_id: RequestBody,
-        vehicle_type_id: RequestBody,
-        vehicle_brand_id: RequestBody,
-        vehicle_model_id: RequestBody,
-        vehicle_manufacture_year_id: RequestBody,
-        letters_ar: RequestBody,
-        numbers_ar: RequestBody,
-        letters_en: RequestBody,
-        numbers_en: RequestBody,
-        periodic_inspection: RequestBody,
-        image: MultipartBody.Part?
-    ) = api.updateCar(
-        vehicle_id,
-        vehicle_type_id,
-        vehicle_brand_id,
-        vehicle_model_id,
-        vehicle_manufacture_year_id,
-        letters_ar,
-        numbers_ar,
-        letters_en,
-        numbers_en,
-        periodic_inspection,
-        image
-    )
-
-    suspend fun deleteCar(idCar: Int) = api.deleteCar(idCar)
-
-    suspend fun showDataCar(idCar: Int) = api.showDataCar(idCar)
-
-
-    suspend fun providesMap(
-        lat: Double,
-        long: Double,
-        service_id: Int
-    ) =
-        api.getProvidesMap(lat, long, service_id)
-
-    suspend fun providesDataMap(
-        lat: Double,
-        long: Double,
-        idProvider: Int
-    ) =
-        api.getProvidesDataMap(lat, long, idProvider)
 
     suspend fun categories(page: Int) = api.getCategories(page)
 
-    suspend fun homeOrCenter() = api.getHomeOrCenter()
-    suspend fun getVehicleTransporter() = api.getVehicleTransporter()
-
-    suspend fun checkCouponCode(coupon_code: String, service_id: Int) =
-        api.checkCouponCode(coupon_code, service_id)
-
-    //خدمة الفحص الدوري
-    suspend fun periodicInspection(
-        vehicle_id: Int,
-        date_at: String,
-        time_at: String,
-        city_id: Int,
-        coupon_code: String
-    ) =
-        api.periodicInspection(vehicle_id, date_at, time_at, city_id,coupon_code)
 
 
-
-    //خدمة السطحة
-    suspend fun transporter(
-        transporter_id: Int,
-        date_at: String,
-        time_at: String,
-        address: String,
-        lat: Double,
-        long: Double,
-        address_to: String,
-        lat_to: Double,
-        long_to: Double,
-        details: String,
-        coupon_code: String
-    ) =
-        api.transporter(transporter_id,
-            date_at,
-            time_at,
-            address,
-            lat,
-            long,
-            address_to,
-            lat_to,
-            long_to,
-            details,
-            coupon_code)
-
-    //خدمة السطحة
-    suspend fun maintenance(
-        vehicle_id: RequestBody,
-        category_id: RequestBody,
-        type_from: RequestBody,
-        date_at: RequestBody,
-        time_at: RequestBody,
-        lat: RequestBody,
-        long: RequestBody,
-        address: RequestBody,
-        details: RequestBody,
-        coupon_code: RequestBody,
-        images: List<MultipartBody.Part>) =
-        api.maintenance(
-            vehicle_id,
-            category_id,
-            type_from,
-            date_at,
-            time_at,
-            lat,
-            long,
-            address,
-            details,
-            coupon_code,
-            images)
-
-
-
-    //خدمة استشاره الاعطال
-    suspend fun consultation(
-        vehicle_id: RequestBody,
-        category_id: RequestBody,
-        city_id: RequestBody,
-        details: RequestBody,
-        coupon_code: RequestBody,
-        images: List<MultipartBody.Part>) =
-        api.consultation(
-            vehicle_id,
-            category_id,
-            city_id,
-            details,
-            coupon_code,
-            images)
-
-
-    //خدمة حواجز السيارات
-    suspend fun vehicleBarriers(
-        vehicle_id: Int,
-        position: List<String>,
-        date_at: String,
-        time_at: String,
-        city_id: Int,
-        coupon_code: String,
-    ) =
-        api.vehicleBarriers(
-            vehicle_id,
-            position,
-            date_at,
-            time_at,
-            city_id,
-            coupon_code)
-
-
-    suspend fun ordersPending() = api.getOrdersPending()
+    suspend fun ordersApproved(page: Int, countPaginate: Int) = api.getOrdersApproved(page, countPaginate)
+    suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
+    suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
 }
 

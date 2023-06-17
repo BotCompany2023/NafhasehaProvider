@@ -71,11 +71,6 @@ val  myCarModelModule = module {
     }
 }
 
-val  serviceRequestViewModel = module {
-    viewModel {
-        ServiceRequestViewModel(get(), get())
-    }
-}
 
 val  ordersViewModel = module {
     viewModel {

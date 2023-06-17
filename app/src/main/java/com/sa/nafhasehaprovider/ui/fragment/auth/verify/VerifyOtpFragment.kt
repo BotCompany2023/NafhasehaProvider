@@ -11,14 +11,13 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.sa.nafhasehaprovider.R
-import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
+import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.FragmentVerifyOtpBinding
-import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
-import kotlinx.android.synthetic.main.message_popup.view.*
+import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {

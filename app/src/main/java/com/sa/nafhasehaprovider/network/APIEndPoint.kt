@@ -7,23 +7,21 @@ import com.sa.nafhasehaprovider.entity.response.carBrandsResponse.CarBrandsRespo
 import com.sa.nafhasehaprovider.entity.response.carModelsResponse.CarModelsResponse
 import com.sa.nafhasehaprovider.entity.response.carYearsResponse.CarYearsResponse
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoriesResponse
-import com.sa.nafhasehaprovider.entity.response.checkCouponResponse.CheckCouponResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponse
 import com.sa.nafhasehaprovider.entity.response.fqResponse.FaqsResponse
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.GetAllPendingResponse
-import com.sa.nafhasehaprovider.entity.response.homeOrCenterResponse.HomeOrCenterResponse
+import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.AllOrdersResponse
+import com.sa.nafhasehaprovider.entity.response.homeResponse.HomeResponse
 import com.sa.nafhasehaprovider.entity.response.iconSocialMediaResponse.IconSocialMediaResponse
 import com.sa.nafhasehaprovider.entity.response.infoResponse.InfoResponse
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.MyCarResponse
 import com.sa.nafhasehaprovider.entity.response.notificationResponse.NotificationResponse
 import com.sa.nafhasehaprovider.entity.response.providerDataResponse.ProviderDataResponse
 import com.sa.nafhasehaprovider.entity.response.providesMapResponse.ProvidesMapResponse
+import com.sa.nafhasehaprovider.entity.response.showOrder.ShowOrder
 import com.sa.nafhasehaprovider.entity.response.showPackageResponse.ShowPackageResponse
 import com.sa.nafhasehaprovider.entity.response.typeCarResponse.CarTypeResponse
-import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.VehicleTransporterResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.WalletResponse
-import com.sa.nafhasehaprovider.entity.response.homeResponse.HomeResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -74,7 +72,8 @@ interface APIEndPoint {
         @Part("area_id") area_id: RequestBody,
         @Part commercialRegister: MultipartBody.Part? = null,
         @Part("services_from_home") services_from_home: RequestBody,
-        @Part("categories[]") categories: List<Int>): Response<AuthenticationResponse>
+        @Part("categories[]") categories: List<Int>
+    ): Response<AuthenticationResponse>
 
 
     @POST("check-phone")
@@ -82,6 +81,12 @@ interface APIEndPoint {
         @Query("phone") phone: String,
         @Query("country_id") countryId: Int,
         @Query("is_reset") is_reset: Int = 1,
+    ): Response<GeneralResponse>
+
+
+    @POST("change-password")
+    suspend fun changePassword(
+        @Query("old_password") oldPassword: String, @Query("new_password") newPassword: String
     ): Response<GeneralResponse>
 
     @POST("check-code")
@@ -129,15 +134,18 @@ interface APIEndPoint {
     @Multipart
     suspend fun editProfile(
         @Part image: MultipartBody.Part? = null,
-        @Part("name") nameUser: RequestBody,
+        @Part("provider_type") provider_type: RequestBody,
+        @Part("name") nameProvider: RequestBody,
         @Part("country_id") countryId: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("email") email: RequestBody,
         @Part("address") address: RequestBody,
         @Part("lat") lat: RequestBody,
-        @Part("lang") lang: RequestBody,
+        @Part("long") lang: RequestBody,
         @Part("city_id") city_id: RequestBody,
-        @Part("area_id") area_id: RequestBody
+        @Part("area_id") area_id: RequestBody,
+        @Part("services_from_home") services_from_home: RequestBody,
+        @Part("categories[]") categories: List<Int>
     ): Response<AuthenticationResponse>
 
 
@@ -145,13 +153,15 @@ interface APIEndPoint {
     suspend fun getNotification(): Response<NotificationResponse>
 
     @GET("home")
-    suspend fun getHome(): Response<HomeResponse>
+    suspend fun getHome(
+        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
+    ): Response<HomeResponse>
 
 
     @GET("packages/show")
     suspend fun showPackage(@Query("package_id") packageId: Int): Response<ShowPackageResponse>
 
-    @GET("transactions/my-wallet")
+    @GET("my-wallet")
     suspend fun myWallet(
         @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
     ): Response<WalletResponse>
@@ -252,94 +262,20 @@ interface APIEndPoint {
     ): Response<CategoriesResponse>
 
 
-    @GET("get-home-or-center")
-    suspend fun getHomeOrCenter(): Response<HomeOrCenterResponse>
+
+    @GET("ongoing-orders")
+    suspend fun getOrdersApproved(@Query("page") page: Int,
+                                  @Query("count_paginate")countPaginate: Int): Response<AllOrdersResponse>
+
+    @GET("completed-orders")
+    suspend fun getOrdersCompleted(@Query("page") page: Int,
+                                   @Query("count_paginate")countPaginate: Int): Response<AllOrdersResponse>
 
 
-    @GET("services/transport-vehicles")
-    suspend fun getVehicleTransporter(
-        @Query("count_paginate") countPaginate: String = "ALL"
-    ): Response<VehicleTransporterResponse>
 
+    @GET("my-order/{idOrder}")
+    suspend fun  showOrder(@Query("idOrder") idOrder: Int): Response<ShowOrder>
 
-    @POST("check-coupon")
-    suspend fun checkCouponCode(
-        @Query("coupon_code") coupon_code: String, @Query("service_id") service_id: Int
-    ): Response<CheckCouponResponse>
-
-
-    //خدمة الفحص الدوري
-    @POST("services/store/periodic-inspection")
-    suspend fun periodicInspection(
-        @Query("vehicle_id") vehicle_id: Int,
-        @Query("date_at") date_at: String,
-        @Query("time_at") time_at: String,
-        @Query("city_id") city_id: Int,
-        @Query("coupon_code") coupon_code: String,
-    ): Response<GeneralResponse>
-
-    //خدمة الصيانة
-    @POST("services/store/maintenance")
-    @Multipart
-    suspend fun maintenance(
-        @Part("vehicle_id") vehicle_id: RequestBody,
-        @Part("category_id") category_id: RequestBody,
-        @Part("type_from") type_from: RequestBody,
-        @Part("date_at") date_at: RequestBody,
-        @Part("time_at") time_at: RequestBody,
-        @Part("lat") lat: RequestBody,
-        @Part("long") long: RequestBody,
-        @Part("address") address: RequestBody,
-        @Part("details") details: RequestBody,
-        @Part("coupon_code") coupon_code: RequestBody,
-        @Part images: List<MultipartBody.Part>? = null
-    ): Response<GeneralResponse>
-
-
-    //خدمة حواجز السيارات
-    @POST("services/store/vehicle-barriers")
-    suspend fun vehicleBarriers(
-        @Query("vehicle_id") vehicle_id: Int,
-        @Query("position[]") position: List<String>,
-        @Query("date_at") type_from: String,
-        @Query("time_at") date_at: String,
-        @Query("city_id") time_at: Int,
-        @Query("coupon_code") coupon_code: String,
-    ): Response<GeneralResponse>
-
-
-    //خدمة الاستشاره
-    @POST("services/store/consultation")
-    @Multipart
-    suspend fun consultation(
-        @Part("vehicle_id") vehicle_id: RequestBody,
-        @Part("category_id") category_id: RequestBody,
-        @Part("city_id") city_id: RequestBody,
-        @Part("details") details: RequestBody,
-        @Part("coupon_code") coupon_code: RequestBody,
-        @Part images: List<MultipartBody.Part>,
-    ): Response<GeneralResponse>
-
-
-    //خدمة السطحة
-    @POST("services/store/transporter")
-    suspend fun transporter(
-        @Query("transporter_id") transporter_id: Int,
-        @Query("date_at") date_at: String,
-        @Query("time_at") time_at: String,
-        @Query("address") address: String,
-        @Query("lat") lat: Double,
-        @Query("long") long: Double,
-        @Query("address_to") address_to: String,
-        @Query("lat_to") lat_to: Double,
-        @Query("long_to") long_to: Double,
-        @Query("details") details: String,
-        @Query("coupon_code") coupon_code: String
-    ): Response<GeneralResponse>
-
-
-    @GET("orders/pending")
-    suspend fun getOrdersPending(): Response<GetAllPendingResponse>
 
 
 }

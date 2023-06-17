@@ -179,5 +179,16 @@
     <string name="do_you_have_home_service">هل لديكم خدمة منزلية؟</string>
     <string name="choose_your_services">قم باختيار خدماتك</string>
     <string name="latest_requests">أحدث الطلبات</string>
+    <string name="i_withdraw_now">أسحب الان</string>
+    <string name="ratings">التقييمات</string>
+    <string name="previous_works">الاعمال السابقة</string>
+    <string name="old_password">كلمة المرور القديمة</string>
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="enter_the_current_password">ادخل كلمة السر الحالية</string>
+    <string name="recent_withdrawals">عمليات السحب الاخيره</string>
+    <string name="recent_shipments">عمليات الشحن الاخيره </string>
+    <string name="the_code">الكود </string>
+    <string name="km">كم</string>
+    <string name="order_details">Order Details</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -14,20 +15,27 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.BitmapFactory.decodeFile
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.os.LocaleList
+import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Base64
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -760,29 +768,32 @@ abstract class Utilities(var context: Context) {
             )
         }
 
-        fun showToastSuccess(context: Activity, messageToast: String) {
+        fun showToastSuccess(activity: Activity, messageToast: String) {
 
-            MotionToast.darkToast(
-                context,
-                context.getString(R.string.success),
-                messageToast,
-                MotionToastStyle.SUCCESS,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-            )
+            messageSuccessDialog(activity,messageToast)
+//            MotionToast.darkToast(
+//                activity,
+//                activity.getString(R.string.success),
+//                messageToast,
+//                MotionToastStyle.SUCCESS,
+//                MotionToast.GRAVITY_BOTTOM,
+//                MotionToast.LONG_DURATION,
+//                ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
+//            )
         }
 
-        fun showToastError(context: Activity, messageToast: String) {
-            MotionToast.darkToast(
-                context,
-                context.getString(R.string.ops),
-                messageToast,
-                MotionToastStyle.ERROR,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
-            )
+        fun showToastError(activity: Activity, messageToast: String) {
+            messageErrorDialog(activity,messageToast)
+
+//            MotionToast.darkToast(
+//                activity,
+//                activity.getString(R.string.ops),
+//                messageToast,
+//                MotionToastStyle.ERROR,
+//                MotionToast.GRAVITY_BOTTOM,
+//                MotionToast.LONG_DURATION,
+//                ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
+//            )
 
             //1. TOAST_SUCCESS
             //2.TOAST_ERROR
@@ -862,7 +873,67 @@ abstract class Utilities(var context: Context) {
         }
 
 
+        fun messageSuccessDialog(activity: Activity,message: String) {
+            val dialog = Dialog(activity, R.style.customDialogTheme)
+            dialog.setCancelable(false)
+            val inflater =activity.layoutInflater
+            val v: View = inflater.inflate(R.layout.message_popup_success, null)
+            dialog.setContentView(v)
+            dialog.setCancelable(false)
+
+            dialog.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            dialog.window!!.setGravity(Gravity.CENTER)
+            var messageTextView = dialog.findViewById(R.id.message) as TextView
+
+
+
+
+            Handler(Looper.myLooper()!!).postDelayed(
+                {
+                    try {
+                    dialog.dismiss()
+                    }catch (e:Exception)
+                    {}
+                }, 3000L
+            )
+            messageTextView.text = message
+            dialog.show()
+
+
+        }
+
+
+        fun messageErrorDialog(activity: Activity,message: String) {
+            val dialog = Dialog(activity, R.style.customDialogTheme)
+            dialog.setCancelable(false)
+            val inflater =activity.layoutInflater
+            val v: View = inflater.inflate(R.layout.message_popup_erorr, null)
+            dialog.setContentView(v)
+            dialog.setCancelable(false)
+
+            dialog.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            dialog.window!!.setGravity(Gravity.CENTER)
+            var messageTextView = dialog.findViewById(R.id.message) as TextView
+
+            Handler(Looper.myLooper()!!).postDelayed(
+                {
+                    dialog.dismiss()
+                }, 3000L
+            )
+            messageTextView.text = message
+            dialog.show()
+        }
+
+
+
     }
+
 
 
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.GetAllPendingResponse
+import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.AllOrdersResponse
 import com.sa.nafhasehaprovider.repository.MainRepo
 import kotlinx.coroutines.launch
 
@@ -15,16 +15,17 @@ class OrdersViewModel(
     private val sharedPreferences: PreferencesUtils, private val mainRepo: MainRepo
 ) : ViewModel() {
 
-    val orderPendingResponse: MutableLiveData<Resource<GetAllPendingResponse>> = MutableLiveData()
+    val allOrdersApprovedResponse: MutableLiveData<Resource<AllOrdersResponse>> = MutableLiveData()
+    val allOrdersCompletedResponse: MutableLiveData<Resource<AllOrdersResponse>> = MutableLiveData()
 
 
-    fun orderPending() {
+    fun ordersApproved(page: Int, countPaginate: Int) {
         if (Utilities.hasInternetConnection()) {
-            orderPendingResponse.postValue(Resource.Loading())
+            allOrdersApprovedResponse.postValue(Resource.Loading())
             viewModelScope.launch {
-                val response = mainRepo.ordersPending()
+                val response = mainRepo.ordersApproved(page, countPaginate)
                 if (response.isSuccessful) {
-                    orderPendingResponse.postValue(Resource.Success(response.body()!!))
+                    allOrdersApprovedResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully
                     Log.i("TestLoginterVM", "${response.body()}")
                 } else {
@@ -35,5 +36,24 @@ class OrdersViewModel(
             }
         }
     }
+
+    fun ordersCompleted(page: Int, countPaginate: Int) {
+        if (Utilities.hasInternetConnection()) {
+            allOrdersCompletedResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.ordersCompleted(page, countPaginate)
+                if (response.isSuccessful) {
+                    allOrdersCompletedResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
 
 }

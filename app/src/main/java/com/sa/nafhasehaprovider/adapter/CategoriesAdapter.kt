@@ -5,20 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.databinding.ItemServiceSelectedBinding
+import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
 import com.sa.nafhasehaprovider.interfaces.CheckCategory
 
 class CategoriesAdapter(
-    var context: Activity, var listCategory: List<DataCategoriesResponse>,var checkCategory: CheckCategory
-) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder?>() {
+    var context: Activity, var listCategory: List<DataCategoriesResponse>, var checkedItems :List<Category>) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder?>() {
 
 
-    lateinit var idCategory: ArrayList<Int>
-
+    var idCategory: ArrayList<Int> = arrayListOf()
 
     inner class ViewHolder(binding: ItemServiceSelectedBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,24 +39,27 @@ class CategoriesAdapter(
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_in)
         //  holder.itemView.startAnimation(animation)
 
-        idCategory=ArrayList()
 
         var model = listCategory[position]
         holder.binding.cbSelectService.text = model.title
+
+
+
+
+        checkedItems.forEach{
+            if (it.id == model.id){
+                holder.binding.cbSelectService.isChecked = true
+            }
+        }
 
         holder.binding.cbSelectService.setOnCheckedChangeListener { buttonView, isChecked ->
             // تم تحديد أو إلغاء تحديد الصندوق
             if (isChecked) {
                 // القيام بإجراء عند تحديد الصندوق
                 idCategory.add(model.id)
-                checkCategory.ItemCheck(idCategory)
-
             } else {
                 // القيام بإجراء عند إلغاء تحديد الصندوق
                 idCategory.remove(model.id)
-                checkCategory.ItemCheck(idCategory)
-
-
             }
         }
 

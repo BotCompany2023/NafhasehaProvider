@@ -31,20 +31,28 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
 
         onClick()
 
-        mViewDataBinding.tvNameUser.text = NafhasehaProviderApp.pref.loadUserData(
-            requireActivity(), USER_DATA
-        )!!.data!!.user!!.name
-        Utilities.onLoadImageFromUrl(
-            requireActivity(), NafhasehaProviderApp.pref.loadUserData(
+        if (USER_DATA!=null)
+        {
+            mViewDataBinding.tvNameUser.text = NafhasehaProviderApp.pref.loadUserData(
                 requireActivity(), USER_DATA
-            )!!.data!!.user!!.image, mViewDataBinding.ivImageUser
-        )
+            )!!.data!!.provider!!.name
+            Utilities.onLoadImageFromUrl(
+                requireActivity(), NafhasehaProviderApp.pref.loadUserData(
+                    requireActivity(), USER_DATA
+                )!!.data!!.provider!!.image, mViewDataBinding.ivImageUser)
+        }
+
     }
 
     private fun onClick() {
 
         mViewDataBinding.updateProfile.setOnClickListener {
             val action = SettingFragmentDirections.actionMenuSettingToAccountFragment()
+            mViewDataBinding.root.findNavController().navigate(action)
+        }
+
+        mViewDataBinding.changePassword.setOnClickListener {
+            val action = SettingFragmentDirections.actionMenuSettingToChangePasswordFragment()
             mViewDataBinding.root.findNavController().navigate(action)
         }
 

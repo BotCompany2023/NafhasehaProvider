@@ -43,7 +43,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/shape_bottom"
-                    android:backgroundTint="@color/icon"
                     android:gravity="center"
                     android:padding="@dimen/_10sdp">
 

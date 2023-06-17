@@ -7,10 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities
-import com.sa.nafhasehaprovider.entity.response.providerDataResponse.ProviderDataResponse
-import com.sa.nafhasehaprovider.entity.response.providesMapResponse.ProvidesMapResponse
-import com.sa.nafhasehaprovider.repository.MainRepo
 import com.sa.nafhasehaprovider.entity.response.homeResponse.HomeResponse
+import com.sa.nafhasehaprovider.repository.MainRepo
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -18,17 +16,14 @@ class HomeViewModel(
 ) : ViewModel() {
 
     val homeResponse: MutableLiveData<Resource<HomeResponse>> = MutableLiveData()
-    val providesMapResponse: MutableLiveData<Resource<ProvidesMapResponse>> = MutableLiveData()
-    val showDataProvideMapResponse: MutableLiveData<Resource<ProviderDataResponse>> =
-        MutableLiveData()
 
 
-    fun home() {
+    fun home(page: Int, countPaginate: Int) {
         if (Utilities.hasInternetConnection()) {
             homeResponse.postValue(Resource.Loading())
             viewModelScope.launch {
 
-                val response = mainRepo.home()
+                val response = mainRepo.home(page, countPaginate)
                 if (response.isSuccessful) {
                     homeResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully
@@ -42,54 +37,5 @@ class HomeViewModel(
         }
     }
 
-
-    fun providesMap(
-        lat: Double, long: Double, service_id: Int
-    ) {
-        if (Utilities.hasInternetConnection()) {
-            providesMapResponse.postValue(Resource.Loading())
-            viewModelScope.launch {
-                try {
-
-                    val response = mainRepo.providesMap(lat, long, service_id)
-                    if (response.isSuccessful) {
-                        providesMapResponse.postValue(Resource.Success(response.body()!!))
-                        // handling if repsonse is succesfully
-                        Log.i("TestLoginterVM", "${response.body()}")
-                    } else {
-                        Resource.Error(response.message())
-                        Log.i("TestLoginterVM", " error ${response.code()}")
-                    }
-
-                } catch (e: Exception) {
-                }
-            }
-        }
-    }
-
-
-    fun showDataProvides(
-        lat: Double, long: Double, idProvider: Int
-    ) {
-        if (Utilities.hasInternetConnection()) {
-            showDataProvideMapResponse.postValue(Resource.Loading())
-            viewModelScope.launch {
-                try {
-
-                    val response = mainRepo.providesDataMap(lat, long, idProvider)
-                    if (response.isSuccessful) {
-                        showDataProvideMapResponse.postValue(Resource.Success(response.body()!!))
-                        // handling if repsonse is succesfully
-                        Log.i("TestLoginterVM", "${response.body()}")
-                    } else {
-                        Resource.Error(response.message())
-                        Log.i("TestLoginterVM", " error ${response.code()}")
-                    }
-
-                } catch (e: Exception) {
-                }
-            }
-        }
-    }
 
 }

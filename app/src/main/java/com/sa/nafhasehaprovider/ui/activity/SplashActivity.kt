@@ -44,9 +44,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 // if first time
                 if (NafhasehaProviderApp.pref.getBoolean(FIRST_TIME, false)) {
                     // check first if logged or not
-                    if (NafhasehaProviderApp.pref.loadUserData(
-                            this, USER_DATA
-                        )!!.data!!.access_token != null
+                    if (NafhasehaProviderApp.pref.authToken != null
                     ) {
                         Log.i("TestLoginToken", " tokenn ${NafhasehaProviderApp.pref.authToken}")
                         openActivityAndFinish(MainActivity::class.java)

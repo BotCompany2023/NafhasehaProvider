@@ -26,6 +26,7 @@ class AuthenticationViewModel(
     var firebaseToken = ""
     val authResponse: MutableLiveData<Resource<AuthenticationResponse>> = MutableLiveData()
     val checkPhoneResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
+    val changePasswordResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val sendActivationCodeResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val editProfileResponse: MutableLiveData<Resource<AuthenticationResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<CategoriesResponse>> =MutableLiveData()
@@ -141,6 +142,31 @@ class AuthenticationViewModel(
     }
 
 
+
+    fun changePassword(old_password: String, new_password: String) {
+        if (Utilities.hasInternetConnection()) {
+            changePasswordResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.changePassword(
+                    old_password, new_password
+                )
+                try {
+                    if (response.isSuccessful) {
+                        changePasswordResponse.postValue(Resource.Success(response.body()!!))
+                        // handling if repsonse is succesfully
+                        Log.i("TestLoginterVM", "${response.body()}")
+                    } else {
+                        Resource.Error(response.message())
+                        Log.i("TestLoginterVM", " error ${response.code()}")
+                    }
+                } catch (e: Exception) {
+                }
+
+            }
+        }
+    }
+
+
     fun checkCode(provider_id: Int, otpCode: String) {
         if (Utilities.hasInternetConnection()) {
             checkPhoneResponse.postValue(Resource.Loading())
@@ -236,21 +262,25 @@ class AuthenticationViewModel(
 
     fun editProfile(
         image: MultipartBody.Part?,
+        provider_type: RequestBody,
         name: RequestBody,
-        countryId: RequestBody,
+        country_id: RequestBody,
         phone: RequestBody,
         email: RequestBody,
         address: RequestBody,
         lat: RequestBody,
-        lang: RequestBody,
+        long: RequestBody,
         city_id: RequestBody,
-        area_id: RequestBody
+        area_id: RequestBody,
+        services_from_home: RequestBody,
+        categories: List<Int>
     ) {
         if (Utilities.hasInternetConnection()) {
             editProfileResponse.postValue(Resource.Loading())
             viewModelScope.launch {
                 val response = mainRepo.editProfile(
-                    image, name, countryId, phone, email, address, lat, lang, city_id, area_id
+                    image,provider_type,name,country_id,
+                    phone,email,address,lat,long,city_id,area_id, services_from_home, categories
                 )
                 if (response.isSuccessful) {
                     editProfileResponse.postValue(Resource.Success(response.body()!!))

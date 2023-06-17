@@ -1,8 +1,6 @@
-package  com.sa.nafhasehaprovider.entity.response.homeResponse
-
+package com.sa.nafhasehaprovider.entity.response.homeResponse
 
 data class DataHomeResponse(
-    val packages: List<PackageHomeResponse>,
-    val services: List<ServiceHomeResponse>,
-    val sliders: List<SliderHomeResponse>
+    val new_orders: List<NewOrderHomeResponse>,
+    val provider: ProviderHomeResponse
 )

@@ -56,11 +56,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //                                NafhasehaApp.pref.putString(USER_NAME, it.data!!.user!!.name!!)
 
 
-                                if (it.data!!.user!!.is_activation == false) {
+                                if (it.data.provider!!.is_activation == false) {
                                     val action =
                                         LoginFragmentDirections.actionLoginFragmentToVerifyOtpFragment(
                                             mViewDataBinding.tvMobile.text.toString(),
-                                            it.data!!.user!!.id!!,
+                                            it.data.provider.id!!,
                                             "LOGIN"
                                         )
                                     mViewDataBinding.root.findNavController().navigate(action)

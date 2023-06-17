@@ -31,12 +31,10 @@ import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.interfaces.CheckCategory
-import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.CityViewModel
-import kotlinx.android.synthetic.main.message_popup.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -62,7 +60,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
 
     private var imageFile: File? = null
     lateinit var addressStr: String
-    var homeService: Int=0
+    var homeService: Int = 0
     lateinit var city: String
     var lat = 0.0
     var long: Double = 0.0
@@ -83,14 +81,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         onClick()
         initResponse()
 
-        mViewDataBinding.cbIAgreeToThePrivacyPolicy.paintFlags=
+        mViewDataBinding.cbIAgreeToThePrivacyPolicy.paintFlags =
             mViewDataBinding.cbIAgreeToThePrivacyPolicy.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
     }
 
 
     private fun initResponse() {
-        idCategory= ArrayList()
+        idCategory = ArrayList()
         cityDataSource = ArrayList()
         areasDataSource = ArrayList()
         listCategory = ArrayList()
@@ -208,7 +206,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         })
 
 
-        //apiResponse areas
+        //apiResponse categories
         viewModel.categories(1)
         viewModel.categoriesResponse.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
@@ -220,7 +218,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
                             CODE200 -> {
                                 listCategory.addAll(it.data!!)
                                 categoriesAdapter =
-                                    CategoriesAdapter(requireActivity(), listCategory,this)
+                                    CategoriesAdapter(requireActivity(), listCategory,
+                                        listOf() )
                                 mViewDataBinding.rvAllService.adapter = categoriesAdapter
 
                             }
@@ -256,7 +255,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         })
 
 
-
         //apiResponse register
         viewModel.authResponse.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
@@ -271,11 +269,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
                                 // saving token
                                 //NafhasehaApp.pref.saveUserData(requireActivity(),USER_DATA,it)
 
-                              //  NafhasehaProviderApp.pref.authToken =it.data!!.access_token
+                                //  NafhasehaProviderApp.pref.authToken =it.data!!.access_token
 
-                                val action = RegisterFragmentDirections.actionRegisterFragmentToVerifyOtpFragment(
-                                    mViewDataBinding.tvMobile.text.toString(),
-                                    it.data!!.user!!.id!!,"REGISTER")
+                                val action =
+                                    RegisterFragmentDirections.actionRegisterFragmentToVerifyOtpFragment(
+                                        mViewDataBinding.tvMobile.text.toString(),
+                                        it.data!!.provider!!.id!!,
+                                        "REGISTER"
+                                    )
                                 mViewDataBinding.root.findNavController().navigate(action)
                             }
                             CODE403 -> {
@@ -319,6 +320,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
+
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
@@ -336,7 +338,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         mViewDataBinding.tvAddress.setOnClickListener {
             Utilities.onPermission(requireActivity())
             startActivityForResult(
-                Intent(requireActivity(), MapsActivity::class.java), request_code)
+                Intent(requireActivity(), MapsActivity::class.java), request_code
+            )
         }
 
 
@@ -350,10 +353,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         mViewDataBinding.radioGroupTypeAccount.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radio_center -> {
-                    typeAccount ="ProviderCenter"
+                    typeAccount = "ProviderCenter"
                 }
                 R.id.radio_person -> {
-                    typeAccount ="Provider"
+                    typeAccount = "Provider"
                 }
             }
         }
@@ -362,10 +365,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
             // تم تحديد أو إلغاء تحديد الصندوق
             if (isChecked) {
                 // القيام بإجراء عند تحديد الصندوق
-                homeService=1
+                homeService = 1
             } else {
                 // القيام بإجراء عند إلغاء تحديد الصندوق
-                homeService=0
+                homeService = 0
             }
         }
 
@@ -385,50 +388,57 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
             } else if (mViewDataBinding.tvPassword.length() < 4) {
                 mViewDataBinding.tvPassword.error =
                     getString(R.string.the_password_is_not_less_than_four_letters_numbers_or_letters_and_numbers)
-            } else if (mViewDataBinding.spCity.selectedItemPosition==0) {
-                Utilities.showToastError(requireActivity(), getString(R.string.please_selected_city))
+            } else if (mViewDataBinding.spCity.selectedItemPosition == 0) {
+                Utilities.showToastError(
+                    requireActivity(), getString(R.string.please_selected_city)
+                )
 
-            }else if (mViewDataBinding.spAreas.selectedItemPosition==0) {
-                Utilities.showToastError(requireActivity(), getString(R.string.please_selected_aras))
+            } else if (mViewDataBinding.spAreas.selectedItemPosition == 0) {
+                Utilities.showToastError(
+                    requireActivity(), getString(R.string.please_selected_aras)
+                )
 
-            }else if (addressStr.isEmpty()) {
-                mViewDataBinding.tvAddress.error= getString(R.string.address_is_required)
-            }
-            else if (typeAccount=="") {
-                Utilities.showToastError(requireActivity(), getString(R.string.please_select_an_account_type))
-            }
-            else if (idCategory.size==0) {
-                Utilities.showToastError(requireActivity(), getString(R.string.choose_your_services))
-            }
-            else if (imagePath=="") {
+            } else if (addressStr.isEmpty()) {
+                mViewDataBinding.tvAddress.error = getString(R.string.address_is_required)
+            } else if (typeAccount == "") {
+                Utilities.showToastError(
+                    requireActivity(), getString(R.string.please_select_an_account_type)
+                )
+            } else if (idCategory.size == 0) {
+                Utilities.showToastError(
+                    requireActivity(), getString(R.string.choose_your_services)
+                )
+            } else if (imagePath == "") {
                 Utilities.showToastError(requireActivity(), getString(R.string.attach_the_photo))
-            }
-            else if (!mViewDataBinding.cbIAgreeToThePrivacyPolicy.isChecked) {
-                Utilities.showToastError(requireActivity(), getString(R.string.you_do_not_agree_to_the_terms_and_conditions))
-            }
-            else {
-                    viewModel.register(
-                        convertToRequestBody(typeAccount),
-                        convertToRequestBody(nameProvider),
-                        convertToRequestBody(1.toString()),
-                        convertToRequestBody(phone),
-                        convertToRequestBody(email),
-                        convertToRequestBody(password),
-                        convertToRequestBody(addressStr),
-                        convertToRequestBody(lat.toString()),
-                        convertToRequestBody(long.toString()),
-                        convertToRequestBody(mViewDataBinding.spCity.selectedItemPosition.toString()),
-                        convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
-                        convertFileToMultipart(imageFile!!,"commercial_register"),
-                        convertToRequestBody(homeService.toString()),
-                        idCategory)
+            } else if (!mViewDataBinding.cbIAgreeToThePrivacyPolicy.isChecked) {
+                Utilities.showToastError(
+                    requireActivity(),
+                    getString(R.string.you_do_not_agree_to_the_terms_and_conditions)
+                )
+            } else {
+                viewModel.register(
+                    convertToRequestBody(typeAccount),
+                    convertToRequestBody(nameProvider),
+                    convertToRequestBody(1.toString()),
+                    convertToRequestBody(phone),
+                    convertToRequestBody(email),
+                    convertToRequestBody(password),
+                    convertToRequestBody(addressStr),
+                    convertToRequestBody(lat.toString()),
+                    convertToRequestBody(long.toString()),
+                    convertToRequestBody(mViewDataBinding.spCity.selectedItemPosition.toString()),
+                    convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
+                    convertFileToMultipart(imageFile!!, "commercial_register"),
+                    convertToRequestBody(homeService.toString()),
+                    idCategory
+                )
             }
         }
     }
 
     override fun ItemCheck(idsCategory: ArrayList<Int>) {
-        idCategory=idsCategory
-        Log.d("idsCatrf",idCategory.toString())
+        idCategory = idsCategory
+        Log.d("idsCatrf", idCategory.toString())
     }
 
 
@@ -444,16 +454,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
                         imageFile = File(mProfileUri!!.path)
                         imagePath = mProfileUri!!.path.toString()
 
-                        Glide.with(requireActivity()).load(imagePath)
-                            .into(mViewDataBinding.ivImage)
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImage)
                     }
                     CAMERA_IMAGE_REQ_CODE -> {
                         mProfileUri = uri!!
                         imageFile = File(mProfileUri!!.path)
                         imagePath = mProfileUri!!.path.toString()
 
-                        Glide.with(requireActivity()).load(imagePath)
-                            .into(mViewDataBinding.ivImage)
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImage)
 
                     }
                     request_code -> {
@@ -475,7 +483,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         }
 
     }
-
 
 
     fun showDialogImage() {
@@ -532,8 +539,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
         } catch (e: Exception) {
         }
     }
-
-
 
 
 }

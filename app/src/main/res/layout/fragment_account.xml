@@ -114,7 +114,7 @@
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/name"
+                    android:text="@string/service_provider_name_service_center"
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
@@ -206,7 +206,7 @@
 
 
                 <TextView
-                    android:id="@+id/title_password"
+                    android:id="@+id/title_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
@@ -220,6 +220,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout_mobile" />
+
 
 
 
@@ -240,7 +241,7 @@
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_password" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_email" />
 
 
                 <TextView
@@ -251,8 +252,8 @@
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="@string/address"
-                    android:textAlignment="viewStart"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -377,6 +378,108 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+                <TextView
+                    android:id="@+id/title_type_account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="@string/account_type"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDistrict" />
+
+
+                <RadioGroup
+                    android:id="@+id/radio_group_type_account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_address"
+                    app:layout_constraintStart_toStartOf="@+id/tv_address"
+                    app:layout_constraintTop_toBottomOf="@+id/title_type_account">
+
+                    <RadioButton
+                        android:id="@+id/radio_center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/center"
+                        />
+
+
+                    <RadioButton
+                        android:id="@+id/radio_person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_24sdp"
+                        android:text="@string/person" />
+
+
+                </RadioGroup>
+
+
+                <TextView
+                    android:id="@+id/title_choose_the_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="@string/choose_the_service"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radio_group_type_account" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_all_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:spanCount="2"
+                    android:background="@drawable/shape_text"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/radio_group_type_account"
+                    app:layout_constraintStart_toStartOf="@+id/radio_group_type_account"
+                    app:layout_constraintTop_toBottomOf="@+id/title_choose_the_service"
+                    tools:listitem="@layout/item_service_selected" />
+
+
+                <TextView
+                    android:id="@+id/title_do_you_have_home_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="@string/do_you_have_home_service"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_all_service" />
+
+
+                <CheckBox
+                    android:id="@+id/cb_do_you_have_home_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/do_you_have_home_service"
+                    app:layout_constraintStart_toStartOf="@+id/title_do_you_have_home_service"
+                    app:layout_constraintTop_toBottomOf="@+id/title_do_you_have_home_service" />
+
                 <Button
                     android:id="@+id/btn_update"
                     style="@style/bottom"
@@ -388,7 +491,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginBottom="@dimen/_16sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDistrict" />
+                    app:layout_constraintTop_toBottomOf="@+id/cb_do_you_have_home_service" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,9 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.util.Log
@@ -22,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.NonNull
@@ -31,10 +31,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.sa.nafhasehaprovider.R
+import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.LANG
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.LocaleUtil
-import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
@@ -253,42 +253,11 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     }
 
 
-    fun messageDialog(title: String, message: String, cancel: Boolean) {
-        Log.i("TestStr", message)
-        val dialog = Dialog(activity, R.style.DialogSlideAnim)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        if (!cancel) {
-            dialog.setCancelable(false)
-        } else {
-            dialog.setCancelable(true)
-        }
-        dialog.setContentView(R.layout.message_popup)
-        dialog.window!!.setElevation(20.0f)
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window!!.setGravity(Gravity.CENTER)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        var messageTextView = dialog.findViewById(R.id.message) as TextView
-        var titleTextView = dialog.findViewById(R.id.title) as TextView
-        var close = dialog.findViewById<ImageView>(R.id.imageView3)
-
-        if (!cancel) {
-            close.visibility = View.GONE
-        }
-
-        close.setOnClickListener {
-            dialog.dismiss()
-        }
-        messageTextView.text = message
-        titleTextView.text = title
-        dialog.show()
-    }
 
     private fun makeStatusbarTransparent() {
         window.navigationBarColor = resources.getColor(R.color.back_layout)
-        window.statusBarColor =resources.getColor(R.color.back_layout)
+        window.statusBarColor = resources.getColor(R.color.back_layout)
 
     }
 

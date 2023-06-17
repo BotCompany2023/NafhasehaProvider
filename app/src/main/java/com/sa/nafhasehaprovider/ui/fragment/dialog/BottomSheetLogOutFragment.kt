@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.ui.fragment.dialog
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,13 +22,14 @@ class BottomSheetLogOutFragment : BaseBottomDialog<FragmentBottomSheetLogoutBind
     private val viewModel: LogOutViewModel by viewModel()
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         mViewDataBinding.tvNameUser.text =
             getString(R.string.hello) + " " + NafhasehaProviderApp.pref.loadUserData(
                 requireActivity(), USER_DATA
-            )!!.data!!.user!!.name
+            )!!.data!!.provider!!.name
 
         initResponse()
         onClick()

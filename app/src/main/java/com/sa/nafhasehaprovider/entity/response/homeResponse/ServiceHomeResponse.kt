@@ -1,4 +1,4 @@
-package  com.sa.nafhasehaprovider.entity.response.homeResponse
+package com.sa.nafhasehaprovider.entity.response.homeResponse
 
 data class ServiceHomeResponse(
     val id: Int,

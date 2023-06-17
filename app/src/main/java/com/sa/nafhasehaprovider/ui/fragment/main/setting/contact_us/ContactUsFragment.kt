@@ -39,12 +39,12 @@ class ContactUsFragment : BaseFragment<FragmentContactUsBinding>() {
         mViewDataBinding.tvName.setText(
             NafhasehaProviderApp.pref.loadUserData(
                 requireActivity(), USER_DATA
-            )!!.data!!.user!!.name
+            )!!.data!!.provider!!.name
         )
         mViewDataBinding.tvMobile.setText(
             NafhasehaProviderApp.pref.loadUserData(
                 requireActivity(), USER_DATA
-            )!!.data!!.user!!.phone
+            )!!.data!!.provider!!.phone
         )
 
 

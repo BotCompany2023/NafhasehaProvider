@@ -42,7 +42,7 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>() {
                             CODE200 -> {
                                 Utilities.showToastSuccess(this, it.message)
                                 notificationAdapter = NotificationAdapter(this, list)
-                                list.addAll(it.data)
+                                list.addAll(it.data!!)
                                 mViewDataBinding.rvNotification.adapter = notificationAdapter
                                 notificationAdapter.notifyDataSetChanged()
                             }

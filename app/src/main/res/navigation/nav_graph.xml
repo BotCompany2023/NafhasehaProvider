@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_menuHome_to_bottomSheetDialogRatingFragment"
             app:destination="@id/bottomSheetDialogRatingFragment" />
+        <action
+            android:id="@+id/action_menuHome_to_showOrderFragment"
+            app:destination="@id/showOrderFragment" />
 
 
     </fragment>
@@ -21,7 +24,11 @@
         android:id="@+id/menuOrders"
         android:name="com.sa.nafhasehaprovider.ui.fragment.main.orders.AllOrdersFragment"
         android:label="AllOrdersFragment"
-        tools:layout="@layout/fragment_all_orders"/>
+        tools:layout="@layout/fragment_all_orders">
+        <action
+            android:id="@+id/action_menuOrders_to_showOrderFragment"
+            app:destination="@id/showOrderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menuSetting"
         android:name="com.sa.nafhasehaprovider.ui.fragment.main.setting.SettingFragment"
@@ -48,6 +55,9 @@
         <action
             android:id="@+id/action_menuSetting_to_bottomSheetLogOutFragment"
             app:destination="@id/bottomSheetLogOutFragment" />
+        <action
+            android:id="@+id/action_menuSetting_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
 
     <fragment
@@ -127,6 +137,29 @@
         android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetTimePickerFragment"
         android:label="BottomSheetTimePickerFragment"
         tools:layout="@layout/fragment_bottom_sheet_time_picker"/>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.auth.chaingPassword.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_menuSetting"
+            app:destination="@id/menuSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/showOrderFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragment"
+        android:label="ShowOrderFragment"
+        tools:layout="@layout/fragment_show_order">
+        <action
+            android:id="@+id/action_showOrderFragment_to_menuOrders"
+            app:destination="@id/menuOrders" />
+        <action
+            android:id="@+id/action_showOrderFragment_to_menuHome"
+            app:destination="@id/menuHome" />
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>
