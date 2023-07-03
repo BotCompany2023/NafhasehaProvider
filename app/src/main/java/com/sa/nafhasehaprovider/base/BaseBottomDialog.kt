@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -24,6 +25,7 @@ abstract class BaseBottomDialog<T : ViewDataBinding> : BottomSheetDialogFragment
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         if (context is BaseActivity<*>) {
             this.activity = context
         }
@@ -32,6 +34,7 @@ abstract class BaseBottomDialog<T : ViewDataBinding> : BottomSheetDialogFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
         mViewDataBinding =
             DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         return mViewDataBinding.root

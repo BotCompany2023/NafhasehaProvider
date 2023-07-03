@@ -193,5 +193,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order_details">Order Details</string>
+    <string name="expected_price">Expected price:</string>
+    <string name="offer">Offer</string>
+    <string name="reject">Reject</string>
+    <string name="sar">SAR</string>
+    <string name="payment_status">Payment status</string>
+    <string name="comments">Comments</string>
+    <string name="add_offer_price">Add Offer Price</string>
+    <string name="send_offer">Send Offer</string>
+    <string name="choose_the_reason_for_rejection">Choose the reason for rejection</string>
+    <string name="write_your_bid">Write your bid</string>
+    <string name="recharge">Recharge</string>
+    <string name="enter_the_amount">Enter the amount</string>
+    <string name="tell_us_the_shipping_amount">Tell us the shipping amount</string>
+    <string name="cash_withdrawal">Cash Withdrawal</string>
+    <string name="please_enter_your_account_information_to_complete_the_withdrawal_procedures">Please enter your account information to complete the withdrawal procedures</string>
+    <string name="bank_name">Bank name</string>
+    <string name="account_holder_s_name">Account Holder\'s Name</string>
+    <string name="iban_number">IBAN number</string>
+    <string name="withdrawal_amount">Withdrawal amount</string>
 
 </resources>

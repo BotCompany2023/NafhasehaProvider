@@ -117,5 +117,7 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun ordersApproved(page: Int, countPaginate: Int) = api.getOrdersApproved(page, countPaginate)
     suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
     suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
+
+    suspend fun submitPriceOffer(idOrder: Int,price:String) = api.submitPriceOffer(idOrder,price)
 }
 

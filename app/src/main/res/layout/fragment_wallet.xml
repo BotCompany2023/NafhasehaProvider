@@ -9,14 +9,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbarSize="0dp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_charge_now"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
                 <ImageView
                     android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_width="220dp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_group_wallet"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -27,159 +46,132 @@
                     android:id="@+id/tv_total_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-55dp"
                     android:fontFamily="@font/tajawal_bold"
-                    android:text="50 ر.س"
                     android:textColor="@color/appColor"
+                    android:layout_marginTop="-24dp"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:shadowColor="@color/appColor"
-                    app:cardCornerRadius="@dimen/_15sdp"
-                    app:cardElevation="@dimen/_2sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_charge_now"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView6">
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/shape_text2"
+                    android:elevation="@dimen/_2sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_total_wallet"
+                    tools:layout_editor_absoluteX="16dp">
 
 
-                    <ScrollView
+                    <TextView
+                        android:id="@+id/title_debit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/recent_withdrawals"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_debit"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fillViewport="true"
-                        android:scrollbarSize="0dp"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_debit"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_transactions" />
+
+
+                    <TextView
+                        android:id="@+id/title_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/recent_shipments"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_debit" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_credit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@+id/title_credit"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_transactions" />
 
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                            <TextView
-                                android:id="@+id/title_debit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_8sdp"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:text="@string/recent_withdrawals"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+        </ScrollView>
+
+        ////////////////////////////
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".50" />
 
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rv_debit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:nestedScrollingEnabled="true"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/title_debit"
-                                tools:itemCount="5"
-                                tools:listitem="@layout/item_transactions" />
+        <View
+            android:id="@+id/view3"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_charge_now"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/btn_charge_now" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_charge_now"
+            style="@style/bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/shape_bottom"
+            android:backgroundTint="@color/icon"
+            android:text="@string/charge_now"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-                            <TextView
-                                android:id="@+id/title_credit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_8sdp"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:text="@string/recent_shipments"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/rv_debit" />
-
-
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rv_credit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:nestedScrollingEnabled="true"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/title_credit"
-                                tools:itemCount="5"
-                                tools:listitem="@layout/item_transactions" />
-
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-                    </ScrollView>
-
-
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent=".50" />
-
-
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_charge_now"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                    app:layout_constraintStart_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toTopOf="@+id/btn_charge_now" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_charge_now"
-                    style="@style/bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@drawable/shape_bottom"
-                    android:backgroundTint="@color/icon"
-                    android:text="@string/charge_now"
-                    android:layout_marginEnd="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/view3"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_withdraw_now"
-                    style="@style/bottom"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@drawable/shape_bottom"
-                    android:text="@string/i_withdraw_now"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view3" />
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_withdraw_now"
+            style="@style/bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/shape_bottom3"
+            android:text="@string/i_withdraw_now"
+            android:textColor="@color/appColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view3" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

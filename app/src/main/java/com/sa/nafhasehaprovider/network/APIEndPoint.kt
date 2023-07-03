@@ -18,7 +18,7 @@ import com.sa.nafhasehaprovider.entity.response.myCarResponse.MyCarResponse
 import com.sa.nafhasehaprovider.entity.response.notificationResponse.NotificationResponse
 import com.sa.nafhasehaprovider.entity.response.providerDataResponse.ProviderDataResponse
 import com.sa.nafhasehaprovider.entity.response.providesMapResponse.ProvidesMapResponse
-import com.sa.nafhasehaprovider.entity.response.showOrder.ShowOrder
+import com.sa.nafhasehaprovider.entity.response.showOrderResponse.ShowOrderResponse
 import com.sa.nafhasehaprovider.entity.response.showPackageResponse.ShowPackageResponse
 import com.sa.nafhasehaprovider.entity.response.typeCarResponse.CarTypeResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.WalletResponse
@@ -262,20 +262,26 @@ interface APIEndPoint {
     ): Response<CategoriesResponse>
 
 
-
     @GET("ongoing-orders")
-    suspend fun getOrdersApproved(@Query("page") page: Int,
-                                  @Query("count_paginate")countPaginate: Int): Response<AllOrdersResponse>
+    suspend fun getOrdersApproved(
+        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
+    ): Response<AllOrdersResponse>
 
     @GET("completed-orders")
-    suspend fun getOrdersCompleted(@Query("page") page: Int,
-                                   @Query("count_paginate")countPaginate: Int): Response<AllOrdersResponse>
+    suspend fun getOrdersCompleted(
+        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
+    ): Response<AllOrdersResponse>
 
 
+    @GET("order/{idOrder}")
+    suspend fun showOrder(@Path("idOrder") idOrder: Int): Response<ShowOrderResponse>
 
-    @GET("my-order/{idOrder}")
-    suspend fun  showOrder(@Query("idOrder") idOrder: Int): Response<ShowOrder>
 
+    @POST("submit-price")
+    suspend fun submitPriceOffer(
+        @Query("order_id") idOrder: Int,
+        @Query("price") price: String
+    ): Response<ShowOrderResponse>
 
 
 }

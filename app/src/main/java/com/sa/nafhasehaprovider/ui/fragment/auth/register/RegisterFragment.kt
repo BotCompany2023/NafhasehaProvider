@@ -320,7 +320,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
-
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {

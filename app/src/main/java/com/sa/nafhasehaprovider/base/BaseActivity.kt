@@ -18,10 +18,7 @@ import android.os.Looper
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -50,6 +47,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activity = this
         performDataBinding()
         // makeStatusbarTransparent()

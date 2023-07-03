@@ -181,5 +181,4 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
         mViewDataBinding.root.findNavController().navigate(action)
     }
 
-
 }

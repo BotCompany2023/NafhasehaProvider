@@ -48,7 +48,7 @@ class NewOrderAdapter(
         Utilities.onLoadImageFromUrl(context,model.service!!.image,
         holder.binding.ivLogoService)
         holder.binding.tvNameService.text = model.service!!.title
-        holder.binding.tvCodeOrder.text =context.getString(R.string.the_code)+":"+ model.id
+        holder.binding.tvCodeOrder.text =context.getString(R.string.the_code)+":"+ model.invoice_no
         holder.binding.tvDate.text = model.date_at
         holder.binding.tvDistance.text = model.distance +""+context.getString(R.string.km)
 

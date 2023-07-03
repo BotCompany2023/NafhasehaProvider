@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.CreditWalletAdapter
@@ -17,6 +18,7 @@ import com.sa.nafhasehaprovider.databinding.FragmentWalletBinding
 import com.sa.nafhasehaprovider.entity.response.walletResponse.CreditWalletResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.DebitWalletResponse
 import com.sa.nafhasehaprovider.interfaces.OnLoadMoreListener
+import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentDirections
 import com.sa.nafhasehaprovider.viewModels.WalletViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -141,10 +143,15 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
     private fun onClick() {
         mViewDataBinding.btnChargeNow.setOnClickListener {
 
+                val action = WalletFragmentDirections.
+                actionMenuWalletToBottomSheetRechargeFragment()
+                mViewDataBinding.root.findNavController().navigate(action)
         }
 
         mViewDataBinding.btnWithdrawNow.setOnClickListener {
-
+            val action = WalletFragmentDirections.
+            actionMenuWalletToBottomSheetWithdrawFragment(mViewDataBinding.tvTotalWallet.text.toString())
+            mViewDataBinding.root.findNavController().navigate(action)
         }
     }
 

@@ -98,6 +98,12 @@
         android:label="WalletFragment"
         tools:layout="@layout/fragment_wallet">
 
+        <action
+            android:id="@+id/action_menuWallet_to_bottomSheetRechargeFragment"
+            app:destination="@id/bottomSheetRechargeFragment" />
+        <action
+            android:id="@+id/action_menuWallet_to_bottomSheetWithdrawFragment"
+            app:destination="@id/bottomSheetWithdrawFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -159,7 +165,41 @@
         <argument
             android:name="idOrder"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_showOrderFragment_to_bottomSheetAddOfferFragment"
+            app:destination="@id/bottomSheetAddOfferFragment" />
+        <action
+            android:id="@+id/action_showOrderFragment_to_bottomSheetDeleteOrderFragment"
+            app:destination="@id/bottomSheetDeleteOrderFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetAddOfferFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetAddOfferFragment"
+        android:label="BottomSheetAddOfferFragment" >
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/bottomSheetDeleteOrderFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetDeleteOrderFragment"
+        android:label="BottomSheetDeleteOrderFragment" >
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/bottomSheetRechargeFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetRechargeFragment"
+        android:label="BottomSheetRechargeFragment" />
+    <dialog
+        android:id="@+id/bottomSheetWithdrawFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetWithdrawFragment"
+        android:label="BottomSheetWithdrawFragment" >
+        <argument
+            android:name="Amount"
+            app:argType="string" />
+    </dialog>
 
 
 </navigation>

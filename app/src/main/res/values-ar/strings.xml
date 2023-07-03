@@ -189,6 +189,25 @@
     <string name="recent_shipments">عمليات الشحن الاخيره </string>
     <string name="the_code">الكود </string>
     <string name="km">كم</string>
-    <string name="order_details">Order Details</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="expected_price">السعر المتوقع:</string>
+    <string name="offer">تقديم عرض</string>
+    <string name="reject">رفض</string>
+    <string name="sar">ر.س</string>
+    <string name="payment_status">حالة الدفع</string>
+    <string name="comments">ملاحظات</string>
+    <string name="add_offer_price">أضف سعر العرض</string>
+    <string name="send_offer">ارسال العرض</string>
+    <string name="choose_the_reason_for_rejection">إختر سبب الرفض </string>
+    <string name="write_your_bid">اكتب عرض سعرك</string>
+    <string name="recharge">إعادة الشحن</string>
+    <string name="enter_the_amount">أدخل المبلغ</string>
+    <string name="tell_us_the_shipping_amount">اخبرنا بمبلغ الشحن</string>
+    <string name="cash_withdrawal">سحب الأموال</string>
+    <string name="please_enter_your_account_information_to_complete_the_withdrawal_procedures">نرجو منك ادخال بيانات الحساب لاستكمال اجراءات السحب</string>
+    <string name="bank_name">اسم البنك</string>
+    <string name="account_holder_s_name">اسم صاحب الحساب</string>
+    <string name="iban_number">رقم الايبان</string>
+    <string name="withdrawal_amount">مبلغ السحب</string>
 
 </resources>

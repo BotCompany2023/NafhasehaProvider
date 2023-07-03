@@ -40,13 +40,13 @@ class AllOrderAdapter(
             context, model.service!!.image, holder.binding.ivLogoService
         )
         onLoadImageFromUrl(
-            context, model.provider!!.image, holder.binding.ivProvider
-        )
+            context, model.provider!!.image, holder.binding.ivProvider)
+
         onLoadImageFromUrl(
-            context, model.user!!.image, holder.binding.ivClient
-        )
+            context, model.user!!.image, holder.binding.ivClient)
+
         holder.binding.tvNameService.text = model.service!!.title
-        holder.binding.tvCodeOrder.text = context.getString(R.string.code) + " : " + model.id
+        holder.binding.tvCodeOrder.text = context.getString(R.string.code) + " : " + model.invoice_no
         holder.binding.tvTime.text = model.time_at
         holder.binding.tvDate.text = model.date_at
         holder.binding.tvDistance.text = model.distance + "" + context.getString(R.string.km)
