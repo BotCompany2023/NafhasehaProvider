@@ -8,7 +8,7 @@ import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.entity.response.walletResponse.WalletResponse
-import com.sa.nafhasehaprovider.repository.MainRepo
+import com.sa.nafhasehaprovider.ui.repository.MainRepo
 import kotlinx.coroutines.launch
 
 class WalletViewModel(

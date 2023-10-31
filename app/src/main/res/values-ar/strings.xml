@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">مزود نفحصها</string>
-    <string name="YOUR_API_KEY">AIzaSyAR-AKn9LF6tc1S2R1ffG9iRm8wAgl7nic</string>
-
-
     <string name="welcome_back">مرحباً مجددا بك</string>
     <string name="password">كلمة المرور</string>
     <string name="forget_password">نسيت كلمة المرور؟</string>
@@ -57,7 +54,7 @@
     <string name="email">البريد الاكتروني</string>
     <string name="update">تعديل</string>
     <string name="notification">الاشعارات</string>
-    <string name="new_order">طلبات جديدة</string>
+    <string name="new_order">جديد</string>
     <string name="expired_order">طلبات منتهية</string>
     <string name="cancel_order">إلغاء الطلب</string>
     <string name="update_order">تعديل الطلب</string>
@@ -181,13 +178,13 @@
     <string name="latest_requests">أحدث الطلبات</string>
     <string name="i_withdraw_now">أسحب الان</string>
     <string name="ratings">التقييمات</string>
-    <string name="previous_works">الاعمال السابقة</string>
+    <string name="previous_works">الاعمال السابقة :</string>
     <string name="old_password">كلمة المرور القديمة</string>
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="enter_the_current_password">ادخل كلمة السر الحالية</string>
     <string name="recent_withdrawals">عمليات السحب الاخيره</string>
     <string name="recent_shipments">عمليات الشحن الاخيره </string>
-    <string name="the_code">الكود </string>
+    <string name="the_code">كود الطلب </string>
     <string name="km">كم</string>
     <string name="order_details">تفاصيل الطلب</string>
     <string name="expected_price">السعر المتوقع:</string>
@@ -209,5 +206,18 @@
     <string name="account_holder_s_name">اسم صاحب الحساب</string>
     <string name="iban_number">رقم الايبان</string>
     <string name="withdrawal_amount">مبلغ السحب</string>
+    <string name="news">جديد</string>
+    <string name="approved">تمت الموفقة</string>
+    <string name="canceled">ملغي</string>
+    <string name="the_expected_arrival">الوصول المتوقع</string>
+    <string name="the_surface_has_been_moved">تم تحرك السطحة </string>
+    <string name="you_are_being_reached">جاري الوصول اليك</string>
+    <string name="the_client_s_site_has_been_reached">تم الوصول الي موقع لعميل</string>
+    <string name="distance">المسافة</string>
+    <string name="order_status">حالة الطلب :</string>
+    <string name="tracking_order">تتبع الطلب</string>
+    <string name="total_price">اجمالي السعر :</string>
+    <string name="finish_the_order">انهاء الطلب</string>
+    <string name="waiting_for_new_orders">بانتظار الطلبات الجديده</string>
 
 </resources>

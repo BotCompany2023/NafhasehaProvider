@@ -16,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.DataAllOrdersResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
-import com.sa.nafhasehaprovider.ui.fragment.main.home.HomeFragmentDirections
 
 class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails {
 

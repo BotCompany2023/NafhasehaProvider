@@ -1,0 +1,10 @@
+package com.sa.nafhasehaprovider.entity.response.showOrderResponse
+
+import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleType
+
+data class VehicleBrand(
+    val id: Int,
+    val image: String? =null,
+    val title: String? =null,
+    val vehicle_type: VehicleType? =null
+)

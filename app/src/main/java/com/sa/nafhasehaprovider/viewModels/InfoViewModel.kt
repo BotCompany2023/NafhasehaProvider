@@ -10,7 +10,7 @@ import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.entity.response.iconSocialMediaResponse.IconSocialMediaResponse
 import com.sa.nafhasehaprovider.entity.response.infoResponse.InfoResponse
-import com.sa.nafhasehaprovider.repository.MainRepo
+import com.sa.nafhasehaprovider.ui.repository.MainRepo
 import kotlinx.coroutines.launch
 
 class InfoViewModel(

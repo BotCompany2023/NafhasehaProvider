@@ -29,6 +29,11 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
         super.onViewCreated(view, savedInstanceState)
 
 
+        if (arguments != null) {
+            val args:BottomSheetWithdrawFragmentArgs= BottomSheetWithdrawFragmentArgs.fromBundle(requireArguments())
+           mViewDataBinding.tvTotalWallet.text=""+args.amount +getString(R.string.sr)
+        }
+
 
 
         initResponse()

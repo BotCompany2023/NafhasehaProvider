@@ -17,7 +17,7 @@ import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoriesRes
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import com.sa.nafhasehaprovider.repository.MainRepo
+import com.sa.nafhasehaprovider.ui.repository.MainRepo
 
 class AuthenticationViewModel(
     private val sharedPreferences: PreferencesUtils, private val mainRepo: MainRepo

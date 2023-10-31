@@ -1,8 +1,11 @@
 package com.sa.nafhasehaprovider.common
 
+import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
+
 
 const val USER_DATA = "user_data"
 var BASE_URL = "https://nafhasuha.com/api/provider/V1/"
+var SOCKET_URL = "http://135.181.122.201:3100"
 const val FIRST_TIME = "first_time"
 const val LOGGED = "logged"
 const val QUERY_PAGE_SIZE = 15
@@ -46,4 +49,10 @@ const val CODE405 = 405 //Validation
 const val CODE500 = 500 //Server
 const val USER = "1"
 const val MARKET = "2"
+
+object EmitKeyWord {
+    val UPDATELOCATOON = "provider-tracking"
+    val NEW_ORDER = "request_range"
+
+}
 

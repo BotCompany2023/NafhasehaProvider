@@ -40,9 +40,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         Handler(Looper.myLooper()!!).postDelayed(
             {
-                // here check about first time or not
-                // if first time
-                if (NafhasehaProviderApp.pref.getBoolean(FIRST_TIME, false)) {
                     // check first if logged or not
                     if (NafhasehaProviderApp.pref.authToken != null
                     ) {
@@ -55,11 +52,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                         finish()
                         Animatoo.animateFade(this);
                     }
-                }
-                // else not first time
-                else {
-                    openActivityAndFinish(AuthActivity::class.java)
-                }
 
             }, SPLASH_TIME
         )

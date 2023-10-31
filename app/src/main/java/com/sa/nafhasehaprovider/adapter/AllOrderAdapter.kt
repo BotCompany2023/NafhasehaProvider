@@ -3,6 +3,7 @@ package com.sa.nafhasehaprovider.adapter
 import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
@@ -37,19 +38,12 @@ class AllOrderAdapter(
         holder.itemView.startAnimation(animation)
         var model = list[position]
         onLoadImageFromUrl(
-            context, model.service!!.image, holder.binding.ivLogoService
+            context, model.category!!.image, holder.binding.ivLogoService
         )
-        onLoadImageFromUrl(
-            context, model.provider!!.image, holder.binding.ivProvider)
 
-        onLoadImageFromUrl(
-            context, model.user!!.image, holder.binding.ivClient)
 
-        holder.binding.tvNameService.text = model.service!!.title
+        holder.binding.tvNameService.text = model.category!!.title
         holder.binding.tvCodeOrder.text = context.getString(R.string.code) + " : " + model.invoice_no
-        holder.binding.tvTime.text = model.time_at
-        holder.binding.tvDate.text = model.date_at
-        holder.binding.tvDistance.text = model.distance + "" + context.getString(R.string.km)
 
 
         holder.itemView.setOnClickListener {
@@ -57,21 +51,55 @@ class AllOrderAdapter(
         }
 
         //صيانة
-        if (model.status == "Maintenance") {
+        if (model.type == "Maintenance") {
 
         }
         //استشارة الاعطال
-        else if (model.status == "Consultation") {
+        else if (model.type == "Consultation") {
 
         }
         //الفحص الدوري
-        else if (model.status == "PeriodicInspection") {
+        else if (model.type == "PeriodicInspection") {
 
         }
         //حواجز السيارات
+        else if (model.type == "VehicleBarrier") {
+
+        }
+
+
+
+        //جديد
+        if (model.status == "pending") {
+            holder.binding.tvStatus.visibility=View.VISIBLE
+            holder.binding.tvStatus.text = context.getString(R.string.news)
+        }
+        //تم الموافقة عليه
+        else if (model.status == "approved") {
+            holder.binding.tvStatus.visibility=View.VISIBLE
+            holder.binding.viewTracking.visibility=View.VISIBLE
+            holder.binding.tvTraking.visibility=View.VISIBLE
+            holder.binding.tvStatus.text = context.getString(R.string.approved)
+            holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
+        }
+        //مرفوض
+        else if (model.status == "canceled") {
+            holder.binding.tvStatus.visibility=View.VISIBLE
+            holder.binding.tvStatus.text = context.getString(R.string.canceled)
+            holder.binding.tvStatus.setTextColor(context.resources.getColor(`in`.aabhasjindal.otptextview.R.color.red))
+            holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_cancel)
+
+        }
+
+        //منتهي
+        else if (model.status == "PeriodicInspection") {
+
+        }
+        //مكتمل
         else if (model.status == "VehicleBarrier") {
 
         }
+
     }
 
     override fun getItemCount(): Int {

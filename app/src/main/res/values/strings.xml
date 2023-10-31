@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">NafhasehaProvider</string>
 
-    <string name="YOUR_API_KEY">AIzaSyAR-AKn9LF6tc1S2R1ffG9iRm8wAgl7nic</string>
-
     <string name="welcome_back">Welcome back</string>
     <string name="password">Password</string>
     <string name="forget_password">Forget Password?</string>
@@ -56,7 +54,7 @@
     <string name="email">Email</string>
     <string name="update">Update</string>
     <string name="notification">Notification</string>
-    <string name="new_order">New Order</string>
+    <string name="new_order">New</string>
     <string name="expired_order">Expired Order</string>
     <string name="cancel_order">Cancel Order</string>
     <string name="update_order">Update Order</string>
@@ -182,13 +180,13 @@
     <string name="latest_requests">Latest requests</string>
     <string name="i_withdraw_now">I withdraw now</string>
     <string name="ratings">Ratings</string>
-    <string name="previous_works">Previous works</string>
+    <string name="previous_works">Previous works :</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="enter_the_current_password">Enter the current password</string>
     <string name="recent_withdrawals">Recent withdrawals</string>
     <string name="recent_shipments">Recent shipments</string>
-    <string name="the_code">The code </string>
+    <string name="the_code">Order code </string>
     <string name="km">Km</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -212,5 +210,18 @@
     <string name="account_holder_s_name">Account Holder\'s Name</string>
     <string name="iban_number">IBAN number</string>
     <string name="withdrawal_amount">Withdrawal amount</string>
+    <string name="news">new</string>
+    <string name="approved">Approved</string>
+    <string name="canceled">Canceled</string>
+    <string name="the_expected_arrival">The expected arrival</string>
+    <string name="the_surface_has_been_moved">The surface has been moved</string>
+    <string name="you_are_being_reached">You are being reached</string>
+    <string name="the_client_s_site_has_been_reached">The client\'s site has been reached</string>
+    <string name="distance">Distance</string>
+    <string name="order_status">Order status :</string>
+    <string name="tracking_order">Tracking order</string>
+    <string name="total_price">Total price :</string>
+    <string name="finish_the_order">Finish the order</string>
+    <string name="waiting_for_new_orders">Waiting for new orders</string>
 
 </resources>

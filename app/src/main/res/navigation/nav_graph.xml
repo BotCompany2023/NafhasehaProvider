@@ -171,6 +171,9 @@
         <action
             android:id="@+id/action_showOrderFragment_to_bottomSheetDeleteOrderFragment"
             app:destination="@id/bottomSheetDeleteOrderFragment" />
+        <action
+            android:id="@+id/action_showOrderFragment_to_trackingMapsFragment"
+            app:destination="@id/trackingMapsFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetAddOfferFragment"
@@ -198,8 +201,38 @@
         android:label="BottomSheetWithdrawFragment" >
         <argument
             android:name="Amount"
-            app:argType="string" />
+            app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/trackingMapsFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.main.orders.TrackingMapsFragment"
+        android:label="fragment_tracking_maps"
+        tools:layout="@layout/fragment_tracking_maps" >
+        <argument
+            android:name="UserID"
+            app:argType="integer" />
+        <argument
+            android:name="user_lat"
+            app:argType="float" />
+        <argument
+            android:name="userLong"
+            app:argType="float" />
+        <argument
+            android:name="userImage"
+            app:argType="string" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+        <argument
+            android:name="userPhone"
+            app:argType="string" />
+        <argument
+            android:name="distance"
+            app:argType="string" />
+        <argument
+            android:name="estimated_time"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

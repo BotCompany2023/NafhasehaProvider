@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.app
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -18,6 +19,10 @@ class NafhasehaProviderApp : Application() {
     companion object {
         var context: Context? = null
         lateinit var pref: PreferencesUtils
+
+        @get:Synchronized
+        var instance: NafhasehaProviderApp? = null
+            private set
     }
 
     override fun onCreate() {
@@ -49,4 +54,5 @@ class NafhasehaProviderApp : Application() {
             )
         }
     }
+
 }

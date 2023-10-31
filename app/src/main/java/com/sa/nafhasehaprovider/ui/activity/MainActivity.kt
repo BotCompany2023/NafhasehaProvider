@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.base.BaseActivity
 import com.sa.nafhasehaprovider.databinding.ActivityMainBinding
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 import com.sa.nafhasehaprovider.ui.activity.notification.NotificationActivity
 
 
@@ -31,7 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         makeStatusbarTransparent()
         //setupWindowAnimations()
-
         type = intent.getStringExtra("page").toString()
 
 

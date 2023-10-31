@@ -9,7 +9,7 @@ import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.common.Resource
 import kotlinx.coroutines.launch
-import com.sa.nafhasehaprovider.repository.MainRepo
+import com.sa.nafhasehaprovider.ui.repository.MainRepo
 
 class LogOutViewModel(
     private val sharedPreferences: PreferencesUtils,

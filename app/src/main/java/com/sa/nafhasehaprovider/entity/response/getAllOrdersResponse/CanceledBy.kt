@@ -1,6 +1,6 @@
 package com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse
 
-data class CanceledBy(
+class CanceledBy (
     val id: Int,
     val name: String
 )

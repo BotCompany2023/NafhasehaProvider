@@ -7,51 +7,33 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        app:cardElevation="@dimen/_1sdp"
+        app:contentPadding="@dimen/_10sdp"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_2sdp">
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp">
 
 
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_order"
-            android:visibility="gone"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_6sdp"
-            android:textColor="@color/appColor"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:elevation="@dimen/_6sdp"
-            android:background="@drawable/shape_text3"
-            android:backgroundTint="#F3F8FC"
-            android:layout_marginEnd="@dimen/_4sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/shape_bottom"
-            android:backgroundTint="@color/white"
-            android:paddingBottom="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_logo_service"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_margin="@dimen/_8sdp"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:src="@drawable/logo_service"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +47,7 @@
                 android:text="خدمة سطحة"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toEndOf="@+id/iv_logo_service"
                 app:layout_constraintTop_toTopOf="@+id/iv_logo_service" />
 
@@ -75,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:fontFamily="@font/tajawal_regular"
                 android:text="الكود : # D-571224"
                 android:textAlignment="viewStart"
@@ -85,158 +67,68 @@
 
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:drawableStart="@drawable/icons_calinder"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:drawablePadding="@dimen/_4sdp"
                 android:fontFamily="@font/tajawal_regular"
                 android:gravity="center|start"
-                android:text="12/12/2022"
+                android:textColor="#6F767E"
+                android:text="@string/order_status"
                 android:textAlignment="viewStart"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_11ssp"
                 app:layout_constraintStart_toStartOf="@+id/tv_code_order"
                 app:layout_constraintTop_toBottomOf="@+id/tv_code_order" />
 
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:drawableStart="@drawable/icons_time"
-                android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/tajawal_regular"
-                android:text="00 : 00"
-                android:textAlignment="viewStart"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-                app:layout_constraintStart_toEndOf="@+id/tv_date"
-                app:layout_constraintTop_toTopOf="@+id/tv_date" />
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/shape_pending"
+                android:paddingHorizontal="@dimen/_24sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="@string/new_order"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintTop_toTopOf="@+id/title" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_distance"
+            <View
+                android:visibility="gone"
+                android:id="@+id/view_tracking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@color/grey4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_date">
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_margin="@dimen/_8sdp"
-                    android:background="@color/grey4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.50" />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_client"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginStart="@dimen/_32sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/icons_client"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_provider"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:padding="@dimen/_2sdp"
-                        android:src="@drawable/man"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/shape_lien"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraint_client"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_distance"
-                    app:layout_constraintStart_toEndOf="@+id/constraint_client"
-                    app:layout_constraintTop_toTopOf="@+id/constraint_client" />
-
-
-                <TextView
-                    android:id="@+id/tv_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_text3"
-                    android:backgroundTint="#F3F8FC"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_2sdp"
-                    android:text="0 k"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/imageView12" />
-
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/shape_lien"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraint_client"
-                    app:layout_constraintEnd_toStartOf="@+id/constraint_provider"
-                    app:layout_constraintStart_toEndOf="@+id/tv_distance"
-                    app:layout_constraintTop_toTopOf="@+id/constraint_client" />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_provider"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_32sdp"
-                    android:background="@drawable/icons_provider"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_client"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:padding="@dimen/_2sdp"
-                        android:src="@drawable/man"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_traking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tajawal_bold"
+                android:text="@string/tracking_order"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/_12ssp"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableStart="@drawable/icon_tracking"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_tracking" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

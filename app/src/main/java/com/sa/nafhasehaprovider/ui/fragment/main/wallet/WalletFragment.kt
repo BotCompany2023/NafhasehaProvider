@@ -18,6 +18,7 @@ import com.sa.nafhasehaprovider.databinding.FragmentWalletBinding
 import com.sa.nafhasehaprovider.entity.response.walletResponse.CreditWalletResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.DebitWalletResponse
 import com.sa.nafhasehaprovider.interfaces.OnLoadMoreListener
+import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentArgs
 import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentDirections
 import com.sa.nafhasehaprovider.viewModels.WalletViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,6 +27,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_wallet
 
+    private var totalWallet: Double? =null
     private val viewModel: WalletViewModel by viewModel()
 
     lateinit var debitWalletAdapter: DebitWalletAdapter
@@ -47,6 +49,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
         //** Set the scrollListerner of the RecyclerView
         setRVScrollListener()
+
     }
 
     // initScrollListener() method is the method where we are checking
@@ -87,6 +90,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
+                                totalWallet=it.data!!.my_wallet!!
                                 mViewDataBinding.tvTotalWallet.text =
                                     it.data!!.my_wallet.toString() + "" + getString(R.string.sr)
 
@@ -150,7 +154,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
         mViewDataBinding.btnWithdrawNow.setOnClickListener {
             val action = WalletFragmentDirections.
-            actionMenuWalletToBottomSheetWithdrawFragment(mViewDataBinding.tvTotalWallet.text.toString())
+            actionMenuWalletToBottomSheetWithdrawFragment(totalWallet!!.toInt())
             mViewDataBinding.root.findNavController().navigate(action)
         }
     }

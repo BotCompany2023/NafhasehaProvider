@@ -57,13 +57,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_12sdp"
                     android:background="@drawable/shape_text2"
                     android:elevation="@dimen/_2sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_total_wallet"
-                    tools:layout_editor_absoluteX="16dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_total_wallet">
 
 
                     <TextView
@@ -108,8 +108,8 @@
                         android:id="@+id/rv_credit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
                         android:layout_marginBottom="@dimen/_8sdp"
+                        android:nestedScrollingEnabled="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +152,6 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/shape_bottom"
-            android:backgroundTint="@color/icon"
             android:text="@string/charge_now"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/view3"

@@ -32,6 +32,7 @@ import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.LANG
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.LocaleUtil
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
@@ -47,6 +48,8 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SocketRepository.ConnectToSocket()
 
         activity = this
         performDataBinding()

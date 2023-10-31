@@ -17,8 +17,10 @@ import android.view.View
 import androidx.constraintlayout.widget.Group
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.BuildConfig
+import org.json.JSONObject
 import java.io.*
 import java.text.DateFormat
 import java.text.ParseException
@@ -412,6 +414,31 @@ fun setTextInputLayoutError(view: TextInputLayout, error: String?) {
     view.error = error
 }
 
+var isALog = BuildConfig.DEBUG
+fun onPrintLog(o: Any?) {
+    if (isALog) {
+        Log.e("Response >>>>", Gson().toJson(o))
+    }
+
+}
+
+fun onConvertObjToJson(o: Any): JSONObject? {
+    val obj: JSONObject
+    try {
+
+        obj = JSONObject(Gson().toJson(o))
+
+        Log.d("My App", obj.toString())
+        return obj
+
+
+    } catch (t: Throwable) {
+        Log.e("My App", "Could not parse malformed JSON: \"")
+        return null
+
+    }
+
+}
 
 
 

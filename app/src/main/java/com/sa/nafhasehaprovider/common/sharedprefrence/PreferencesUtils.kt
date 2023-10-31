@@ -67,7 +67,7 @@ class PreferencesUtils (context: Context) {
         }
     }
 
-    fun loadUserData(activity: Activity, key: String): AuthenticationResponse? {
+    fun loadUserData(activity: Context, key: String): AuthenticationResponse? {
      preferences
         var userData: AuthenticationResponse
         val gson = Gson()

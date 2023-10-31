@@ -1,4 +1,4 @@
-package com.sa.nafhasehaprovider.repository
+package com.sa.nafhasehaprovider.ui.repository
 
 import com.sa.nafhasehaprovider.network.APIEndPoint
 import okhttp3.MultipartBody

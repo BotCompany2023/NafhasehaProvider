@@ -73,7 +73,7 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
         //Initialize fused location
         client = LocationServices.getFusedLocationProviderClient(this)
         //Initialize the SDK Autocomplete
-        val apiKey = getString(R.string.YOUR_API_KEY)
+        val apiKey = "YOUR_API_KEY"
         Places.initialize(applicationContext, apiKey)
 
         val locationRequest = LocationRequest.create()
