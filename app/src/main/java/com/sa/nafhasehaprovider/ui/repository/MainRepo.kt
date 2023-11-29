@@ -92,6 +92,11 @@ class MainRepo(private val api: APIEndPoint) {
     )
 
     suspend fun notification() = api.getNotification()
+    suspend fun saveToken(fcmToken:String) = api.saveToken(fcmToken)
+
+    suspend fun countNotification() = api.getCountNotification()
+
+
     suspend fun home(page: Int, countPaginate: Int) = api.getHome(page, countPaginate)
 
     suspend fun showPackage(packageId: Int) = api.showPackage(packageId)
@@ -117,7 +122,15 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun ordersApproved(page: Int, countPaginate: Int) = api.getOrdersApproved(page, countPaginate)
     suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
     suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
+    suspend fun cancelOrderOngoing(idOrder: Int) = api.cancelOrderOngoing(idOrder)
 
     suspend fun submitPriceOffer(idOrder: Int,price:String) = api.submitPriceOffer(idOrder,price)
+
+    suspend fun getCanceledReasons() = api.getCanceledReasons()
+
+    suspend fun cancelOrder(idOrder: Int,cancelReasonId: Int) = api.cancelOrder(idOrder, cancelReasonId)
+    suspend fun acceptedOrder(idOrder: Int) = api.acceptedOrder(idOrder)
+
+
 }
 

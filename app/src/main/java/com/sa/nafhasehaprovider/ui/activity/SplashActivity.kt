@@ -31,7 +31,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         onClick()
 
-
     }
 
 
@@ -52,6 +51,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                         finish()
                         Animatoo.animateFade(this);
                     }
+
 
             }, SPLASH_TIME
         )

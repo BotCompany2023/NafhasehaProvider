@@ -180,4 +180,35 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
         mViewDataBinding.root.findNavController().navigate(action)
     }
 
+    override fun cancelOrderId(idOrder: Int, pot: Int) {
+        val action = AllOrdersFragmentDirections.
+        actionMenuOrdersToBottomSheetDeleteOrderFragment(idOrder)
+        mViewDataBinding.root.findNavController().navigate(action)
+    }
+
+    override fun acceptOrder(idOrder: Int, pot: Int) {
+
+    }
+
+    override fun sendOffer(idOrder: Int, offerPrice: String) {
+    }
+
+    override fun trackingUser(
+        orderId:Int,
+        userID: Int,
+        orderLat: Float,
+        orderLong: Float,
+        userImage: String,
+        userName: String,
+        userPhone: String,
+        distance: String,
+        estimatedTime: String
+    ) {
+        val action = AllOrdersFragmentDirections.
+        actionMenuOrdersToTrackingMapsFragment(userID!!,orderLat!!.toFloat(),orderLong!!.toFloat(),userImage!!,userName!!,userPhone!!,
+            distance!!,estimatedTime!!,orderId)
+        mViewDataBinding.root.findNavController().navigate(action)
+    }
+
+
 }

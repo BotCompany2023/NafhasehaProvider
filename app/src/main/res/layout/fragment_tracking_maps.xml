@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:elevation="@dimen/_50sdp"
             app:behavior_peekHeight="@dimen/_24sdp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 

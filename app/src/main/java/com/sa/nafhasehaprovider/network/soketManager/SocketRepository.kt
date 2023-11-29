@@ -13,9 +13,11 @@ import com.sa.nafhasehaprovider.base.BaseActivity
 import com.sa.nafhasehaprovider.common.EmitKeyWord
 import com.sa.nafhasehaprovider.common.onConvertObjToJson
 import com.sa.nafhasehaprovider.common.util.MapUtil.animateMarker
+import com.sa.nafhasehaprovider.entity.request.sendOffer.SendOfferRequest
 import com.sa.nafhasehaprovider.entity.response.conversationModel.ConversationModel
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.GetNewOrder
 import com.sa.nafhasehaprovider.interfaces.NewOrder
+import com.sa.nafhasehaprovider.interfaces.SuccessEmit
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.marker
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 
@@ -23,7 +25,7 @@ import com.sa.nafhasehaprovider.ui.activity.MainActivity
 < Vampire >
  */
 @SuppressLint("StaticFieldLeak")
-object SocketRepository : SocketManagerListener, NewOrder {
+object SocketRepository : SocketManagerListener, NewOrder, SuccessEmit {
     var context: Context? = null
     var socketManager: SocketManager? = null
     val mediaPlayer = MediaPlayer()
@@ -40,12 +42,21 @@ object SocketRepository : SocketManagerListener, NewOrder {
         socketManager?.tryToReconnect()
         socketManager?.mListener = this
         socketManager?.dataNewOrder = this
+        socketManager?.successEmit = this
     }
 
 
     fun onSendLocation(model: TrackerLocation) {
         socketManager?.emitMessage(
             EmitKeyWord.UPDATELOCATOON,
+            onConvertObjToJson(model)!!)
+
+        return
+    }
+
+    fun onSendOfferRequest(model: SendOfferRequest) {
+        socketManager?.emitMessage(
+            EmitKeyWord.SEND_OFFER_ORDER,
             onConvertObjToJson(model)!!)
 
         return
@@ -74,6 +85,10 @@ object SocketRepository : SocketManagerListener, NewOrder {
     }
 
     override fun newOrder(model: GetNewOrder) {
+
+    }
+
+    override fun successEmit(success: Boolean) {
 
     }
 

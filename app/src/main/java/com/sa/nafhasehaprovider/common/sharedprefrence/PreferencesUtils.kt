@@ -67,9 +67,11 @@ class PreferencesUtils (context: Context) {
         }
     }
 
-    fun loadUserData(activity: Context, key: String): AuthenticationResponse? {
+    fun loadUserData(activity: Context, key: String): AuthenticationResponse {
+
      preferences
-        var userData: AuthenticationResponse
+
+        val userData: AuthenticationResponse
         val gson = Gson()
         userData = gson.fromJson(
          LoadData(
@@ -81,7 +83,7 @@ class PreferencesUtils (context: Context) {
         return userData
     }
 
-    fun LoadData(context: Context?, data_Key: String?): String? {
+    fun LoadData(context: Context, data_Key: String?): String? {
         preferences
         if (preferences != null) {
             val editor: SharedPreferences.Editor =

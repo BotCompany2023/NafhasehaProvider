@@ -13,6 +13,7 @@ import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.ItemAllOrderBinding
 import com.sa.nafhasehaprovider.databinding.ItemTransactionsBinding
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.ResponseNewOrder
+import com.sa.nafhasehaprovider.entity.response.homeResponse.DataHomeResponse
 import com.sa.nafhasehaprovider.entity.response.homeResponse.NewOrderHomeResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.DebitWalletResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
@@ -20,7 +21,7 @@ import java.util.*
 
 
 class NewOrderAdapter(
-    var context: Activity, var listNewOrder: List<ResponseNewOrder>
+    var context: Activity, var listNewOrder: List<NewOrderHomeResponse>
     ,var orderDetails: OrderDetails
 ) : RecyclerView.Adapter<NewOrderAdapter.ViewHolder?>() {
 
@@ -46,19 +47,64 @@ class NewOrderAdapter(
         holder.itemView.startAnimation(animation)
         var model = listNewOrder[position]
 
-        if (Locale.getDefault().displayLanguage == "English" || Locale.getDefault().displayLanguage == "الانجليزية"|| Locale.getDefault().displayLanguage == "en") {
-            holder.binding.tvNameService.text =model.category_name!!.get(position).en
-        } else if (Locale.getDefault().displayLanguage == "Arabic" || Locale.getDefault().displayLanguage == "العربية"|| Locale.getDefault().displayLanguage == "ar") {
-            holder.binding.tvNameService.text =model.category_name!!.get(position).ar
-        }
-        Utilities.onLoadImageFromUrl(context,"https://nafhasuha.com/assets/images/"+model.category_image,
+        holder.binding.tvNameService.text = model.category!!.title
+
+        Utilities.onLoadImageFromUrl(context,model.category!!.image,
         holder.binding.ivLogoService)
         holder.binding.tvCodeOrder.text =context.getString(R.string.the_code)+" : "+ model.invoice_no
 
+        holder.binding.layoutAction.visibility=View.VISIBLE
+        holder.binding.viewTracking.visibility=View.VISIBLE
+
+        if (model.is_price_request==1){
+            holder.binding.constraintOfferPrice.visibility=View.VISIBLE
+            holder.binding.tvOfferPrice.text=""+model.price_request +" "+context.getString(R.string.sar)
+            holder.binding.btnOffer.text=context.getString(R.string.update_offer)
+            holder.binding.btnOffer.setOnClickListener {
+                orderDetails.sendOffer(model.id,""+model.price_request!!.toInt())
+            }
+            holder.binding.tvHideRequest.visibility=View.GONE
+
+        }
+        else{
+            holder.binding.constraintOfferPrice.visibility=View.GONE
+            holder.binding.btnOffer.text=context.getString(R.string.offer)
+            holder.binding.btnOffer.setOnClickListener {
+                orderDetails.sendOffer(model.id,model.suggested_price)
+            }
+
+            holder.binding.tvHideRequest.visibility=View.VISIBLE
+
+        }
+
+        if (model.type=="PeriodicInspection")
+        {
+            holder.binding.tvPrice.text = model.final_total +" "+context.getString(R.string.sar)
+            holder.binding.layoutAction.visibility=View.GONE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
+        else{
+            holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)
+            holder.binding.layoutAction.visibility=View.VISIBLE
+            holder.binding.btnAcceptOrder.visibility=View.GONE
+        }
 
         holder.itemView.setOnClickListener {
-            orderDetails.sendOrderId(model.order_id)
+            orderDetails.sendOrderId(model.id)
         }
+
+       holder.binding.tvHideRequest.setOnClickListener {
+            orderDetails.cancelOrderId(model.id,position)
+        }
+
+
+       holder.binding.btnAcceptOrder.setOnClickListener {
+            orderDetails.acceptOrder(model.id,position)
+        }
+
+
+
+
     }
 
     override fun getItemCount(): Int {

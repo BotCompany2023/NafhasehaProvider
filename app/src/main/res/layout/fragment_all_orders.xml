@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/shape_bottom"
                     android:gravity="center"
-                    android:padding="@dimen/_10sdp">
+                    android:padding="@dimen/_8sdp">
 
                     <ImageView
                         android:id="@+id/iv_new_order"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="@dimen/_10sdp">
+                    android:padding="@dimen/_8sdp">
 
                     <ImageView
                         android:id="@+id/iv_expired_order"

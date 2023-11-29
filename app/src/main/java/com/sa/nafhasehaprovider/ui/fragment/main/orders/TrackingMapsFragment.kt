@@ -24,6 +24,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -88,6 +89,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private var userPhone: String? = null
     private var userImage: String? = null
     private var userName: String? = null
+    private var orderID: Int? = null
     private var userID: Int? = null
     private var distance: String? =null
     private var estimatedTime: String? =null
@@ -126,6 +128,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         if (arguments != null) {
             val args: TrackingMapsFragmentArgs =
                 TrackingMapsFragmentArgs.fromBundle(requireArguments())
+            orderID = args.idOrder
             userID = args.userID
             userName = args.userName
             userImage = args.userImage
@@ -141,6 +144,12 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             onLoadImageFromUrl(
                 requireActivity(), userImage, bottomSheetLayout.iv_client
             )
+
+            bottomSheetLayout.tv_cancel_order.setOnClickListener {
+                val action = TrackingMapsFragmentDirections
+                    .actionTrackingMapsFragmentToBottomSheetDeleteOrderFragment(orderID!!)
+                mainActivity!!.navController.navigate(action)
+            }
 
         }
 

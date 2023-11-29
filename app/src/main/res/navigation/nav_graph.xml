@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_menuHome_to_showOrderFragment"
             app:destination="@id/showOrderFragment" />
+        <action
+            android:id="@+id/action_menuHome_to_bottomSheetAddOfferFragment"
+            app:destination="@id/bottomSheetAddOfferFragment" />
 
 
     </fragment>
@@ -28,6 +31,12 @@
         <action
             android:id="@+id/action_menuOrders_to_showOrderFragment"
             app:destination="@id/showOrderFragment" />
+        <action
+            android:id="@+id/action_menuOrders_to_trackingMapsFragment"
+            app:destination="@id/trackingMapsFragment" />
+        <action
+            android:id="@+id/action_menuOrders_to_bottomSheetDeleteOrderFragment"
+            app:destination="@id/bottomSheetDeleteOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuSetting"
@@ -179,13 +188,33 @@
         android:id="@+id/bottomSheetAddOfferFragment"
         android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetAddOfferFragment"
         android:label="BottomSheetAddOfferFragment" >
+
+
+
         <argument
             android:name="idOrder"
             app:argType="integer" />
+        <argument
+            android:name="avgRate"
+            app:argType="string" />
+        <argument
+            android:name="offerPrice"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bottomSheetAddOfferFragment_to_menuHome"
+            app:destination="@id/menuHome" />
+        <action
+            android:id="@+id/action_bottomSheetAddOfferFragment_to_showOrderFragment"
+            app:destination="@id/showOrderFragment" />
+        <argument
+            android:name="flagPage"
+            app:argType="string" />
+
+
     </dialog>
     <dialog
         android:id="@+id/bottomSheetDeleteOrderFragment"
-        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetDeleteOrderFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetCancelOrderFragment"
         android:label="BottomSheetDeleteOrderFragment" >
         <argument
             android:name="idOrder"
@@ -232,6 +261,12 @@
         <argument
             android:name="estimated_time"
             app:argType="string" />
+        <action
+            android:id="@+id/action_trackingMapsFragment_to_bottomSheetDeleteOrderFragment"
+            app:destination="@id/bottomSheetDeleteOrderFragment" />
+        <argument
+            android:name="id_order"
+            app:argType="integer" />
     </fragment>
 
 

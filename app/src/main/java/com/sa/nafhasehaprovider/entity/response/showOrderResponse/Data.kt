@@ -4,12 +4,13 @@ import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.City
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
+import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.CanceledBy
 import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.User
 
 data class Data(
+    val canceled_by: CanceledBy? =null,
     val address: String? =null,
     val address_to: String? =null,
-    val canceled_by: String? =null,
     val canceled_type: String? =null,
     val category: Category? =null,
     val city: City? =null,
@@ -35,6 +36,8 @@ data class Data(
     val status: String? =null,
     val sub_category: String? =null,
     val suggested_price: String? =null,
+    val is_price_request: Int? =null,
+    val price_request: Int? =null,
     val time_at: String? =null,
     val transaction_id: Int? =null,
     val type: String? =null,

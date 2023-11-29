@@ -3,54 +3,68 @@ package com.sa.nafhasehaprovider.ui.fragment.main.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.NewOrderAdapter
+import com.sa.nafhasehaprovider.adapter.NewOrderSocketAdapter
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
-import com.sa.nafhasehaprovider.databinding.FragmentHomeBinding
+import com.sa.nafhasehaprovider.entity.response.acceptedOrRejectedOfferSocketResponse.AcceptedOrRejectedOfferSocketResponse
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.GetNewOrder
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.ResponseNewOrder
 import com.sa.nafhasehaprovider.entity.response.homeResponse.NewOrderHomeResponse
+import com.sa.nafhasehaprovider.interfaces.AcceptedOrRejectedOffer
 import com.sa.nafhasehaprovider.interfaces.NewOrder
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 import com.sa.nafhasehaprovider.network.soketManager.SocketManager
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
-import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.mediaPlayer
+import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.viewModels.HomeViewModel
+import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), OrderDetails, NewOrder {
+class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentHomeBinding>(),
+    OrderDetails, NewOrder, AcceptedOrRejectedOffer {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
+    private var id_Order: Int=0
+    private var position: Int = 0
+    private lateinit var AvgRate: String
     private val viewModel: HomeViewModel by viewModel()
+    private val ordersViewModel: OrdersViewModel by viewModel()
 
+    lateinit var newOrderSocketAdapter: NewOrderSocketAdapter
+    lateinit var listNewOrderSocket: ArrayList<ResponseNewOrder>
     lateinit var newOrderAdapter: NewOrderAdapter
-    lateinit var listNewOrder: ArrayList<ResponseNewOrder>
+    lateinit var listNewOrder: ArrayList<NewOrderHomeResponse>
 
+    lateinit var  mActivity:MainActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mActivity=requireActivity() as MainActivity
         ConnectToSocket()
 
         NafhasehaProviderApp.pref.putBoolean(FIRST_TIME, true)
 
         onClick()
 
-        initResponse()
+
 
     }
 
 
     private fun initResponse() {
 
-        listNewOrder = ArrayList()
-        newOrderAdapter = NewOrderAdapter(requireActivity(), listNewOrder, this);
+        listNewOrderSocket = ArrayList()
+        newOrderSocketAdapter = NewOrderSocketAdapter(requireActivity(), listNewOrderSocket, this);
+        mViewDataBinding.rvNewOrderSocket.adapter = newOrderSocketAdapter
+
+
 
 
         //response getHome
@@ -64,6 +78,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OrderDetails, NewOrder
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
+
+                                AvgRate=it.data.provider.avg_rate
+                                NafhasehaProviderApp.pref.putString(PROVIDER_RATING, AvgRate)
+
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.provider.image,
@@ -74,6 +92,71 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OrderDetails, NewOrder
                                 mViewDataBinding.tvCountJob.text =
                                     it.data.provider.count_orders_completed.toString()
 
+
+                                listNewOrder = ArrayList()
+                                newOrderAdapter = NewOrderAdapter(requireActivity(), listNewOrder, this);
+                                listNewOrder.addAll(it.data!!.new_orders)
+                                mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
+                                newOrderAdapter.notifyDataSetChanged()
+
+                                if (listNewOrder.size == 0) {
+                                    mViewDataBinding.constraintNoOrder.visibility = View.VISIBLE
+                                } else {
+                                    mViewDataBinding.constraintNoOrder.visibility = View.GONE
+
+                                }
+
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(requireActivity(), it.message)
+                                Utilities.logOutApp(requireActivity())
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(false)
+
+                }
+            }
+        })
+
+
+        //response cancelOrderOngoing
+        viewModel.cancelOrderOngoingResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+
+                                listNewOrder.removeAt(position)
+                                newOrderAdapter.notifyDataSetChanged()
 
                             }
                             CODE403 -> {
@@ -113,6 +196,59 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OrderDetails, NewOrder
         })
 
 
+        //response acceptedOrderOngoing
+        ordersViewModel.acceptedOrderResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+
+                                val action = HomeFragmentDirections.actionMenuHomeToShowOrderFragment(id_Order)
+                                mActivity.navController.navigate(action)
+
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(requireActivity(), it.message)
+                                Utilities.logOutApp(requireActivity())
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
+
+
     }
 
 
@@ -121,44 +257,65 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OrderDetails, NewOrder
 
     override fun sendOrderId(idOrder: Int) {
         val action = HomeFragmentDirections.actionMenuHomeToShowOrderFragment(idOrder)
-        mViewDataBinding.root.findNavController().navigate(action)
+        mActivity.navController.navigate(action)
+    }
+
+    override fun cancelOrderId(idOrder: Int, pot: Int) {
+        position=pot
+        viewModel.cancelOrderOngoing(idOrder)
+
+    }
+
+    override fun acceptOrder(idOrder: Int, pot: Int) {
+        ordersViewModel.acceptedOrder(idOrder)
+        id_Order=idOrder
+    }
+
+    override fun sendOffer(idOrder: Int, offerPrice: String) {
+        val action = HomeFragmentDirections.actionMenuHomeToBottomSheetAddOfferFragment(idOrder,AvgRate,offerPrice,"HOME_PAGE")
+        mActivity.navController.navigate(action)
+    }
+
+    override fun trackingUser(
+        orderId:Int,
+        userID: Int,
+        orderLat: Float,
+        orderLong: Float,
+        userImage: String,
+        userName: String,
+        userPhone: String,
+        distance: String,
+        estimatedTime: String
+    ) {
+
     }
 
 
     fun ConnectToSocket() {
         SocketRepository.socketManager = SocketManager()
         SocketRepository.socketManager?.tryToReconnect()
+        SocketRepository.socketManager?.onGetAcceptedOrRejectedOffers()
+        SocketRepository.socketManager?.acceptedOrRejectedOffer = this
         SocketRepository.socketManager?.dataNewOrder = this
-
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        if (newOrderAdapter != null) {
-//            SocketRepository.onDisconnect()
-//        }
-//    }
-//    override fun onPause() {
-//        super.onPause()
-//        SocketRepository.onDisconnect()
-//
-//    }
     override fun newOrder(model: GetNewOrder) {
-        Log.d("newOrderEE:","SSFKKFKFF")
-        listNewOrder.addAll(listOf(model.response))
-        mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
-        newOrderAdapter.notifyDataSetChanged()
-
-    if (listNewOrder.size==0){
-        mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
-    }
-    else{
-        mViewDataBinding.constraintNoOrder.visibility=View.GONE
-
+        requireActivity().runOnUiThread {
+            Log.d("newOrderEE:", "SSFKKFKFF")
+//            listNewOrderSocket.addAll(listOf(model.response))
+            listNewOrderSocket.add(model.response)
+            newOrderSocketAdapter.notifyDataSetChanged()
+        }
     }
 
-        Toast.makeText(requireActivity(), "newOrderEE", Toast.LENGTH_SHORT).show()
+
+    override fun acceptedOrRejectedOffer(model: AcceptedOrRejectedOfferSocketResponse) {
+        initResponse()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initResponse()
+    }
 
 }

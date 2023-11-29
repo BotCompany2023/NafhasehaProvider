@@ -36,10 +36,16 @@ class NotificationAdapter(var context: Activity, var list: List<NotificationResp
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_in)
         holder.itemView.startAnimation(animation)
         var model = list[position]
-        onLoadImageFromUrl(
-            context, model.image, holder.binding.ivUser
-        )
-        holder.binding.tvTitle.text = model.title
+
+        if ( model.image !=null)
+        {
+            onLoadImageFromUrl(
+                context, model.image!!, holder.binding.ivUser
+            )
+        }
+
+        holder.binding.tvTitle!!.text = model.title
+        holder.binding.tvTimeData!!.text = model.body
 
 
 //        holder.itemView.setOnClickListener {

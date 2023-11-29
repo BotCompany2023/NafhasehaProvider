@@ -49,7 +49,6 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        SocketRepository.ConnectToSocket()
 
         activity = this
         performDataBinding()
@@ -307,4 +306,14 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         } catch (e: Exception) {
         }
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//            SocketRepository.onDisconnect()
+//    }
+//    override fun onPause() {
+//        super.onPause()
+//        SocketRepository.onDisconnect()
+//
+//    }
 }

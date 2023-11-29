@@ -223,5 +223,14 @@
     <string name="total_price">Total price :</string>
     <string name="finish_the_order">Finish the order</string>
     <string name="waiting_for_new_orders">Waiting for new orders</string>
+    <string name="starting_price">Client display :</string>
+    <string name="accepted">Accepted</string>
+    <string name="yur_quote_has_been_sent_Please_wait_for_customer_approval_or_you_can_submit_another_quote">Your quote has been sent. Please wait for customer approval, or you can submit another quote</string>
+    <string name="hide_request">Hide Request</string>
+    <string name="offer_price">Offer Price :</string>
+    <string name="update_offer">Update Offer</string>
+    <string name="proposed_offer">Proposed offer</string>
+    <string name="What_is_the_reason_for_rejection">What is the reason for rejection?</string>
+
 
 </resources>

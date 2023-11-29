@@ -1,13 +1,16 @@
 package com.sa.nafhasehaprovider.network
 
+import com.sa.nafhaseha.entity.response.canceledReasonsResponse.CanceledReasonsResponse
 import com.sa.nafhasehaprovider.entity.response.addCarResponse.AddCarResponse
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponse
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthenticationResponse
+import com.sa.nafhasehaprovider.entity.response.cancelOrderResponse.CancelOrderResponse
 import com.sa.nafhasehaprovider.entity.response.carBrandsResponse.CarBrandsResponse
 import com.sa.nafhasehaprovider.entity.response.carModelsResponse.CarModelsResponse
 import com.sa.nafhasehaprovider.entity.response.carYearsResponse.CarYearsResponse
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoriesResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponse
+import com.sa.nafhasehaprovider.entity.response.countNotificationResponse.CountNotificationResponse
 import com.sa.nafhasehaprovider.entity.response.fqResponse.FaqsResponse
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.AllOrdersResponse
@@ -152,6 +155,13 @@ interface APIEndPoint {
     @GET("notifications")
     suspend fun getNotification(): Response<NotificationResponse>
 
+    @POST("notifications/save_token")
+    suspend fun saveToken(@Query("fcm_token")fcmToken:String): Response<GeneralResponse>
+
+    @GET("notifications/count")
+    suspend fun getCountNotification(): Response<CountNotificationResponse>
+
+
     @GET("home")
     suspend fun getHome(
         @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
@@ -277,11 +287,27 @@ interface APIEndPoint {
     suspend fun showOrder(@Path("idOrder") idOrder: Int): Response<ShowOrderResponse>
 
 
+    @POST("cancel-orders-ongoing")
+    suspend fun cancelOrderOngoing(@Query("order_id") idOrder: Int): Response<GeneralResponse>
+
+
     @POST("submit-price")
     suspend fun submitPriceOffer(
         @Query("order_id") idOrder: Int,
         @Query("price") price: String
     ): Response<ShowOrderResponse>
 
+
+    @GET("canceled-reasons")
+    suspend fun getCanceledReasons(): Response<CanceledReasonsResponse>
+
+    @POST("cancel-orders-accept")
+    suspend fun cancelOrder(@Query("order_id") idOrder: Int,
+                            @Query("cancel_reason_id") cancelReasonId: Int):
+            Response<CancelOrderResponse>
+
+    @POST("accept-order")
+    suspend fun acceptedOrder(@Query("order_id") idOrder: Int):
+            Response<GeneralResponse>
 
 }

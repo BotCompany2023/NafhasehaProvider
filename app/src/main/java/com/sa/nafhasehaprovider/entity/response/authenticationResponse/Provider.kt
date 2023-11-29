@@ -17,6 +17,7 @@ data class Provider(
     val lat: String? =null,
     val long: String? =null,
     val name: String? =null,
+    val avg_rate: String? =null,
     val phone: String? =null,
     val provider_type: String? =null,
     val services_from_home: Int? =null,

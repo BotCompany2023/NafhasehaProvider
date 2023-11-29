@@ -157,25 +157,61 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_new_order"
-                    android:layout_width="0dp"
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nestedScrollView"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="@dimen/_8sdp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:fillViewport="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
-                    tools:itemCount="10"
-                    tools:listitem="@layout/item_all_order" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_new_order_socket"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_8sdp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView"
+                            tools:itemCount="10"
+                            tools:listitem="@layout/item_all_order" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_new_order"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_new_order_socket"
+                            tools:itemCount="10"
+                            tools:listitem="@layout/item_all_order" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintNoOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/rv_new_order"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView">

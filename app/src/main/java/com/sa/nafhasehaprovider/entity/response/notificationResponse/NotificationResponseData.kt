@@ -1,11 +1,11 @@
 package  com.sa.nafhasehaprovider.entity.response.notificationResponse
 
 data class NotificationResponseData(
-    val body: String,
-    val id: Int,
-    val image: String,
-    val is_show: Int,
-    val title: String,
-    val type: String,
-    val type_id: Int
+    val body: String? =null,
+    val id: Int? =null,
+    val image: String? =null,
+    val is_show: Int? =null,
+    val title: String? =null,
+    val type: String? =null,
+    val type_id: Int? =null
 )

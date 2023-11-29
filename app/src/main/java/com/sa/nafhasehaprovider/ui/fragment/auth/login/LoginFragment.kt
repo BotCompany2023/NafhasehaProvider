@@ -51,9 +51,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 NafhasehaProviderApp.pref.authToken = it.data!!.access_token
                                 NafhasehaProviderApp.pref.saveUserData(
                                     requireActivity(), USER_DATA, it)
+                                NafhasehaProviderApp.pref.putInt(USER_ID, it.data!!.provider!!.id!!)
 
 //                                NafhasehaApp.pref.putString(USER_ID, it.data!!.user!!.id!!.toString())
-//                                NafhasehaApp.pref.putString(USER_NAME, it.data!!.user!!.name!!)
 
 
                                 if (it.data.provider!!.is_activation == false) {

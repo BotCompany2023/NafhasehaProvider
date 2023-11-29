@@ -44,10 +44,14 @@ class AllOrderAdapter(
 
         holder.binding.tvNameService.text = model.category!!.title
         holder.binding.tvCodeOrder.text = context.getString(R.string.code) + " : " + model.invoice_no
+        holder.binding.tvPrice.text = model.final_total +" "+context.getString(R.string.sar)
 
 
         holder.itemView.setOnClickListener {
             orderDetails.sendOrderId(model.id!!)
+        }
+        holder.binding.tvCancelOrder.setOnClickListener {
+            orderDetails.cancelOrderId(model.id,position)
         }
 
         //صيانة
@@ -78,9 +82,21 @@ class AllOrderAdapter(
         else if (model.status == "approved") {
             holder.binding.tvStatus.visibility=View.VISIBLE
             holder.binding.viewTracking.visibility=View.VISIBLE
-            holder.binding.tvTraking.visibility=View.VISIBLE
+            holder.binding.layoutTraking.visibility=View.VISIBLE
             holder.binding.tvStatus.text = context.getString(R.string.approved)
             holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
+
+            holder.binding.tvTraking.setOnClickListener {
+                orderDetails.trackingUser(model.id,
+                    model.user!!.id,
+                model.lat!!.toFloat(),
+                model.long!!.toFloat(),
+                    model.user!!.image!!,
+                    model.user!!.name!!,
+                    model.user!!.phone!!,
+                model.distance!!,
+                "")
+            }
         }
         //مرفوض
         else if (model.status == "canceled") {

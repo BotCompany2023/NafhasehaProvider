@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sa.nafhaseha.entity.response.canceledReasonsResponse.CanceledReasonsResponse
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities
+import com.sa.nafhasehaprovider.entity.response.cancelOrderResponse.CancelOrderResponse
+import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.AllOrdersResponse
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.ShowOrderResponse
 import com.sa.nafhasehaprovider.ui.repository.MainRepo
@@ -20,6 +23,9 @@ class OrdersViewModel(
     val allOrdersCompletedResponse: MutableLiveData<Resource<AllOrdersResponse>> = MutableLiveData()
     val showOrderResponse: MutableLiveData<Resource<ShowOrderResponse>> = MutableLiveData()
     val submitPriceOfferResponse: MutableLiveData<Resource<ShowOrderResponse>> = MutableLiveData()
+    val getCanceledReasonsResponse: MutableLiveData<Resource<CanceledReasonsResponse>> = MutableLiveData()
+    val cancelOrderResponse: MutableLiveData<Resource<CancelOrderResponse>> = MutableLiveData()
+    val acceptedOrderResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
 
 
     fun ordersApproved(page: Int, countPaginate: Int) {
@@ -90,10 +96,66 @@ class OrdersViewModel(
                     Resource.Error(response.message())
                     Log.i("TestLoginterVM", " error ${response.code()}")
                 }
+            }
+        }
+    }
+
+
+    fun getCanceledReasons() {
+        if (Utilities.hasInternetConnection()) {
+            getCanceledReasonsResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.getCanceledReasons()
+                if (response.isSuccessful) {
+                    getCanceledReasonsResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
 
             }
         }
     }
+
+    fun cancelOrder(idOrder: Int,cancelReasonId: Int) {
+        if (Utilities.hasInternetConnection()) {
+            cancelOrderResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.cancelOrder(idOrder, cancelReasonId)
+                if (response.isSuccessful) {
+                    cancelOrderResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
+
+    fun acceptedOrder(idOrder: Int) {
+        if (Utilities.hasInternetConnection()) {
+            acceptedOrderResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.acceptedOrder(idOrder)
+                if (response.isSuccessful) {
+                    acceptedOrderResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
 
 
 }

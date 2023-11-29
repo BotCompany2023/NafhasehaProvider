@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        app:cardElevation="@dimen/_8sdp">
+        app:cardElevation="@dimen/_8sdp"
+        app:contentPadding="@dimen/_10sdp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,9 +39,7 @@
                 android:id="@+id/iv_user"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:src="@drawable/man"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_status" />
 
@@ -65,19 +65,16 @@
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:fontFamily="@font/tajawal_regular"
+                android:fontFamily="@font/tajawal_bold"
                 android:text="تمت الموفقة علي طلبك لصيانة الكهرباء
 رقم الطلب #25468 "
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_user"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,11 +83,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:fontFamily="@font/tajawal_regular"
                 android:textAlignment="viewStart"
-                android:layout_marginBottom="@dimen/_4sdp"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

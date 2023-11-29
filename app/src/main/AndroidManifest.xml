@@ -32,7 +32,7 @@
 
     <application
         android:name=".app.NafhasehaProviderApp"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_logo_app"
@@ -41,8 +41,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nafhaseha"
         android:usesCleartextTraffic="true"
-        tools:replace="allowBackup, label , icon"
         tools:targetApi="31">
+<!--        tools:replace="allowBackup, label , icon"-->
 
         <!--
              TODO: Before you run your application, you need a Google Maps API key.

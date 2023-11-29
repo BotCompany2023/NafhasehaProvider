@@ -176,18 +176,18 @@
                         android:id="@+id/tv_mobile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@null"
                         android:digits="0123456789"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:hint="05"
                         android:inputType="phone|number"
-                        android:paddingVertical="@dimen/_12sdp"
+                        android:padding="@dimen/_8sdp"
                         android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/view"
                         app:layout_constraintTop_toTopOf="parent" />
+
 
 
                     <ImageView
@@ -226,19 +226,14 @@
 
 
                 <EditText
+                    style="@style/editText"
                     android:id="@+id/tv_email"
                     android:layout_width="0dp"
                     android:textAlignment="viewStart"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:background="@drawable/shape_text"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="textEmailAddress"
-                    android:padding="@dimen/_12sdp"
                     android:hint="@string/optional"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_email" />
@@ -262,25 +257,20 @@
 
 
                 <TextView
+                    style="@style/editText"
                     android:id="@+id/tv_address"
                     android:layout_width="0dp"
-                    android:textAlignment="viewStart"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
-                    android:background="@drawable/shape_text"
-                    android:fontFamily="@font/tajawal_medium"
-                    android:inputType="text"
                     android:lines="1"
                     android:ellipsize="end"
-                    android:padding="@dimen/_12sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
                     android:drawablePadding="@dimen/_12sdp"
                     android:drawableEnd="@drawable/ic_marker"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_address" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_address"
+                    android:focusable="true" />
 
 
 
@@ -320,7 +310,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayoutCity"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:background="@drawable/shape_text"
                     app:layout_constraintEnd_toStartOf="@+id/view1"
@@ -358,7 +348,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayoutDistrict"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:background="@drawable/shape_text"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -10,12 +10,30 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         app:cardElevation="@dimen/_1sdp"
-        app:contentPadding="@dimen/_10sdp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_8sdp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp">
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_hide_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_bottom"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:layout_gravity="end"
+            android:backgroundTint="#FFE5E5"
+            android:drawableStart="@drawable/icons_clear"
+            android:fontFamily="@font/tajawal_medium"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="@+id/title" />
 
 
 
@@ -24,6 +42,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/iv_logo_service"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="@dimen/_42sdp"
                 android:src="@drawable/logo_service"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +72,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_code_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,19 +87,47 @@
 
 
             <TextView
+                android:id="@+id/title_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:fontFamily="@font/tajawal_bold"
+                android:gravity="center|start"
+                android:text="@string/starting_price"
+                android:textAlignment="viewStart"
+                android:textColor="#6F767E"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_service"
+                app:layout_constraintTop_toBottomOf="@+id/tv_code_order" />
+
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/new_order"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="@color/icon"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/title_price"
+                app:layout_constraintStart_toEndOf="@+id/title_price"
+                app:layout_constraintTop_toTopOf="@+id/title_price" />
+
+
+            <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/tajawal_regular"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:fontFamily="@font/tajawal_medium"
                 android:gravity="center|start"
-                android:textColor="#6F767E"
                 android:text="@string/order_status"
                 android:textAlignment="viewStart"
+                android:textColor="#6F767E"
                 android:textSize="@dimen/_11ssp"
-                app:layout_constraintStart_toStartOf="@+id/tv_code_order"
-                app:layout_constraintTop_toBottomOf="@+id/tv_code_order" />
+                app:layout_constraintStart_toStartOf="@+id/title_price"
+                app:layout_constraintTop_toBottomOf="@+id/title_price" />
 
 
             <TextView
@@ -91,8 +139,9 @@
                 android:paddingHorizontal="@dimen/_24sdp"
                 android:paddingVertical="@dimen/_2sdp"
                 android:text="@string/new_order"
+                android:fontFamily="@font/tajawal_medium"
                 android:textColor="@color/appColor"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toEndOf="@+id/title"
                 app:layout_constraintTop_toTopOf="@+id/title" />
@@ -109,23 +158,162 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
-
-            <TextView
+            <LinearLayout
                 android:visibility="gone"
-                android:id="@+id/tv_traking"
-                android:layout_width="wrap_content"
+                android:id="@+id/layout_traking"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_tracking"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_traking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/tracking_order"
+                        android:textColor="@color/appColor"
+                        android:textSize="@dimen/_12ssp"
+                        android:drawableStart="@drawable/icon_tracking"
+                        android:drawablePadding="@dimen/_4sdp" />
+
+
+                </LinearLayout>
+
+
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey4"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_cancel_order"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="@string/cancel_order"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_12ssp" />
+
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_accept_order"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shape_bottom"
                 android:fontFamily="@font/tajawal_bold"
-                android:text="@string/tracking_order"
-                android:textColor="@color/appColor"
-                android:textSize="@dimen/_12ssp"
-                android:drawablePadding="@dimen/_4sdp"
-                android:drawableStart="@drawable/icon_tracking"
+                android:text="@string/accepted"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_tracking" />
+
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_action"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="@dimen/_32sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_tracking"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_10sdp">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_offer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_bottom"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="@string/offer"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginHorizontal="@dimen/_8sdp"/>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_offer_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="@dimen/_8sdp" >
+
+
+                    <TextView
+                        android:id="@+id/title_offer_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="@string/offer_price"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_offer_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:gravity="center|start"
+                        android:text="@string/sr"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/title_offer_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/title_offer_price"
+                        app:layout_constraintTop_toTopOf="@+id/title_offer_price" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

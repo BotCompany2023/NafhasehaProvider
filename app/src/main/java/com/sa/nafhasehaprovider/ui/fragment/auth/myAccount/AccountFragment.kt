@@ -468,8 +468,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             }
 
         mViewDataBinding.ivProfileOrBack.setOnClickListener {
-            val action = AccountFragmentDirections.actionAccountFragmentToMenuSetting()
-            mViewDataBinding.root.findNavController().navigate(action)
+            mainActivity!!.navController.popBackStack()
+            onDestroy()
         }
 
 

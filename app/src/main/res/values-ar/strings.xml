@@ -219,5 +219,13 @@
     <string name="total_price">اجمالي السعر :</string>
     <string name="finish_the_order">انهاء الطلب</string>
     <string name="waiting_for_new_orders">بانتظار الطلبات الجديده</string>
+    <string name="starting_price">عرض العميل :</string>
+    <string name="accepted">قبول</string>
+    <string name="yur_quote_has_been_sent_Please_wait_for_customer_approval_or_you_can_submit_another_quote">تم إرسال عرض سعرك برجاء الأنتظار لموافقة العميل او يمكنك تقديم عرض سعر أخر</string>
+    <string name="hide_request">إخفاء الطلب</string>
+    <string name="offer_price">عرض سعرك :</string>
+    <string name="update_offer">تعديل العرض</string>
+    <string name="proposed_offer">العرض المقترح</string>
+    <string name="What_is_the_reason_for_rejection">ما هو سبب الرفض</string>
 
 </resources>
