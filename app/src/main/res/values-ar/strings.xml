@@ -227,5 +227,10 @@
     <string name="update_offer">تعديل العرض</string>
     <string name="proposed_offer">العرض المقترح</string>
     <string name="What_is_the_reason_for_rejection">ما هو سبب الرفض</string>
+    <string name="completed">مكتمل</string>
+    <string name="please_select_a_bank">الرجاء قم باختيار البنك</string>
+    <string name="there_is_a_new_update_with_more_features">هناك تحديث جديد مع المزيد من الميزات</string>
+    <string name="new_update">تحديث جديد</string>
+    <string name="get_order_updates_tips_on_the_latest_discounts_coupons_and_more">احصل على تحديثات الطلب ونصائح حول أحدث الخصومات والكوبونات والمزيد.</string>
 
 </resources>

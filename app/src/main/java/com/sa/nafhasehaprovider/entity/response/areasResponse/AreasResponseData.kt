@@ -1,9 +1,9 @@
 package com.sa.nafhasehaprovider.entity.response.areasResponse
 
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.City
+import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 
 data class AreasResponseData(
-    val city: City?,
+    val city: CityResponseData?,
     val id: Int,
     val title: String
 )

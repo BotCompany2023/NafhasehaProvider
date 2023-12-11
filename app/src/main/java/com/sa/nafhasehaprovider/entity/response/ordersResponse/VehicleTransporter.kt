@@ -1,4 +1,4 @@
-package com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse
+package com.sa.nafhasehaprovider.entity.response.ordersResponse
 
 data class VehicleTransporter(
     val id: Int,

@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.ui.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -9,19 +10,25 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseActivity
-import com.sa.nafhasehaprovider.common.FIRST_TIME
 import com.sa.nafhasehaprovider.common.USER_DATA
 import com.sa.nafhasehaprovider.databinding.ActivitySplashBinding
+import com.sa.nafhasehaprovider.ui.activity.notification.NotificationActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun getLayoutId(): Int = R.layout.activity_splash
 
+    private  var accessToken: String? =null
     private val SPLASH_TIME = 4000L
+    private lateinit var nbody: String
+    private lateinit var ntitle: String
+    private lateinit var typeId: String
+    private lateinit var checkFragment: String
 
     //    private val viewModel: CityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,22 +36,29 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         makeStatusbarTransparent();
 
+
         onClick()
+
 
     }
 
 
     private fun onClick() {
 
+        try {
+            accessToken =NafhasehaProviderApp.pref.loadUserData(this, USER_DATA)!!.data!!.access_token!!
+            Log.i("TestLoginToken", "tokenn $accessToken")
+        }catch (e:Exception){}
+
 
         Handler(Looper.myLooper()!!).postDelayed(
             {
-                    // check first if logged or not
-                    if (NafhasehaProviderApp.pref.authToken != null
-                    ) {
-                        Log.i("TestLoginToken", " tokenn ${NafhasehaProviderApp.pref.authToken}")
+
+                // check first if logged or not
+                    if (accessToken != null) {
                         openActivityAndFinish(MainActivity::class.java)
                         Animatoo.animateFade(this);
+                        init()
                     } else {
                         Log.i("TestLoginToken", " tokenn is null ")
                         openActivityAndFinish(AuthActivity::class.java)
@@ -55,6 +69,27 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
             }, SPLASH_TIME
         )
+
+
+//        Handler(Looper.myLooper()!!).postDelayed(
+//            {
+//                // check first if logged or not
+//                if (NafhasehaProviderApp.pref.loadUserData(this, USER_DATA)!!.data!!.access_token != null)
+//                {
+//                    Log.i("TestLoginToken", " tokenn ${NafhasehaProviderApp.pref.authToken}")
+//                    openActivityAndFinish(MainActivity::class.java)
+//                    Animatoo.animateFade(this);
+//                    init()
+//                }
+//                else {
+//                    Log.i("TestLoginToken", " tokenn is null ")
+//                    openActivityAndFinish(AuthActivity::class.java)
+//                    finish()
+//                    Animatoo.animateFade(this);
+//                }
+//
+//            }, SPLASH_TIME
+//        )
 
         val fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         mViewDataBinding.ivBack.animation = fadeInAnim
@@ -84,4 +119,36 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         }
 
     }
+
+    private fun init() {
+
+        checkFragment = intent.getStringExtra("type").toString()
+        typeId = intent.getStringExtra("type_id").toString()
+        ntitle = intent.getStringExtra("title").toString()
+        nbody = intent.getStringExtra("body").toString()
+
+
+        if (checkFragment == "1") {
+            var intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("TypeNotification",checkFragment)
+            intent.putExtra("typeId",typeId)
+            startActivity(intent)
+        }
+        else if (checkFragment == "2") {
+            var intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("TypeNotification",checkFragment)
+            intent.putExtra("typeId",typeId)
+            startActivity(intent)
+        }
+        else if (checkFragment == "3") {
+            var intent= Intent(this, NotificationActivity::class.java)
+            intent.putExtra("TypeNotification",checkFragment)
+            intent.putExtra("typeId",typeId)
+            intent.putExtra("title",ntitle)
+            intent.putExtra("body",nbody)
+            startActivity(intent)
+        }
+    }
+
+
 }

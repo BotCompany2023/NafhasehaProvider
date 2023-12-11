@@ -6,14 +6,14 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.USER_TOKEN
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthenticationResponse
+import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthResponse
 
 class PreferencesUtils (context: Context) {
 
     private val gson: Gson = Gson()
 
-    val preferences: SharedPreferences = context.getSharedPreferences(
-        "Nafhaseha_Provider_App",
+    private val preferences: SharedPreferences = context.getSharedPreferences(
+        "Provider_Nafhaseha",
         Context.MODE_PRIVATE
     )
 
@@ -29,7 +29,7 @@ class PreferencesUtils (context: Context) {
     }
 
     fun deleteObject(name:String){
-         preferences.edit().remove(name).commit()
+        preferences.edit().remove(name).commit()
     }
     fun getString(key: String, defValue: String): String? {
         return preferences.getString(key, defValue)
@@ -51,7 +51,7 @@ class PreferencesUtils (context: Context) {
         }
     }
 
-    fun saveUserData(activity: Activity, key: String, userData: AuthenticationResponse) {
+    fun saveUserData(activity: Activity, key: String, userData: AuthResponse) {
         SaveData(activity, key, userData)
     }
 
@@ -67,29 +67,25 @@ class PreferencesUtils (context: Context) {
         }
     }
 
-    fun loadUserData(activity: Context, key: String): AuthenticationResponse {
-
-     preferences
-
-        val userData: AuthenticationResponse
+    fun loadUserData(activity: Context, key: String): AuthResponse? {
+        preferences
+        val userData: AuthResponse
         val gson = Gson()
         userData = gson.fromJson(
-         LoadData(
+            LoadData(
                 activity,
-                key
-            ),
-            AuthenticationResponse::class.java
-        )
+                key),AuthResponse::class.java)
         return userData
     }
 
-    fun LoadData(context: Context, data_Key: String?): String? {
+
+    private fun LoadData(context: Context?, data_Key: String?): String? {
         preferences
         if (preferences != null) {
             val editor: SharedPreferences.Editor =
-               preferences.edit()
+                preferences.edit()
         } else {
-         preferences
+            preferences
         }
         return preferences.getString(
             data_Key,
@@ -110,6 +106,7 @@ class PreferencesUtils (context: Context) {
             field = value
             value?.let { putString(USER_TOKEN, it) }
         }
+
 
 //    var userData: String? = preferences.getString(USER_DATA, "")
 //        set(value) {

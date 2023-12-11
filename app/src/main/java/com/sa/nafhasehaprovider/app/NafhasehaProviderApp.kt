@@ -1,12 +1,10 @@
 package com.sa.nafhasehaprovider.app
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.util.Log
-
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
+
 import com.sa.nafhasehaprovider.di.*
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 import org.koin.android.ext.koin.androidContext
@@ -19,20 +17,16 @@ class NafhasehaProviderApp : Application() {
     }
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         lateinit var pref: PreferencesUtils
-
-        @SuppressLint("StaticFieldLeak")
-        @get:Synchronized
-        var instance: NafhasehaProviderApp? = null
-            private set
     }
 
     override fun onCreate() {
         super.onCreate()
         context = this
         pref = PreferencesUtils(this)
+
+
 
         startKoin {
             Log.i("StartKoin", "startkoin")
@@ -58,7 +52,7 @@ class NafhasehaProviderApp : Application() {
             )
         }
 
-        SocketRepository.ConnectToSocket()
+       SocketRepository.ConnectToSocket()
 
     }
 

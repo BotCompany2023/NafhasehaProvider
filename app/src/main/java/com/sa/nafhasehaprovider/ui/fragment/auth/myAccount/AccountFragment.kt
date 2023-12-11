@@ -12,9 +12,7 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.sa.nafhasehaprovider.R
@@ -33,10 +31,8 @@ import com.sa.nafhasehaprovider.common.util.Utilities.Companion.showToastError
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.showToastSuccess
 import com.sa.nafhasehaprovider.databinding.FragmentAccountBinding
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
-import com.sa.nafhasehaprovider.interfaces.CheckCategory
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
@@ -303,10 +299,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
 
                                 //showToastSuccess(requireActivity(), it.message)
-                                onLoadImageFromUrl(
-                                    requireActivity(), it.data!!.provider!!.image,
-                                    mViewDataBinding.ivImageUser,
-                                )
+                                if ( it.data!!.provider!!.image !=null){
+                                    onLoadImageFromUrl(
+                                        requireActivity(), it.data!!.provider!!.image!!,
+                                        mViewDataBinding.ivImageUser)
+                                }
 
                                 mViewDataBinding.tvName.setText(it.data.provider!!.name)
                                 mViewDataBinding.tvEmail.setText(it.data.provider.email)

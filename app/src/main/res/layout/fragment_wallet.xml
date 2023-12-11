@@ -18,8 +18,8 @@
             android:layout_height="0dp"
             android:fillViewport="true"
             android:scrollbarSize="0dp"
-            android:layout_marginBottom="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_charge_now"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_withdraw_now"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,8 +34,8 @@
                     android:id="@+id/imageView6"
                     android:layout_width="220dp"
                     android:layout_height="@dimen/_120sdp"
-                    android:scaleType="centerCrop"
                     android:layout_marginTop="@dimen/_16sdp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_group_wallet"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,9 +46,9 @@
                     android:id="@+id/tv_total_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-24dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:textColor="@color/appColor"
-                    android:layout_marginTop="-24dp"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -144,10 +144,12 @@
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/btn_charge_now" />
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_charge_now"
             style="@style/bottom"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
@@ -163,14 +165,14 @@
             style="@style/bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/shape_bottom3"
             android:text="@string/i_withdraw_now"
             android:textColor="@color/appColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view3" />
+            app:layout_constraintStart_toStartOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

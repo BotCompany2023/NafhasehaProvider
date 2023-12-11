@@ -57,11 +57,13 @@ class SocketManager {
             }
             if (mSocket == null) {
                 Log.e(TAG, "Socket equal null")
-                Log.e(TAG, "Full socket url:" + SOCKET_URL)
                 val opts = IO.Options()
                 opts.forceNew = true
                 mSocket = IO.socket("${SOCKET_URL}?type=Proviedr&id=${NafhasehaProviderApp.pref.getInt(USER_ID, 0)}")
                 mSocket!!.connect()
+
+                Log.e("TAGffffff", "Full socket url:" + "${SOCKET_URL}?type=Proviedr&id=${NafhasehaProviderApp.pref.getInt(USER_ID, 0)}")
+
             }
         } catch (e: URISyntaxException) {
             e.printStackTrace()

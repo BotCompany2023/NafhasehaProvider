@@ -102,6 +102,8 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun showPackage(packageId: Int) = api.showPackage(packageId)
 
     suspend fun wallet(page: Int, countPaginate: Int) = api.myWallet(page, countPaginate)
+    suspend fun getBanks() = api.getBanks()
+    suspend fun requestWithdrawal(bank_id:Int,full_name:String,Iban:String,amount:Int) = api.requestWithdrawal(bank_id, full_name,Iban, amount)
     suspend fun getCar(page: Int, countPaginate: Int) = api.getCar(page, countPaginate)
     suspend fun getCarType(page: Int, countPaginate: String) = api.getCarType(page, countPaginate)
 
@@ -119,7 +121,7 @@ class MainRepo(private val api: APIEndPoint) {
 
 
 
-    suspend fun ordersApproved(page: Int, countPaginate: Int) = api.getOrdersApproved(page, countPaginate)
+    suspend fun ordersApproved(page: Int) = api.getOrdersApproved(page)
     suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
     suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
     suspend fun cancelOrderOngoing(idOrder: Int) = api.cancelOrderOngoing(idOrder)
@@ -130,6 +132,12 @@ class MainRepo(private val api: APIEndPoint) {
 
     suspend fun cancelOrder(idOrder: Int,cancelReasonId: Int) = api.cancelOrder(idOrder, cancelReasonId)
     suspend fun acceptedOrder(idOrder: Int) = api.acceptedOrder(idOrder)
+    suspend fun storeCompletedOrder(idOrder: Int) = api.storeCompletedOrder(idOrder)
+
+
+    suspend fun versionUpdate(deviceType: String, currentVersion: String) =
+        api.versionUpdate(deviceType,currentVersion)
+
 
 
 }

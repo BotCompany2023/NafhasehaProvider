@@ -58,6 +58,7 @@ class BottomSheetLogOutFragment : BaseBottomDialog<FragmentBottomSheetLogoutBind
                             CODE200 -> {
                                 Utilities.showToastSuccess(requireActivity(), it.message)
                                 dismiss()
+                                NafhasehaProviderApp.pref.clearSharedPref()
                                 logOutApp(requireActivity())
 
                             }

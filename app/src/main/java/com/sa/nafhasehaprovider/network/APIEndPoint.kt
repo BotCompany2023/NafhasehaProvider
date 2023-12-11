@@ -1,9 +1,10 @@
 package com.sa.nafhasehaprovider.network
 
+import com.ksa.smartcarb.entity.response.versionUpdateResponse.VersionUpdateResponse
 import com.sa.nafhaseha.entity.response.canceledReasonsResponse.CanceledReasonsResponse
 import com.sa.nafhasehaprovider.entity.response.addCarResponse.AddCarResponse
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponse
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthenticationResponse
+import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthResponse
 import com.sa.nafhasehaprovider.entity.response.cancelOrderResponse.CancelOrderResponse
 import com.sa.nafhasehaprovider.entity.response.carBrandsResponse.CarBrandsResponse
 import com.sa.nafhasehaprovider.entity.response.carModelsResponse.CarModelsResponse
@@ -13,12 +14,13 @@ import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponse
 import com.sa.nafhasehaprovider.entity.response.countNotificationResponse.CountNotificationResponse
 import com.sa.nafhasehaprovider.entity.response.fqResponse.FaqsResponse
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.AllOrdersResponse
+import com.sa.nafhasehaprovider.entity.response.getBanksResponse.GetBanksResponse
 import com.sa.nafhasehaprovider.entity.response.homeResponse.HomeResponse
 import com.sa.nafhasehaprovider.entity.response.iconSocialMediaResponse.IconSocialMediaResponse
 import com.sa.nafhasehaprovider.entity.response.infoResponse.InfoResponse
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.MyCarResponse
 import com.sa.nafhasehaprovider.entity.response.notificationResponse.NotificationResponse
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.OrdersResponse
 import com.sa.nafhasehaprovider.entity.response.providerDataResponse.ProviderDataResponse
 import com.sa.nafhasehaprovider.entity.response.providesMapResponse.ProvidesMapResponse
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.ShowOrderResponse
@@ -56,7 +58,7 @@ interface APIEndPoint {
         @Query("phone") phone: String,
         @Query("password") password: String,
         @Query("device_token") firebase_token: String
-    ): Response<AuthenticationResponse>
+    ): Response<AuthResponse>
 
 
     @POST("register")
@@ -76,7 +78,7 @@ interface APIEndPoint {
         @Part commercialRegister: MultipartBody.Part? = null,
         @Part("services_from_home") services_from_home: RequestBody,
         @Part("categories[]") categories: List<Int>
-    ): Response<AuthenticationResponse>
+    ): Response<AuthResponse>
 
 
     @POST("check-phone")
@@ -111,7 +113,7 @@ interface APIEndPoint {
     ): Response<GeneralResponse>
 
     @GET("profile")
-    suspend fun getProfile(): Response<AuthenticationResponse>
+    suspend fun getProfile(): Response<AuthResponse>
 
     @GET("icons")
     suspend fun getIconsSocialMedia(): Response<IconSocialMediaResponse>
@@ -149,7 +151,7 @@ interface APIEndPoint {
         @Part("area_id") area_id: RequestBody,
         @Part("services_from_home") services_from_home: RequestBody,
         @Part("categories[]") categories: List<Int>
-    ): Response<AuthenticationResponse>
+    ): Response<AuthResponse>
 
 
     @GET("notifications")
@@ -176,10 +178,22 @@ interface APIEndPoint {
         @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
     ): Response<WalletResponse>
 
+
+    @GET("banks")
+    suspend fun getBanks(): Response<GetBanksResponse>
+
+
+    @POST("request-withdrawal")
+    suspend fun requestWithdrawal(@Query("bank_id")bank_id:Int,
+    @Query("full_name")full_name:String,
+    @Query("iban")Iban:String,
+    @Query("amount")amount:Int): Response<GeneralResponse>
+
+
     @GET("vehicles/my-vehicles")
     suspend fun getCar(
-        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
-    ): Response<MyCarResponse>
+        @Query("page") page: Int,
+        @Query("count_paginate") countPaginate: Int): Response<MyCarResponse>
 
     @GET("vehicles/types")
     suspend fun getCarType(
@@ -274,13 +288,14 @@ interface APIEndPoint {
 
     @GET("ongoing-orders")
     suspend fun getOrdersApproved(
-        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
-    ): Response<AllOrdersResponse>
+        @Query("page") page: Int,
+        @Query("count_paginate") countPaginate: String="ALL"
+    ): Response<OrdersResponse>
 
     @GET("completed-orders")
     suspend fun getOrdersCompleted(
         @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
-    ): Response<AllOrdersResponse>
+    ): Response<OrdersResponse>
 
 
     @GET("order/{idOrder}")
@@ -309,5 +324,15 @@ interface APIEndPoint {
     @POST("accept-order")
     suspend fun acceptedOrder(@Query("order_id") idOrder: Int):
             Response<GeneralResponse>
+
+    @POST("store-complete-order")
+    suspend fun storeCompletedOrder(@Query("order_id") idOrder: Int):
+            Response<GeneralResponse>
+
+
+    @GET("update-version")
+    suspend fun versionUpdate(@Query("device_type") deviceType: String,
+                              @Query("current_version")currentVersion:String
+    ): Response<VersionUpdateResponse>
 
 }

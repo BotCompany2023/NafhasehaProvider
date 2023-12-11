@@ -27,9 +27,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_image_user"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
             android:src="@drawable/man"
+            app:civ_border_color="@color/grey4"
+            app:civ_border_width="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

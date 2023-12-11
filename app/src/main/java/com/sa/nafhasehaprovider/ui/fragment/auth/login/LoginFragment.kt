@@ -48,24 +48,29 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 Utilities.showToastSuccess(requireActivity(), it.message)
 
                                 // saving token
-                                NafhasehaProviderApp.pref.authToken = it.data!!.access_token
-                                NafhasehaProviderApp.pref.saveUserData(
-                                    requireActivity(), USER_DATA, it)
-                                NafhasehaProviderApp.pref.putInt(USER_ID, it.data!!.provider!!.id!!)
+//                                NafhasehaProviderApp.pref.authToken = it.data!!.access_token
+//                                NafhasehaProviderApp.pref.saveUserData(
+//                                    requireActivity(), USER_DATA, it)
+//                                NafhasehaProviderApp.pref.putInt(USER_ID, it.data!!.provider!!.id!!)
 
-//                                NafhasehaApp.pref.putString(USER_ID, it.data!!.user!!.id!!.toString())
+//                                NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
 
 
-                                if (it.data.provider!!.is_activation == false) {
+
+
+                                if (it.data!!.provider!!.is_activation == false) {
                                     val action =
                                         LoginFragmentDirections.actionLoginFragmentToVerifyOtpFragment(
                                             mViewDataBinding.tvMobile.text.toString(),
-                                            it.data.provider.id!!,
+                                            it.data!!.provider!!.id!!,
                                             "LOGIN"
                                         )
                                     mViewDataBinding.root.findNavController().navigate(action)
                                 } else {
                                     openActivityAndFinish(MainActivity::class.java)
+                                    NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
+                                    NafhasehaProviderApp.pref.authToken =it.data!!.access_token
+                                    NafhasehaProviderApp.pref.putInt(USER_ID, it.data!!.provider!!.id)
 
                                 }
 

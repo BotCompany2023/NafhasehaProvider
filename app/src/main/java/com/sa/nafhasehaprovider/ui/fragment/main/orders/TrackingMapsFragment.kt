@@ -405,5 +405,11 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         return poly
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
+        mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
+    }
+
 
 }

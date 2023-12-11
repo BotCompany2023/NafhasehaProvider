@@ -599,15 +599,13 @@ abstract class Utilities(var context: Context) {
         }
 
 
-
-        fun convertFileToMultipart(image: File?, key:String) : MultipartBody.Part? {
-            if (image!=null) {
+        fun convertFileToMultipart(image: File?, key: String): MultipartBody.Part? {
+            if (image != null) {
                 val requestFile: RequestBody =
                     image.asRequestBody("multipart/form-data ; charset=UTF-8".toMediaTypeOrNull())
                 val body1 = MultipartBody.Part.createFormData(key, image.getName(), requestFile)
                 return body1
-            }
-            else
+            } else
                 return null
 
         }
@@ -623,7 +621,6 @@ abstract class Utilities(var context: Context) {
             }
             return im
         }
-
 
 
         fun convertToMultiPart1(context: Context, uri: Uri, file: File): MultipartBody.Part {
@@ -770,7 +767,7 @@ abstract class Utilities(var context: Context) {
 
         fun showToastSuccess(activity: Activity, messageToast: String) {
 
-            messageSuccessDialog(activity,messageToast)
+            messageSuccessDialog(activity, messageToast)
 //            MotionToast.darkToast(
 //                activity,
 //                activity.getString(R.string.success),
@@ -783,7 +780,7 @@ abstract class Utilities(var context: Context) {
         }
 
         fun showToastError(activity: Activity, messageToast: String) {
-            messageErrorDialog(activity,messageToast)
+            messageErrorDialog(activity, messageToast)
 
 //            MotionToast.darkToast(
 //                activity,
@@ -814,7 +811,7 @@ abstract class Utilities(var context: Context) {
 
 
         fun onLoadImageFromUrl(
-            context:Context,
+            context: Context,
             URl: String?,
             imageView: ImageView?,
 //            ProgressBar: View
@@ -873,30 +870,27 @@ abstract class Utilities(var context: Context) {
         }
 
 
-        fun messageSuccessDialog(activity: Activity,message: String) {
+        fun messageSuccessDialog(activity: Activity, message: String) {
             val dialog = Dialog(activity, R.style.customDialogTheme)
             dialog.setCancelable(false)
-            val inflater =activity.layoutInflater
+            val inflater = activity.layoutInflater
             val v: View = inflater.inflate(R.layout.message_popup_success, null)
             dialog.setContentView(v)
             dialog.setCancelable(false)
 
             dialog.window!!.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
             dialog.window!!.setGravity(Gravity.CENTER)
             var messageTextView = dialog.findViewById(R.id.message) as TextView
-
-
 
 
             Handler(Looper.myLooper()!!).postDelayed(
                 {
                     try {
-                    dialog.dismiss()
-                    }catch (e:Exception)
-                    {}
+                        dialog.dismiss()
+                    } catch (e: Exception) {
+                    }
                 }, 3000L
             )
             messageTextView.text = message
@@ -905,18 +899,16 @@ abstract class Utilities(var context: Context) {
 
         }
 
-
-        fun messageErrorDialog(activity: Activity,message: String) {
+        fun messageErrorDialog(activity: Activity, message: String) {
             val dialog = Dialog(activity, R.style.customDialogTheme)
             dialog.setCancelable(false)
-            val inflater =activity.layoutInflater
+            val inflater = activity.layoutInflater
             val v: View = inflater.inflate(R.layout.message_popup_erorr, null)
             dialog.setContentView(v)
             dialog.setCancelable(false)
 
             dialog.window!!.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
             dialog.window!!.setGravity(Gravity.CENTER)
             var messageTextView = dialog.findViewById(R.id.message) as TextView
@@ -927,13 +919,12 @@ abstract class Utilities(var context: Context) {
                 }, 3000L
             )
             messageTextView.text = message
-            dialog.show()
+            try {
+                dialog.show()
+            }catch (e:Exception){}
+
         }
 
 
-
-    }
-
-
-
+        }
 }

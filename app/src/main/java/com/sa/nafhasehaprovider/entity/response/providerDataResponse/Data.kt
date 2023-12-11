@@ -1,15 +1,15 @@
 package  com.sa.nafhasehaprovider.entity.response.providerDataResponse
 
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Area
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.City
+import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
+import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.cityResponse.Country
 
 data class Data(
     val address: String,
-    val area: Area,
+    val area: AreasResponseData,
     val avg_rate: String,
     val categories: List<CategoryProviderDataResponse>,
-    val city: City,
+    val city: CityResponseData,
     val country: Country,
     val distance: String,
     val email: String,

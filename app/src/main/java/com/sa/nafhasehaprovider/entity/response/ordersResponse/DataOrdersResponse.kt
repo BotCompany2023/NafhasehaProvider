@@ -1,9 +1,10 @@
-package com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse
+package com.sa.nafhasehaprovider.entity.response.ordersResponse
 
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
+import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
 
-data class DataAllOrdersResponse(
+data class DataOrdersResponse(
     val address: String? =null,
     val address_to: String? =null,
     val canceled_by: CanceledBy? =null,

@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.databinding.ItemServiceSelectedBinding
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
-import com.sa.nafhasehaprovider.interfaces.CheckCategory
 
 class CategoriesAdapter(
     var context: Activity, var listCategory: List<DataCategoriesResponse>, var checkedItems :List<Category>) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder?>() {

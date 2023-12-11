@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ksa.smartcarb.entity.response.versionUpdateResponse.VersionUpdateResponse
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities
@@ -20,6 +21,7 @@ class InfoViewModel(
     val infoResponse: MutableLiveData<Resource<InfoResponse>> = MutableLiveData()
     val socialMediaResponse: MutableLiveData<Resource<IconSocialMediaResponse>> = MutableLiveData()
     val contactUsResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
+    val versionUpdateResponse: MutableLiveData<Resource<VersionUpdateResponse>> = MutableLiveData()
 
 
     fun info(type: String) {
@@ -76,6 +78,23 @@ class InfoViewModel(
                     Log.i("TestLoginterVM", " error ${response.code()}")
                 }
 
+            }
+        }
+    }
+
+    fun versionUpdate(deviceType: String, currentVersion: String) {
+        if (Utilities.hasInternetConnection()) {
+            versionUpdateResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.versionUpdate(deviceType,currentVersion)
+                if (response.isSuccessful) {
+                    versionUpdateResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
             }
         }
     }

@@ -39,7 +39,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_register
     private lateinit var typeAccount: String
@@ -59,7 +59,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
 
 
     private var imageFile: File? = null
-    lateinit var addressStr: String
+    var addressStr: String =""
     var homeService: Int = 0
     lateinit var city: String
     var lat = 0.0
@@ -74,7 +74,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
     private val REQUEST_CODE_CHOOSE = 100
     private var imagePath = ""
 
-    lateinit var idCategory: ArrayList<Int>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,7 +87,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
 
 
     private fun initResponse() {
-        idCategory = ArrayList()
         cityDataSource = ArrayList()
         areasDataSource = ArrayList()
         listCategory = ArrayList()
@@ -377,6 +375,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
             val phone = mViewDataBinding.tvMobile.text.toString().trim()
             val email = mViewDataBinding.tvEmail.text.toString().trim()
             val password = mViewDataBinding.tvPassword.text.toString().trim()
+            val address = mViewDataBinding.tvAddress.text.toString().trim()
 
             if (nameProvider.isEmpty()) {
                 mViewDataBinding.tvName.error = getString(R.string.mobile_number_is_required)
@@ -397,13 +396,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
                     requireActivity(), getString(R.string.please_selected_aras)
                 )
 
-            } else if (addressStr.isEmpty()) {
+            } else if (address.isEmpty()) {
                 mViewDataBinding.tvAddress.error = getString(R.string.address_is_required)
             } else if (typeAccount == "") {
                 Utilities.showToastError(
                     requireActivity(), getString(R.string.please_select_an_account_type)
                 )
-            } else if (idCategory.size == 0) {
+            } else if (categoriesAdapter.idCategory.size == 0) {
                 Utilities.showToastError(
                     requireActivity(), getString(R.string.choose_your_services)
                 )
@@ -429,16 +428,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), CheckCategory 
                     convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
                     convertFileToMultipart(imageFile!!, "commercial_register"),
                     convertToRequestBody(homeService.toString()),
-                    idCategory
+                    categoriesAdapter.idCategory
                 )
             }
         }
     }
 
-    override fun ItemCheck(idsCategory: ArrayList<Int>) {
-        idCategory = idsCategory
-        Log.d("idsCatrf", idCategory.toString())
-    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

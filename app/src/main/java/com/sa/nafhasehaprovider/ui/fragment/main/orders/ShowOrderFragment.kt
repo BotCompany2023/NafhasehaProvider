@@ -17,7 +17,9 @@ import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.FragmentShowOrderBinding
+import com.sa.nafhasehaprovider.di.ordersViewModel
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
+import com.sa.nafhasehaprovider.ui.fragment.main.home.HomeFragmentDirections
 import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -68,6 +70,16 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
             viewModel.showOrder(args.idOrder)
             idOrder = args.idOrder
         }
+        else{
+            val receivedBundle = requireActivity().intent.extras
+            if (receivedBundle != null) {
+                val value = receivedBundle.getString("typeId")
+                // استخدم القيمة كما تحتاج
+                viewModel.showOrder(value!!.toInt())
+            }
+        }
+
+
 
 
     }
@@ -99,7 +111,6 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     mViewDataBinding.constraintOfferPrice.visibility=View.VISIBLE
                                     mViewDataBinding.tvOfferPrice.text=""+it.data!!.price_request+" "+ getString(R.string.sar)
                                     mViewDataBinding.btnOffer.text=getString(R.string.update_offer)
-
                                 }
                                 else{
                                     priceOffer=it.data!!.suggested_price!!
@@ -162,7 +173,6 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                 mViewDataBinding.tvDeliveryLocation.text = it.data!!.address_to
 
 
-
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.category!!.image,
@@ -177,6 +187,11 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
                                 mViewDataBinding.tvPaymentStatus.text = it.data!!.payment_method
 
+                                if (it.data!!.details == null)
+                                {
+                                    mViewDataBinding.tvComments.visibility=View.GONE
+                                    mViewDataBinding.titleComments.visibility=View.GONE
+                                }
                                 //pending
                                 //approved
                                 //completed
@@ -190,14 +205,19 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                      mViewDataBinding.titleExpectedPrice.text =
                                          getString(R.string.total_price)
 
+                                     mViewDataBinding.tvStatus.text = getString(R.string.news)
+
+
                                  }
                                      else if (it.data.status == "pending") {
                                         mViewDataBinding.linearAction.visibility=View.VISIBLE
                                         mViewDataBinding.tvTotelPrice.text =
                                             it.data!!.suggested_price + getString(R.string.sar)
                                         mViewDataBinding.titleExpectedPrice.text =getString(R.string.starting_price)
+                                     mViewDataBinding.tvStatus.text = getString(R.string.news)
 
-                                } else if (it.data.status == "approved") {
+
+                                 } else if (it.data.status == "approved") {
                                     mViewDataBinding.cvMap.visibility=View.VISIBLE
                                     mViewDataBinding.btnFinishOrder.visibility=View.VISIBLE
                                     mViewDataBinding.btnReject.visibility=View.VISIBLE
@@ -207,22 +227,30 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
                                     mViewDataBinding.titleExpectedPrice.text =getString(R.string.total_price)
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
+                                     mViewDataBinding.tvStatus.text = getString(R.string.approved)
 
 
-                                } else if (it.data.status == "completed") {
+
+                                 } else if (it.data.status == "completed") {
                                     mViewDataBinding.btnFinishOrder.visibility=View.GONE
                                     mViewDataBinding.linearAction.visibility=View.GONE
-                                    mViewDataBinding.tvTotelPrice.text =
+                                     mViewDataBinding.btnReject.visibility=View.GONE
+                                     mViewDataBinding.cvMap.visibility=View.GONE
+                                     mViewDataBinding.tvTotelPrice.text =
                                         it.data!!.final_total + getString(R.string.sar)
                                     mViewDataBinding.titleExpectedPrice.text =getString(R.string.total_price)
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
+                                     mViewDataBinding.tvStatus.text = getString(R.string.completed)
+
 
                                  }
                                 else if (it.data.status == "canceled") {
-                                    mViewDataBinding.btnFinishOrder.visibility=View.GONE
+                                     mViewDataBinding.btnReject.visibility=View.GONE
+                                     mViewDataBinding.cvMap.visibility=View.GONE
+                                     mViewDataBinding.btnFinishOrder.visibility=View.GONE
                                     mViewDataBinding.linearAction.visibility=View.GONE
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
-
+                                     mViewDataBinding.tvStatus.text = getString(R.string.canceled)
                                  }
 
                         }
@@ -263,7 +291,109 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
     })
 
 
-}
+        //response acceptedOrderOngoing
+        viewModel.acceptedOrderResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 ->
+                            {
+                                viewModel.showOrder(idOrder)
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(requireActivity(), it.message)
+                                Utilities.logOutApp(requireActivity())
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
+
+
+        //response storeCompletedOrderResponse
+        viewModel.storeCompletedOrderResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 ->
+                            {
+                                viewModel.showOrder(idOrder)
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(requireActivity(), it.message)
+                                Utilities.logOutApp(requireActivity())
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
+
+
+    }
 
 
 private fun onClick() {
@@ -295,6 +425,14 @@ private fun onClick() {
         actionShowOrderFragmentToTrackingMapsFragment(userID!!,orderLat!!.toFloat(),orderLong!!.toFloat(),userImage!!,userName!!,userPhone!!,
         distance!!,estimatedTime!!,idOrder)
         mViewDataBinding.root.findNavController().navigate(action)
+    }
+
+    mViewDataBinding.btnAcceptOrder.setOnClickListener {
+     viewModel.acceptedOrder(idOrder)
+    }
+
+    mViewDataBinding.btnFinishOrder.setOnClickListener {
+     viewModel.storeCompletedOrder(idOrder)
     }
 }
 

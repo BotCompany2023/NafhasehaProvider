@@ -7,6 +7,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.sa.nafhasehaprovider.R
+import com.sa.nafhasehaprovider.adapter.DropDownBanksAdapter
 import com.sa.nafhasehaprovider.base.BaseBottomDialog
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
@@ -24,13 +25,9 @@ class BottomSheetRechargeFragment : BaseBottomDialog<FragmentBottomSheetRecharge
 
     private val viewModel: OrdersViewModel by viewModel()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
-
 
         initResponse()
         onClick()

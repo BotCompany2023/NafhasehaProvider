@@ -1,11 +1,11 @@
 package com.sa.nafhasehaprovider.entity.response.showOrderResponse
 
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.City
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.CanceledBy
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.User
+import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.CanceledBy
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.User
 
 data class Data(
     val canceled_by: CanceledBy? =null,
@@ -13,7 +13,7 @@ data class Data(
     val address_to: String? =null,
     val canceled_type: String? =null,
     val category: Category? =null,
-    val city: City? =null,
+    val city: CityResponseData? =null,
     val date_at: String? =null,
     val details: String? =null,
     val discount_amount: String? =null,

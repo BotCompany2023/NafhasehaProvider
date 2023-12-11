@@ -14,7 +14,7 @@ import com.sa.nafhasehaprovider.databinding.FragmentAllOrdersBinding
 import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.sa.nafhasehaprovider.base.BaseFragment
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.DataAllOrdersResponse
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.DataOrdersResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 
 class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails {
@@ -23,7 +23,7 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
     private val viewModel: OrdersViewModel by viewModel()
 
     lateinit var allOrderApprovAdapter: AllOrderAdapter
-    lateinit var orderApprovedList: ArrayList<DataAllOrdersResponse>
+    lateinit var orderApprovedList: ArrayList<DataOrdersResponse>
     lateinit var layoutManager: LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,12 +43,12 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
 
         //response ordersApproved
         viewModel.ordersApproved(1,50)
-        viewModel.allOrdersApprovedResponse.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.allOrdersApprovedResponse.observe(requireActivity(), Observer { result ->
             when (result) {
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
-                    orderApprovedList.clear()
+//                    orderApprovedList.clear()
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {

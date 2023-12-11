@@ -69,6 +69,18 @@ class NewOrderSocketAdapter(
         holder.binding.viewTracking.visibility=View.VISIBLE
 
 
+        if (model.type=="PeriodicInspection")
+        {
+            holder.binding.layoutAction.visibility=View.GONE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
+        else{
+            holder.binding.layoutAction.visibility=View.VISIBLE
+            holder.binding.btnAcceptOrder.visibility=View.GONE
+        }
+
+
+
         holder.itemView.setOnClickListener {
             orderDetails.sendOrderId(model.order_id)
         }
@@ -77,7 +89,9 @@ class NewOrderSocketAdapter(
             orderDetails.sendOffer(model.order_id,""+model.suggested_price.toInt())
         }
 
-
+        holder.binding.btnAcceptOrder.setOnClickListener {
+            orderDetails.acceptOrder(model.order_id,position)
+        }
 
     }
 

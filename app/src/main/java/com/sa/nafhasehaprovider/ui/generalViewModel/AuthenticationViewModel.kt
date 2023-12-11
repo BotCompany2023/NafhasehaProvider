@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
+import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.common.Resource
-import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthenticationResponse
+import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthResponse
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoriesResponse
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -24,11 +24,11 @@ class AuthenticationViewModel(
 ) : ViewModel() {
 
     var firebaseToken = ""
-    val authResponse: MutableLiveData<Resource<AuthenticationResponse>> = MutableLiveData()
+    val authResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
     val checkPhoneResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val changePasswordResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val sendActivationCodeResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
-    val editProfileResponse: MutableLiveData<Resource<AuthenticationResponse>> = MutableLiveData()
+    val editProfileResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<CategoriesResponse>> =MutableLiveData()
 
 
@@ -81,7 +81,8 @@ class AuthenticationViewModel(
                         country_id,phone,email,password,
                         address,lat,long,city_id,area_id,
                         commercialRegister,
-                        services_from_home,categories)
+                        services_from_home,
+                        categories)
                 if (response.isSuccessful) {
                     authResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully

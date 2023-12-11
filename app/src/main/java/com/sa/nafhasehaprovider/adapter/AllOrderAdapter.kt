@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.onLoadImageFromUrl
 import com.sa.nafhasehaprovider.databinding.ItemAllOrderBinding
-import com.sa.nafhasehaprovider.entity.response.getAllOrdersResponse.DataAllOrdersResponse
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.DataOrdersResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 
+
 class AllOrderAdapter(
-    var context: Activity, var list: List<DataAllOrdersResponse>, var orderDetails: OrderDetails
+    var context: Activity, var list: List<DataOrdersResponse>, var orderDetails: OrderDetails
 ) : RecyclerView.Adapter<AllOrderAdapter.ViewHolder?>() {
 
+
+    private  var imageUser: String=""
 
     inner class ViewHolder(binding: ItemAllOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding: ItemAllOrderBinding = binding
@@ -37,6 +40,7 @@ class AllOrderAdapter(
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_in)
         holder.itemView.startAnimation(animation)
         var model = list[position]
+
         onLoadImageFromUrl(
             context, model.category!!.image, holder.binding.ivLogoService
         )
@@ -86,12 +90,15 @@ class AllOrderAdapter(
             holder.binding.tvStatus.text = context.getString(R.string.approved)
             holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
 
+            if (model.user!!.image !=null){
+                imageUser=model.user!!.image!!
+            }
             holder.binding.tvTraking.setOnClickListener {
                 orderDetails.trackingUser(model.id,
                     model.user!!.id,
                 model.lat!!.toFloat(),
                 model.long!!.toFloat(),
-                    model.user!!.image!!,
+                    imageUser!!,
                     model.user!!.name!!,
                     model.user!!.phone!!,
                 model.distance!!,
@@ -107,15 +114,11 @@ class AllOrderAdapter(
 
         }
 
-        //منتهي
-        else if (model.status == "PeriodicInspection") {
-
-        }
         //مكتمل
-        else if (model.status == "VehicleBarrier") {
-
+        else if (model.status == "completed") {
+            holder.binding.tvStatus.text = context.getString(R.string.completed)
+            holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
         }
-
     }
 
     override fun getItemCount(): Int {

@@ -83,12 +83,12 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_image_user"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/man"
-                    app:civ_border_color="@color/appColor"
-                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="@color/grey4"
+                    app:civ_border_width="@dimen/_4sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +98,6 @@
                     android:id="@+id/iv_upload_image"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:elevation="@dimen/_10sdp"
                     android:src="@drawable/ic_defult_camera"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_image_user"
                     app:layout_constraintEnd_toEndOf="@+id/iv_image_user"
@@ -224,7 +223,6 @@
 
 
 
-
                 <EditText
                     style="@style/editText"
                     android:id="@+id/tv_email"
@@ -324,6 +322,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:padding="@dimen/_5sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -360,6 +359,7 @@
                         android:id="@+id/sp_areas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

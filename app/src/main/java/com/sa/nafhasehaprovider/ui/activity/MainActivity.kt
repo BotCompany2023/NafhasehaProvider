@@ -7,6 +7,7 @@ import android.transition.Slide
 import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -36,6 +37,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     lateinit var type: String
     lateinit var navController: NavController
 
+    private lateinit var nbody: String
+    private lateinit var ntitle: String
+    private lateinit var typeId: String
+    private lateinit var checkFragment: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         getFirebaseToken()
         initResponse()
+        init()
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment
@@ -244,6 +251,42 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         })
 
     }
+
+    private fun init() {
+
+        checkFragment = intent.getStringExtra("type").toString()
+        typeId = intent.getStringExtra("type_id").toString()
+        ntitle = intent.getStringExtra("title").toString()
+        nbody = intent.getStringExtra("body").toString()
+
+
+        //عرض صفحه الطلبات
+        if (checkFragment == "1") {
+//            var intent= Intent(this, MainActivity::class.java)
+//            intent.putExtra("TypeNotification",checkFragment)
+//            intent.putExtra("typeId",typeId)
+//            startActivity(intent)
+
+            val bundle = Bundle()
+            bundle.putString("typeId",typeId)
+            navController.navigate(R.id.showOrderFragment, bundle)
+
+
+        }
+        //عرض صفحه العروض
+        else if (checkFragment == "2") {
+        }
+        //عرض صفحه الاشعارات
+        else if (checkFragment == "3") {
+            var intent= Intent(this, NotificationActivity::class.java)
+            intent.putExtra("TypeNotification",checkFragment)
+            intent.putExtra("typeId",typeId)
+            intent.putExtra("title",ntitle)
+            intent.putExtra("body",nbody)
+            startActivity(intent)
+        }
+    }
+
 
 
 }

@@ -62,14 +62,19 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
              pageType=args.flagPage
             mViewDataBinding.tvPrice.setText(priceOffer)
 //             avgRate=NafhasehaProviderApp.pref.loadUserData(requireActivity(),USER_DATA)!!.data!!.provider!!.avg_rate!!
-             image=NafhasehaProviderApp.pref.loadUserData(
-                 requireActivity(), USER_DATA)!!.data!!.provider!!.image!!
+
              name= NafhasehaProviderApp.pref.loadUserData(
                  requireActivity(), USER_DATA)!!.data!!.provider!!.name!!
              numberPhone=NafhasehaProviderApp.pref.loadUserData(
                  requireActivity(), USER_DATA)!!.data!!.provider!!.phone!!
              typeProvider=NafhasehaProviderApp.pref.loadUserData(
                  requireActivity(), USER_DATA)!!.data!!.provider!!.provider_type!!
+
+       if (NafhasehaProviderApp.pref.loadUserData(
+               requireActivity(), USER_DATA)!!.data!!.provider!!.image != null){
+           image=NafhasehaProviderApp.pref.loadUserData(
+               requireActivity(), USER_DATA)!!.data!!.provider!!.image!!
+       }
         }
 
 

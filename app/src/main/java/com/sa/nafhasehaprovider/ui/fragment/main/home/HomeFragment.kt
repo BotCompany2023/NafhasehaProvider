@@ -1,10 +1,17 @@
 package com.sa.nafhasehaprovider.ui.fragment.main.home
 
+import android.app.Dialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.sa.nafhasehaprovider.BuildConfig
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.NewOrderAdapter
 import com.sa.nafhasehaprovider.adapter.NewOrderSocketAdapter
@@ -23,6 +30,7 @@ import com.sa.nafhasehaprovider.network.soketManager.SocketManager
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.viewModels.HomeViewModel
+import com.sa.nafhasehaprovider.viewModels.InfoViewModel
 import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -36,6 +44,8 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
     private lateinit var AvgRate: String
     private val viewModel: HomeViewModel by viewModel()
     private val ordersViewModel: OrdersViewModel by viewModel()
+    private val infoViewModel: InfoViewModel by viewModel()
+
 
     lateinit var newOrderSocketAdapter: NewOrderSocketAdapter
     lateinit var listNewOrderSocket: ArrayList<ResponseNewOrder>
@@ -79,14 +89,17 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
                         when (it.code) {
                             CODE200 -> {
 
-                                AvgRate=it.data.provider.avg_rate
+                                AvgRate=it.data!!.provider.avg_rate
                                 NafhasehaProviderApp.pref.putString(PROVIDER_RATING, AvgRate)
 
-                                Utilities.onLoadImageFromUrl(
-                                    requireActivity(),
-                                    it.data!!.provider.image,
-                                    mViewDataBinding.ivLogoUser
-                                )
+                                if (it.data!!.provider.image != null){
+                                    Utilities.onLoadImageFromUrl(
+                                        requireActivity(),
+                                        it.data!!.provider.image!!,
+                                        mViewDataBinding.ivLogoUser
+                                    )
+                                }
+
                                 mViewDataBinding.tvNameProvider.text = it.data.provider.name
                                 mViewDataBinding.tvAvgRate.text = it.data.provider.avg_rate
                                 mViewDataBinding.tvCountJob.text =
@@ -248,6 +261,61 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
         })
 
 
+        // api response update app
+        infoViewModel.versionUpdate("Android", BuildConfig.VERSION_NAME)
+        infoViewModel.versionUpdateResponse.observe(this, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+                                if (it.data==true){
+
+                                }
+                                else{
+                                    showDialogUpdateApp()
+                                }
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastSuccess(requireActivity(), it.message)
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                                showProgress(false)
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                                showProgress(false)
+                            }
+
+
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(false)
+
+                }
+            }
+        })
+
+
 
     }
 
@@ -317,5 +385,38 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
         super.onResume()
         initResponse()
     }
+
+
+    private fun showDialogUpdateApp() {
+        var dialogDietReport = Dialog(requireActivity(), R.style.customDialogTheme)
+        dialogDietReport.setCancelable(false)
+        val inflater = this.layoutInflater
+        val v: View = inflater.inflate(R.layout.dialog_update_app, null)
+        dialogDietReport.setContentView(v)
+
+        val btnUpdate = v.findViewById<Button>(R.id.btn_update)
+        val imageClose = v.findViewById<ImageView>(R.id.iv_imageClose)
+
+        imageClose.setOnClickListener {
+            dialogDietReport.dismiss()
+        }
+        btnUpdate.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${requireActivity().packageName}")))
+            } catch (e: ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${requireActivity().packageName}")))
+            }
+
+        }
+
+//        val window = dialogDietReport.window
+//        window!!.setLayout(
+//            ConstraintLayout.LayoutParams.MATCH_PARENT,
+//            ConstraintLayout.LayoutParams.WRAP_CONTENT,)
+
+        dialogDietReport.show()
+
+    }
+
 
 }

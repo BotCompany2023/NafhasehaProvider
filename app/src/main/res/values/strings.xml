@@ -231,6 +231,11 @@
     <string name="update_offer">Update Offer</string>
     <string name="proposed_offer">Proposed offer</string>
     <string name="What_is_the_reason_for_rejection">What is the reason for rejection?</string>
+    <string name="completed">Completed</string>
+    <string name="please_select_a_bank">Please select a bank</string>
+    <string name="there_is_a_new_update_with_more_features">There is a new update with more features</string>
+    <string name="new_update">New Update</string>
+    <string name="get_order_updates_tips_on_the_latest_discounts_coupons_and_more">Get order updates, tips on the latest discounts, coupons and more.</string>
 
 
 </resources>
