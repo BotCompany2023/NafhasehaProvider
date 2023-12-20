@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.CreditWalletAdapter
 import com.sa.nafhasehaprovider.adapter.DebitWalletAdapter
-import common.*
-import com.sa.nafhasehaprovider.common.util.RecyclerViewLoadMoreScroll
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
@@ -18,8 +16,6 @@ import com.sa.nafhasehaprovider.databinding.FragmentWalletBinding
 import com.sa.nafhasehaprovider.entity.response.walletResponse.CreditWalletResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.DebitWalletResponse
 import com.sa.nafhasehaprovider.interfaces.OnLoadMoreListener
-import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentArgs
-import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentDirections
 import com.sa.nafhasehaprovider.viewModels.WalletViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,7 +34,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
     lateinit var layoutManagerCredit: LinearLayoutManager
     lateinit var layoutManagerDebit: LinearLayoutManager
-    lateinit var scrollListener: RecyclerViewLoadMoreScroll
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,23 +43,13 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
         initResponse()
 
         //** Set the scrollListerner of the RecyclerView
-        setRVScrollListener()
 
     }
 
     // initScrollListener() method is the method where we are checking
     // the scrolled state of the RecyclerView and if bottom-most is visible
     // we are showing the loading view and populating the next list
-    private fun setRVScrollListener() {
-        scrollListener = RecyclerViewLoadMoreScroll(layoutManagerCredit as LinearLayoutManager)
-        scrollListener.setOnLoadMoreListener(object :
-            OnLoadMoreListener {
-            override fun onLoadMore() {
-               //viewModel.wallet(1,10)
-            }
-        })
-        mViewDataBinding.rvDebit.addOnScrollListener(scrollListener)
-    }
+
 
     private fun initResponse() {
         listDebit = ArrayList()

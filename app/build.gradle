@@ -162,8 +162,8 @@ dependencies {
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
     //PersianSearchableSpinner
     implementation 'com.github.bkhezry:PersianSearchableSpinner:1.4.2'
-    // tedpermission
-    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+//    // tedpermission
+//    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
     //MaterialExpansionPanel
     implementation 'com.github.florent37:expansionpanel:1.2.4'
@@ -179,6 +179,12 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
+
+
+    //permission dexter
+    implementation 'com.karumi:dexter:6.2.3'
+    implementation 'com.github.pramonow:android-endlessrecyclerview:1.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
 // Apply the Crashlytics Gradle plugin

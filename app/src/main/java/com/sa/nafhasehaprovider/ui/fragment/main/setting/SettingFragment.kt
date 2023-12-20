@@ -156,7 +156,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
 //            openActivityAndFinish(MainActivity::class.java, bundle)
 
             var intent = Intent(requireActivity(), MainActivity::class.java)
-            intent.putExtra("page", "SETTING")
+            intent.putExtra("type", "SETTING")
             startActivity(intent)
 
             Animatoo.animateFade(requireActivity())

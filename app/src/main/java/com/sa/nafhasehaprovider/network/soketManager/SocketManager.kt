@@ -170,7 +170,6 @@ class SocketManager {
         } else {
             connectToSocket()
             Log.d("ssssffdfef2","jjjj")
-
         }
     }
 
@@ -187,21 +186,22 @@ class SocketManager {
             mListener = null
         }
     }
+
     /**
      * reconnect to socket if socket is null or disconnected
      */
     fun tryToReconnect() {
-//        Log.e(TAG, "Check for socket reconnect")
-//        if (mSocket != null) {
-//            if (mSocket!!.connected()) {
-//            } else {
-//                Log.e(TAG, "soket is not connected")
-//                connectToSocket()
-//            }
-//        } else {
+        Log.e(TAG, "Check for socket reconnect")
+        if (mSocket != null) {
+            if (mSocket!!.connected()) {
+            } else {
+                Log.e(TAG, "soket is not connected")
+                connectToSocket()
+            }
+        } else {
             Log.e(TAG, "m socket is empty Try to connect to socket")
             connectToSocket()
-//        }
+        }
     }
 
     companion object {

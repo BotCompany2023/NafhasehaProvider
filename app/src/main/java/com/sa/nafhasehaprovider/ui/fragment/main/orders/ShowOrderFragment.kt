@@ -33,7 +33,7 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
     private var orderLong: String? =null
     private var orderLat: String?=null
     private var userPhone: String?=null
-    private var userImage: String? = null
+    private var userImage: String? = ""
     private var userName: String? = null
     private var avgRate: String? = null
     private var priceOffer: String? = null
@@ -97,9 +97,11 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
+                                if (it.data!!.user!!.image != null){
+                                    userImage=it.data!!.user!!.image
+                                }
                                 userID=it.data!!.user!!.id
                                 userName=it.data.user!!.name
-                                userImage=it.data.user!!.image
                                 userPhone=it.data.user!!.phone
                                 orderLat=it.data!!.lat
                                 orderLong=it.data!!.long
@@ -163,6 +165,16 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                         it.data.user_vehicle!!.vehicle_model!!.title
 
                                 }
+                                else if (it.data.type == "Petrol") {
+                                    mViewDataBinding.tvNameCategory.visibility = View.GONE
+                                    mViewDataBinding.constraintPetrol.visibility=View.VISIBLE
+                                    mViewDataBinding.tvTypePetrol.text=it.data.type_gasoline
+                                    mViewDataBinding.tvAmount.text=
+                                        it.data!!.suggested_price + getString(R.string.sr)
+
+                                }
+
+
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.user!!.image,
@@ -400,7 +412,7 @@ private fun onClick() {
 
 
     mViewDataBinding.ivBack.setOnClickListener {
-        mainActivity!!.navController.popBackStack()
+        mainActivity!!.navController!!.popBackStack()
     }
 
 
@@ -422,7 +434,12 @@ private fun onClick() {
     }
     mViewDataBinding.tvTraking.setOnClickListener {
         val action = ShowOrderFragmentDirections.
-        actionShowOrderFragmentToTrackingMapsFragment(userID!!,orderLat!!.toFloat(),orderLong!!.toFloat(),userImage!!,userName!!,userPhone!!,
+        actionShowOrderFragmentToTrackingMapsFragment(userID!!,
+            orderLat!!.toFloat(),
+            orderLong!!.toFloat(),
+            userImage!!,
+            userName!!,
+            userPhone!!,
         distance!!,estimatedTime!!,idOrder)
         mViewDataBinding.root.findNavController().navigate(action)
     }

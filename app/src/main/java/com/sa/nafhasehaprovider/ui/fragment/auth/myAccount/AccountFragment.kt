@@ -47,6 +47,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_account
 
+    private lateinit var idss: ArrayList<Int>
     private var imageFile: File? = null
     private var photo: MultipartBody.Part? = null
     var IDcity: Int? = null
@@ -101,6 +102,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun initResponse() {
         listCategory = ArrayList()
+        idss = ArrayList()
 
         //apiResponse city
         cityDataSource.add(CityResponseData(null, 0, getString(R.string.select)))
@@ -289,6 +291,14 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                             // dismiss loading
                             CODE200 -> {
 
+//                                for (i in  it.data?.provider?.categories!!.indices)
+//                                {
+//                                    var idCa=it.data?.provider?.categories!!.get(i).id
+//                                    ids.add(idCa)
+//                                }
+//                                Log.d("TAG_IDES", "initResponse: $ids")
+
+
                                 categoriesAdapter =
                                     CategoriesAdapter(requireActivity(), listCategory,
                                         it.data?.provider?.categories ?:   listOf())
@@ -465,7 +475,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             }
 
         mViewDataBinding.ivProfileOrBack.setOnClickListener {
-            mainActivity!!.navController.popBackStack()
+            mainActivity!!.navController!!.popBackStack()
             onDestroy()
         }
 
@@ -532,16 +542,25 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             else if (typeAccount=="") {
                 Utilities.showToastError(requireActivity(), getString(R.string.please_select_an_account_type))
             }
-            else if (categoriesAdapter.idCategory.size==0) {
-                Utilities.showToastError(requireActivity(), getString(R.string.choose_your_services))
+            else if (  categoriesAdapter.listCategory.size==0) {
+                showToastError(requireActivity(), getString(R.string.choose_your_services))
             }
 
 
             else {
-                val ids = ArrayList<Int>()
-                categoriesAdapter.idCategory.forEach{
-                    ids.add(it)
+                idss.clear()
+                for (i in categoriesAdapter.listCategory.indices)
+                {
+                    if (categoriesAdapter.listCategory[i].isSelected ==true)
+                    {
+                        idss.add(categoriesAdapter.listCategory[i].id)
+                    }
                 }
+//                categoriesAdapter.listCategory.forEach{
+
+//                }
+
+                Log.d("TAG_IDES", "initResponse 2: $idss")
 
                 viewModelAuth.editProfile(
                     convertFileToMultipart(imageFile, "image"),
@@ -556,7 +575,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                     convertToRequestBody(IDcity.toString()),
                     convertToRequestBody(IDarea.toString()),
                     convertToRequestBody(homeService.toString()),
-                    ids)
+                    idss)
             }
         }
     }

@@ -155,7 +155,8 @@ interface APIEndPoint {
 
 
     @GET("notifications")
-    suspend fun getNotification(): Response<NotificationResponse>
+    suspend fun getNotification(@Query("page") page: Int,
+                                @Query("count_paginate") countPaginate: Int): Response<NotificationResponse>
 
     @POST("notifications/save_token")
     suspend fun saveToken(@Query("fcm_token")fcmToken:String): Response<GeneralResponse>
@@ -304,6 +305,9 @@ interface APIEndPoint {
 
     @POST("cancel-orders-ongoing")
     suspend fun cancelOrderOngoing(@Query("order_id") idOrder: Int): Response<GeneralResponse>
+
+    @GET("change-status-get-orders")
+    suspend fun changeStatusGetOrders(): Response<GeneralResponse>
 
 
     @POST("submit-price")

@@ -7,6 +7,8 @@ import android.transition.Slide
 import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
+import android.widget.Switch
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -23,6 +25,7 @@ import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.ActivityMainBinding
 import com.sa.nafhasehaprovider.ui.activity.notification.NotificationActivity
+import com.sa.nafhasehaprovider.viewModels.HomeViewModel
 import com.sa.nafhasehaprovider.viewModels.NotificationViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,11 +34,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
+    private val idOrder: String =""
+    private lateinit var orderStep: String
     private val viewModel: NotificationViewModel by viewModel()
 
 
-    lateinit var type: String
-    lateinit var navController: NavController
+//    lateinit var type: String
+    var navController: NavController? =null
 
     private lateinit var nbody: String
     private lateinit var ntitle: String
@@ -46,11 +51,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         makeStatusbarTransparent()
         //setupWindowAnimations()
-        type = intent.getStringExtra("page").toString()
+        checkFragment = intent.getStringExtra("type").toString()
 
         getFirebaseToken()
         initResponse()
-        init()
+
 
 
         val navHostFragment =
@@ -62,9 +67,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
         setupWithNavController(navigation, navController)
 
+        init()
 
-        if (type == "SETTING") {
-            navController.navigate(R.id.menuSetting)
+        when {
+            checkFragment == "SETTING" -> {
+                navController.navigate(R.id.menuSetting)
+            }
+            //طلب جديد
+//            checkFragment == "1" && orderStep=="New" -> {
+////                val bundle = Bundle()
+////                bundle.putString("typeId",idOrder)
+////                navController!!.navigate(R.id.showOrderFragment, bundle)
+//                var intent= Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//
+//            }
+//            //قبول عرض السعر
+//            checkFragment == "1" && orderStep=="Accept" -> {
+////                val bundle = Bundle()
+////                bundle.putInt("typeId",idOrder.toInt())
+////                navController!!.navigate(R.id.showOrderFragment, bundle)
+//
+//                var intent= Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//
+//            }
+//            checkFragment == "3" -> {
+//                var intent= Intent(this, NotificationActivity::class.java)
+//                intent.putExtra("TypeNotification",checkFragment)
+//                intent.putExtra("typeId",idOrder)
+//                intent.putExtra("title",ntitle)
+//                intent.putExtra("body",nbody)
+//                startActivity(intent)
+//
+//            }
+
         }
 
 
@@ -111,6 +148,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             startActivity(Intent(this, NotificationActivity::class.java))
             Animatoo.animateZoom(this);
         }
+
+        mViewDataBinding.constraintSwitch.setOnClickListener {
+            viewModel.changeStatusGetOrders()
+            navController.navigate(R.id.menuHome)
+        }
+
+
+
+
     }
 
 
@@ -162,8 +208,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         when (it.code) {
 
                             CODE200 -> {
-                                COUNT_NOTIFICATION= it.data!!
-                                mViewDataBinding.tvCount.text= it.data!!.toString()
+                                COUNT_NOTIFICATION= it.data.count_notification
+                                mViewDataBinding.tvCount.text= it.data.count_notification.toString()
+                                if (it.data.get_orders==1){
+                                    mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
+                                    mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
+                                }
+                                else{
+                                    mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_off)
+                                    mViewDataBinding.tvTitleStatus.text=getText(R.string.uavailable)
+                                }
                             }
                             CODE403 -> {
                                 //unAuthorized()
@@ -201,6 +255,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             }
         })
+
 
 
         // api response
@@ -250,43 +305,112 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         })
 
+
+        viewModel.changeStatusGetOrdersResponse.observe(this, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+
+                                if (it.data!! ==1){
+                                    Utilities.showToastSuccess(this, "متاح الان ")
+                                }
+                                else{
+                                    Utilities.showToastError(this, "غير متاح ")
+
+                                }
+                                if (it.data!! ==1){
+                                    mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
+                                    mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
+                                }
+                                else{
+                                    mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_off)
+                                    mViewDataBinding.tvTitleStatus.text=getText(R.string.uavailable)
+                                }
+
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(this, it.message)
+                                Utilities.logOutApp(this)
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(this, it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(this, it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(this, it.message)
+                            }
+                        }
+
+                    }
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
     }
 
     private fun init() {
-
         checkFragment = intent.getStringExtra("type").toString()
         typeId = intent.getStringExtra("type_id").toString()
         ntitle = intent.getStringExtra("title").toString()
         nbody = intent.getStringExtra("body").toString()
+        orderStep = intent.getStringExtra("order_step").toString()
 
-
-        //عرض صفحه الطلبات
-        if (checkFragment == "1") {
+        //طلب جديد
+        if (checkFragment == "1" && orderStep=="New" || orderStep=="Price"
+            || orderStep=="Accept"|| orderStep=="Complete") {
 //            var intent= Intent(this, MainActivity::class.java)
-//            intent.putExtra("TypeNotification",checkFragment)
-//            intent.putExtra("typeId",typeId)
+//            intent.putExtra("type",checkFragment)
+//            intent.putExtra("type_id",typeId)
+//            intent.putExtra("order_step",orderStep)
 //            startActivity(intent)
 
-            val bundle = Bundle()
-            bundle.putString("typeId",typeId)
-            navController.navigate(R.id.showOrderFragment, bundle)
-
+            navController!!.navigate(R.id.menuHome)
+            mViewDataBinding.toolbar.visibility = View.VISIBLE
 
         }
-        //عرض صفحه العروض
+
         else if (checkFragment == "2") {
+            var intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("type_id",typeId)
+            startActivity(intent)
         }
-        //عرض صفحه الاشعارات
         else if (checkFragment == "3") {
             var intent= Intent(this, NotificationActivity::class.java)
-            intent.putExtra("TypeNotification",checkFragment)
             intent.putExtra("typeId",typeId)
             intent.putExtra("title",ntitle)
             intent.putExtra("body",nbody)
             startActivity(intent)
         }
-    }
+        else if (checkFragment == "4") {
+            var intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("type_id",typeId)
+            startActivity(intent)
 
+        }
+
+    }
 
 
 }

@@ -120,7 +120,7 @@ class BottomSheetCancelOrderFragment : BaseBottomDialog<FragmentBottomSheetCance
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
-                                mainActivity.navController.navigate(R.id.menuOrders)
+                                mainActivity.navController!!.navigate(R.id.menuOrders)
                                 Utilities.showToastSuccess(requireActivity(), it.message)
                                 dismiss()
                                 mainActivity.mViewDataBinding.bottomNav.visibility = View.VISIBLE

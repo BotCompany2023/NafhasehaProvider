@@ -5,5 +5,7 @@ data class DataCategoriesResponse(
     val image: String,
     val services: List<Service>? =null,
     val title: String,
+    var isSelected: Boolean=false
+
 //    val isChickCategory: Boolean? =false
 )

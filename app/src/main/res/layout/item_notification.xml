@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        app:cardElevation="@dimen/_8sdp"
+        app:cardElevation="@dimen/_2sdp"
         app:contentPadding="@dimen/_10sdp">
 
 

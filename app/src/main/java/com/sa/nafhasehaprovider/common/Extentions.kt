@@ -1,7 +1,9 @@
 package com.sa.nafhasehaprovider.common
 
 
+import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,13 +13,21 @@ import android.graphics.Matrix
 import android.graphics.RectF
 import android.location.Location
 import android.net.Uri
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.constraintlayout.widget.Group
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.DexterError
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.BuildConfig
 import org.json.JSONObject
@@ -116,9 +126,81 @@ fun composeEmail(
     }
 }
 
+// داخل الدالة onCreate أو أي دالة أخرى تحتاج إلى إجراء مكالمة هاتفية
+fun makePhoneCall(activity: Activity, phoneNumber: String?) {
+    // below line is use to request permission in the current activity.
+    // this method is use to handle error in runtime permissions
+    Dexter.withActivity(activity) // below line is use to request the number of permissions which are required in our app.
+        .withPermissions(
+            Manifest.permission.CALL_PHONE,  // below is the list of permissions
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_CONTACTS
+        ) // after adding permissions we are calling an with listener method.
+        .withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
+                // this method is called when all permissions are granted
+                if (multiplePermissionsReport.areAllPermissionsGranted()) {
+                    // do you work now
+                    goToCall(activity, phoneNumber)
+                }
+                // check for permanent denial of any permission
+                if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied) {
+                    // permission is denied permanently, we will show user a dialog message.
+                    showSettingsDialog(activity)
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                list: List<PermissionRequest>,
+                permissionToken: PermissionToken
+            ) {
+                // this method is called when user grants some permission and denies some of them.
+                permissionToken.continuePermissionRequest()
+            }
+        }).withErrorListener { error: DexterError? ->
+            // we are displaying a toast message for error message.
+            Toast.makeText(
+                activity,
+                "Error occurred! ",
+                Toast.LENGTH_SHORT
+            ).show()
+        } // below line is use to run the permissions on same thread and to check the permissions
+        .onSameThread().check()
+
+}
+
+// below is the shoe setting dialog method which is use to display a dialogue message.
+private fun showSettingsDialog(activity: Activity){
+    // we are displaying an alert dialog for permissions
+    val builder = AlertDialog.Builder(activity)
+
+    // below line is the title for our alert dialog.
+    builder.setTitle(activity.getString(R.string.need_pnermissions))
+
+    // below line is our message for our dialog
+    builder.setMessage(activity.getString(R.string.this_app_needs_permission_to_use_this_feature_You_can_grant_them_in_app_settings))
+    builder.setPositiveButton(activity.getString(R.string.GOTO_SETTINGS)) { dialog, which ->
+        // this method is called on click on positive button and on clicking shit button
+        // we are redirecting our user from our app to the settings page of our app.
+        dialog.cancel()
+        // below is the intent from which we are redirecting our user.
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri =Uri.fromParts("package", activity.packageName, null)
+        intent.data = uri
+        activity.startActivityForResult(intent,101)
+    }
+    builder.setNegativeButton(activity.getString(R.string.no)) { dialog, which ->
+        // this method is called when user click on negative button.
+        dialog.cancel()
+    }
+    // below line is used to display our dialog
+    builder.show()
+}
+
 fun goToCall(activity: Activity, phoneNumber: String?) {
     if (phoneNumber != null && phoneNumber.isNotEmpty()) {
-        val intent = Intent(Intent.ACTION_DIAL)
+        val intent = Intent(Intent.ACTION_CALL)
         intent.data = Uri.parse("tel:$phoneNumber")
         if (intent.resolveActivity(activity.packageManager) != null) {
             activity.startActivity(intent)

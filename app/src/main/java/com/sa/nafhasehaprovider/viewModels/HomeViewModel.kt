@@ -16,18 +16,17 @@ class HomeViewModel(
     private val sharedPreferences: PreferencesUtils, private val mainRepo: MainRepo
 ) : ViewModel() {
 
-    val homeResponse: MutableLiveData<Resource<HomeResponse>> = MutableLiveData()
+    val getHomeResponse: MutableLiveData<Resource<HomeResponse>> = MutableLiveData()
     val cancelOrderOngoingResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
 
 
     fun home(page: Int, countPaginate: Int) {
         if (Utilities.hasInternetConnection()) {
-            homeResponse.postValue(Resource.Loading())
+            getHomeResponse.postValue(Resource.Loading())
             viewModelScope.launch {
-
                 val response = mainRepo.home(page, countPaginate)
                 if (response.isSuccessful) {
-                    homeResponse.postValue(Resource.Success(response.body()!!))
+                    getHomeResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully
                     Log.i("TestLoginterVM", "${response.body()}")
                 } else {
@@ -56,6 +55,7 @@ class HomeViewModel(
             }
         }
     }
+
 
 
 }

@@ -8,5 +8,6 @@ data class ProviderHomeResponse(
     val is_activation: Boolean,
     val is_active: Int,
     val name: String,
+    val get_orders: Int,
     val rates_count: Int
 )

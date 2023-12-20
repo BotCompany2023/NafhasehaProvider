@@ -26,6 +26,7 @@ class NewOrderAdapter(
 ) : RecyclerView.Adapter<NewOrderAdapter.ViewHolder?>() {
 
 
+
     inner class ViewHolder(binding: ItemAllOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var binding: ItemAllOrderBinding = binding
@@ -44,7 +45,7 @@ class NewOrderAdapter(
 
         val animation =
             AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.fade_in)
-        holder.itemView.startAnimation(animation)
+       // holder.itemView.startAnimation(animation)
         var model = listNewOrder[position]
 
         holder.binding.tvNameService.text = model.category!!.title

@@ -13,7 +13,6 @@ import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.FragmentAboutBinding
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.viewModels.InfoViewModel
-import common.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AboutFragment : BaseFragment<FragmentAboutBinding>() {

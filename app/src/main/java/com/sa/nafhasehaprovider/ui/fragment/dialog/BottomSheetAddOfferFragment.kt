@@ -118,7 +118,7 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
 //                                else{
                                     val action = BottomSheetAddOfferFragmentDirections.
                                     actionBottomSheetAddOfferFragmentToMenuHome()
-                                    mainActivity.navController.navigate(action)
+                                    mainActivity.navController!!.navigate(action)
                                 dismiss()
                                 mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
                                 mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE

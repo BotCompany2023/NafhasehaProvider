@@ -232,5 +232,15 @@
     <string name="there_is_a_new_update_with_more_features">هناك تحديث جديد مع المزيد من الميزات</string>
     <string name="new_update">تحديث جديد</string>
     <string name="get_order_updates_tips_on_the_latest_discounts_coupons_and_more">احصل على تحديثات الطلب ونصائح حول أحدث الخصومات والكوبونات والمزيد.</string>
+    <string name="type_petrol">نوع البنزين</string>
+    <string name="amount">المبلغ</string>
+    <string name="need_pnermissions">تحتاج إلى أذونات</string>
+    <string name="this_app_needs_permission_to_use_this_feature_You_can_grant_them_in_app_settings">يحتاج هذا التطبيق إلى إذن لاستخدام هذه الميزة. يمكنك منحهم في إعدادات التطبيق.</string>
+    <string name="GOTO_SETTINGS">اذهب للإعدادات</string>
+    <string name="available">متاح</string>
+    <string name="uavailable">غير متاح</string>
+    <string name="welcome">مرحباً بك</string>
+    <string name="we_are_happy_to_have_you_join_the_team_we_are_examining_it_please_wait_your_account_will_be_activated_by_the_administration"> نحن سعداء بانضمامك الي فريق نفحصها يرجي الانتظار سيتم تفعيل حسابك من قبل الادارة</string>
+
 
 </resources>

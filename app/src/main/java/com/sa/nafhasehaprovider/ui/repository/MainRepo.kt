@@ -91,7 +91,7 @@ class MainRepo(private val api: APIEndPoint) {
         phone,email,address,lat,long,city_id,area_id, services_from_home, categories
     )
 
-    suspend fun notification() = api.getNotification()
+    suspend fun notification(page: Int, countPaginate: Int) = api.getNotification(page,countPaginate)
     suspend fun saveToken(fcmToken:String) = api.saveToken(fcmToken)
 
     suspend fun countNotification() = api.getCountNotification()
@@ -125,6 +125,7 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
     suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
     suspend fun cancelOrderOngoing(idOrder: Int) = api.cancelOrderOngoing(idOrder)
+    suspend fun changeStatusGetOrders() = api.changeStatusGetOrders()
 
     suspend fun submitPriceOffer(idOrder: Int,price:String) = api.submitPriceOffer(idOrder,price)
 

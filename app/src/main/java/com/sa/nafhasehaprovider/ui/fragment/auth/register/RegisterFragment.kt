@@ -402,7 +402,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 Utilities.showToastError(
                     requireActivity(), getString(R.string.please_select_an_account_type)
                 )
-            } else if (categoriesAdapter.idCategory.size == 0) {
+            } else if (categoriesAdapter.listCategory.size == 0) {
                 Utilities.showToastError(
                     requireActivity(), getString(R.string.choose_your_services)
                 )

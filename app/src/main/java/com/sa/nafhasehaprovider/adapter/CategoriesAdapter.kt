@@ -9,11 +9,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.databinding.ItemServiceSelectedBinding
+import com.sa.nafhasehaprovider.entity.request.idCategory.IdCategoryRequest
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
 
 class CategoriesAdapter(
-    var context: Activity, var listCategory: List<DataCategoriesResponse>, var checkedItems :List<Category>) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder?>() {
+    var context: Activity,
+    public var listCategory: List<DataCategoriesResponse>,
+    var checkedItems: List<Category>
+) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder?>() {
 
 
     var idCategory: ArrayList<Int> = arrayListOf()
@@ -44,29 +48,37 @@ class CategoriesAdapter(
 
 
 
-        checkedItems.forEach{
-            if (it.id == model.id){
+        checkedItems.forEach {
+            if (it.id == model.id) {
                 holder.binding.cbSelectService.isChecked = true
+                model.isSelected=true
             }
         }
+
 
         holder.binding.cbSelectService.setOnCheckedChangeListener { buttonView, isChecked ->
             // تم تحديد أو إلغاء تحديد الصندوق
             if (isChecked) {
                 // القيام بإجراء عند تحديد الصندوق
                 idCategory.add(model.id)
+                model.isSelected=true
             } else {
                 // القيام بإجراء عند إلغاء تحديد الصندوق
                 idCategory.remove(model.id)
+                model.isSelected=false
             }
         }
-
 
 
     }
 
     override fun getItemCount(): Int {
         return listCategory.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+
     }
 
 

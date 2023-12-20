@@ -10,6 +10,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
@@ -36,16 +37,21 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.api.Billing
 import com.google.firebase.database.core.utilities.Utilities
 import com.google.gson.Gson
+import com.sa.nafhasehaprovider.BuildConfig
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.common.LocationManger.GeoService
+import com.sa.nafhasehaprovider.common.makePhoneCall
 import com.sa.nafhasehaprovider.common.onConvertObjToJson
 import com.sa.nafhasehaprovider.common.onPrintLog
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.onLoadImageFromUrl
 import com.sa.nafhasehaprovider.databinding.FragmentTrackingMapsBinding
 import com.sa.nafhasehaprovider.entity.response.sockeEmmitModel.TrackerLocation
+import com.sa.nafhasehaprovider.network.soketManager.SocketManager
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.ConnectToSocket
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.marker
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import kotlinx.android.synthetic.main.bottom_sheet_behavior.view.*
@@ -109,7 +115,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             .getApplicationInfo(requireActivity().packageName, PackageManager.GET_META_DATA)
 //        val value = ai.metaData["YOUR_API_KEY"]
 //        val value = ai.metaData["com.google.android.geo.API_KEY"]
-        apiKey = "AIzaSyA0Z9_o0V_KIayrf5ViLm6qf67IwwfRyuk"
+        apiKey = BuildConfig.API_KEY
         // Initializing the Places API with the help of our API_KEY
         if (!Places.isInitialized()) {
             Places.initialize(requireActivity(), apiKey)
@@ -148,7 +154,11 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             bottomSheetLayout.tv_cancel_order.setOnClickListener {
                 val action = TrackingMapsFragmentDirections
                     .actionTrackingMapsFragmentToBottomSheetDeleteOrderFragment(orderID!!)
-                mainActivity!!.navController.navigate(action)
+                mainActivity!!.navController!!.navigate(action)
+            }
+
+            bottomSheetLayout.iv_call.setOnClickListener {
+                    makePhoneCall(requireActivity(),userPhone)
             }
 
         }
@@ -405,10 +415,28 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         return poly
     }
 
+    fun ConnectToSocket() {
+        SocketRepository.socketManager = SocketManager()
+        SocketRepository.socketManager?.tryToReconnect()
+      //  SocketRepository.socketManager?.dataLocationListener = this
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
+        SocketRepository.onDisconnect()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SocketRepository.onDisconnect()
+    }
+    override fun onResume() {
+        super.onResume()
+        ConnectToSocket()
     }
 
 

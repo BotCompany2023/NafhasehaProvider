@@ -123,7 +123,7 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
                             CODE200 -> {
                                 Utilities.showToastSuccess(requireActivity(), it.message)
                                 dismiss()
-                                mActivity.navController.popBackStack()
+                                mActivity.navController!!.popBackStack()
 
                             }
                             CODE403 -> {

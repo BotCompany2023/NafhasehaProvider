@@ -48,7 +48,7 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
-//                    orderApprovedList.clear()
+                    orderApprovedList.clear()
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {

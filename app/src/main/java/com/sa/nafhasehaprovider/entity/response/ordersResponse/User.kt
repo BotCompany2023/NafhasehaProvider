@@ -12,7 +12,7 @@ data class User(
     val default_language: String? =null,
     val email: String? =null,
     val id: Int,
-    val image: String? =null,
+    val image: String? ="",
     val is_activation: Boolean? =null,
     val is_notification: Int,
     val lang: String? =null,
