@@ -245,6 +245,7 @@
     <string name="uavailable">uAvailable</string>
     <string name="welcome">Welcome</string>
     <string name="we_are_happy_to_have_you_join_the_team_we_are_examining_it_please_wait_your_account_will_be_activated_by_the_administration">We are happy to have you join the team. We are examining it. Please wait. Your account will be activated by the administration</string>
+    <string name="there_are_no_requests">There are no requests</string>
 
 
 </resources>

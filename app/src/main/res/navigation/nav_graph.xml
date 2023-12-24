@@ -209,6 +209,9 @@
         <argument
             android:name="flagPage"
             app:argType="string" />
+        <argument
+            android:name="price_type"
+            app:argType="integer" />
 
 
     </dialog>

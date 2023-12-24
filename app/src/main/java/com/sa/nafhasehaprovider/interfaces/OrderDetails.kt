@@ -5,7 +5,7 @@ interface OrderDetails {
     fun cancelOrderId(idOrder:Int,pot:Int)
     fun acceptOrder(idOrder:Int,pot:Int)
     fun sendOffer(
-        idOrder: Int,offerPrice: String
+        idOrder: Int,offerPrice: String,priceType:Int
     )
     fun trackingUser(
         orderId:Int,

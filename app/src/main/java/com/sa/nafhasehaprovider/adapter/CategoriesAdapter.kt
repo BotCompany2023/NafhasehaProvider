@@ -47,13 +47,13 @@ class CategoriesAdapter(
 
 
 
-
         checkedItems.forEach {
             if (it.id == model.id) {
                 holder.binding.cbSelectService.isChecked = true
                 model.isSelected=true
             }
         }
+
 
 
         holder.binding.cbSelectService.setOnCheckedChangeListener { buttonView, isChecked ->

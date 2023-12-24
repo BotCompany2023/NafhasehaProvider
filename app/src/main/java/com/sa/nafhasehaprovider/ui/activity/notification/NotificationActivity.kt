@@ -2,6 +2,7 @@ package com.sa.nafhasehaprovider.ui.activity.notification
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
@@ -77,6 +78,12 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>() {
                              //   Utilities.showToastSuccess(this, it.message)
                                 list.addAll(it.data!!)
                                 notificationAdapter.notifyDataSetChanged()
+                                if (list.size==0){
+                                    mViewDataBinding.ivNoData.visibility= View.VISIBLE
+                                }
+                                else{
+                                    mViewDataBinding.ivNoData.visibility= View.GONE
+                                }
                             }
                             CODE403 -> {
                                 //unAuthorized()

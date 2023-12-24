@@ -108,5 +108,39 @@
             tools:listitem="@layout/item_all_order"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_not_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_all_order"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_not_order"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/there_are_no_requests"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="#374151"
+                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

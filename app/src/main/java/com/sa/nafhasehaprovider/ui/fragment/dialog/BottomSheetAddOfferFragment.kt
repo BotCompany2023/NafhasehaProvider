@@ -34,6 +34,7 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
 
     override fun getLayoutId(): Int = R.layout.fragment_bottom_sheet_add_offer
 
+    private var priceType: Int?=null
     private lateinit var pageType: String
     private lateinit var priceUpdate: String
     private lateinit var priceOffer: String
@@ -60,6 +61,7 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
              avgRate=args.avgRate
              priceOffer=args.offerPrice
              pageType=args.flagPage
+            priceType=args.priceType
             mViewDataBinding.tvPrice.setText(priceOffer)
 //             avgRate=NafhasehaProviderApp.pref.loadUserData(requireActivity(),USER_DATA)!!.data!!.provider!!.avg_rate!!
 
@@ -181,7 +183,8 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
                     numberPhone,
                     idOrder,
                     priceUpdate.toInt(),
-                    typeProvider)
+                    typeProvider,
+                    priceType!!)
                 if (dataRequest !=null)
                 {
                     onPrintLog(onConvertObjToJson(dataRequest))

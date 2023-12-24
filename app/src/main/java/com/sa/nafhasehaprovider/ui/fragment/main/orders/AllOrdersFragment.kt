@@ -54,6 +54,13 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
                             CODE200 -> {
                                 orderApprovedList.addAll(it.data!!)
                                 mViewDataBinding.rvAllOrder.adapter = allOrderApprovAdapter
+                                if (orderApprovedList.size==0){
+                                    mViewDataBinding.constraintNotOrder.visibility= View.VISIBLE
+                                }
+                                else{
+                                    mViewDataBinding.constraintNotOrder.visibility= View.GONE
+                                }
+
                             }
                             CODE403 -> {
                                 //unAuthorized()
@@ -90,7 +97,6 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
                 }
             }
         })
-
 
         //response ordersCompleted
         viewModel.allOrdersCompletedResponse.observe(viewLifecycleOwner, Observer { result ->
@@ -104,6 +110,13 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
                             CODE200 -> {
                                 orderApprovedList.addAll(it.data!!)
                                 mViewDataBinding.rvAllOrder.adapter = allOrderApprovAdapter
+                                if (orderApprovedList.size==0){
+                                    mViewDataBinding.constraintNotOrder.visibility= View.VISIBLE
+                                }
+                                else{
+                                    mViewDataBinding.constraintNotOrder.visibility= View.GONE
+                                }
+
                             }
                             CODE403 -> {
                                 //unAuthorized()
@@ -140,7 +153,6 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
                 }
             }
         })
-
 
     }
 
@@ -190,7 +202,7 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
 
     }
 
-    override fun sendOffer(idOrder: Int, offerPrice: String) {
+    override fun sendOffer(idOrder: Int, offerPrice: String,priceType:Int) {
     }
 
     override fun trackingUser(

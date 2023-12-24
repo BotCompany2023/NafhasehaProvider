@@ -36,6 +36,7 @@ data class Data(
     val status: String? =null,
     val sub_category: String? =null,
     val suggested_price: String? =null,
+    val price_type: Int? =null,
     val is_price_request: Int? =null,
     val price_request: Int? =null,
     val time_at: String? =null,

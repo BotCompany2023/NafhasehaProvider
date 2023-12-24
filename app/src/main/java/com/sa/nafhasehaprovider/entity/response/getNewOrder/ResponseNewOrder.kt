@@ -10,5 +10,6 @@ data class ResponseNewOrder(
     val order_id: Int,
     val suggested_price: Double,
     val type: String,
+    val price_type: Int? =null,
     val user_id: Int
 )

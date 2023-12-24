@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
     lateinit var  mActivity:MainActivity
 
     var currentPage : Int = 1
-    var countPage =10
+    var countPage =20
     lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
     private var layoutManager: LinearLayoutManager? = null
 
@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 currentPage=page+1
                 viewModel.home(currentPage, countPage)
-                Toast.makeText(requireContext(), ""+page, Toast.LENGTH_SHORT).show()
+               // Toast.makeText(requireContext(), ""+page, Toast.LENGTH_SHORT).show()
             }
         }
         mViewDataBinding.rvNewOrder.addOnScrollListener(endlessRecyclerViewScrollListener)
@@ -379,8 +379,9 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
         id_Order=idOrder
     }
 
-    override fun sendOffer(idOrder: Int, offerPrice: String) {
-        val action = HomeFragmentDirections.actionMenuHomeToBottomSheetAddOfferFragment(idOrder,AvgRate,offerPrice,"HOME_PAGE")
+    override fun sendOffer(idOrder: Int, offerPrice: String,priceType:Int) {
+        val action = HomeFragmentDirections.
+        actionMenuHomeToBottomSheetAddOfferFragment(idOrder,AvgRate,offerPrice,"HOME_PAGE",priceType)
         mActivity.navController!!.navigate(action)
     }
 

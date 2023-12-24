@@ -86,7 +86,8 @@ class NewOrderSocketAdapter(
         }
 
         holder.binding.btnOffer.setOnClickListener {
-            orderDetails.sendOffer(model.order_id,""+model.suggested_price.toInt())
+            orderDetails.sendOffer(model.order_id,
+                ""+model.suggested_price.toInt(),model.price_type!!)
         }
 
         holder.binding.btnAcceptOrder.setOnClickListener {

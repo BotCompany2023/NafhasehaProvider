@@ -408,12 +408,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 )
             } else if (imagePath == "") {
                 Utilities.showToastError(requireActivity(), getString(R.string.attach_the_photo))
-            } else if (!mViewDataBinding.cbIAgreeToThePrivacyPolicy.isChecked) {
+            }
+            else if (!mViewDataBinding.cbIAgreeToThePrivacyPolicy.isChecked) {
                 Utilities.showToastError(
                     requireActivity(),
-                    getString(R.string.you_do_not_agree_to_the_terms_and_conditions)
-                )
-            } else {
+                    getString(R.string.you_do_not_agree_to_the_terms_and_conditions))
+            }
+            else {
                 viewModel.register(
                     convertToRequestBody(typeAccount),
                     convertToRequestBody(nameProvider),
@@ -428,8 +429,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
                     convertFileToMultipart(imageFile!!, "commercial_register"),
                     convertToRequestBody(homeService.toString()),
-                    categoriesAdapter.idCategory
-                )
+                    categoriesAdapter.idCategory)
             }
         }
     }

@@ -62,7 +62,7 @@ class NewOrderAdapter(
             holder.binding.tvOfferPrice.text=""+model.price_request +" "+context.getString(R.string.sar)
             holder.binding.btnOffer.text=context.getString(R.string.update_offer)
             holder.binding.btnOffer.setOnClickListener {
-                orderDetails.sendOffer(model.id,""+model.price_request!!.toInt())
+                orderDetails.sendOffer(model.id,""+model.price_request!!.toInt(),model.price_type!!)
             }
             holder.binding.tvHideRequest.visibility=View.GONE
 
@@ -71,7 +71,7 @@ class NewOrderAdapter(
             holder.binding.constraintOfferPrice.visibility=View.GONE
             holder.binding.btnOffer.text=context.getString(R.string.offer)
             holder.binding.btnOffer.setOnClickListener {
-                orderDetails.sendOffer(model.id,model.suggested_price)
+                orderDetails.sendOffer(model.id,model.suggested_price,model.price_type!!)
             }
 
             holder.binding.tvHideRequest.visibility=View.VISIBLE
@@ -83,6 +83,11 @@ class NewOrderAdapter(
             holder.binding.tvPrice.text = model.final_total +" "+context.getString(R.string.sar)
             holder.binding.layoutAction.visibility=View.GONE
             holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
+        else if(model.type=="Petrol"){
+            holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)
+            holder.binding.layoutAction.visibility=View.VISIBLE
+            holder.binding.btnAcceptOrder.visibility=View.GONE
         }
         else{
             holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)

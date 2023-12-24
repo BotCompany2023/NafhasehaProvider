@@ -28,6 +28,7 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_show_order
 
+    private var priceType: Int?=null
     private var distance: String? =null
     private var estimatedTime: String? =null
     private var orderLong: String? =null
@@ -107,6 +108,7 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                 orderLong=it.data!!.long
                                 estimatedTime=it.data!!.estimated_time
                                 distance=it.data!!.distance
+                                priceType=it.data!!.price_type
 
                                 if (it.data!!.is_price_request==1){
                                     priceOffer=""+it.data!!.price_request!!
@@ -169,12 +171,9 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     mViewDataBinding.tvNameCategory.visibility = View.GONE
                                     mViewDataBinding.constraintPetrol.visibility=View.VISIBLE
                                     mViewDataBinding.tvTypePetrol.text=it.data.type_gasoline
-                                    mViewDataBinding.tvAmount.text=
-                                        it.data!!.suggested_price + getString(R.string.sr)
+                                    mViewDataBinding.tvAmount.text=""+ it.data!!.price_type+ getString(R.string.sr)
 
                                 }
-
-
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.user!!.image,
@@ -184,12 +183,11 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                 mViewDataBinding.tvAddress.text = it.data!!.address
                                 mViewDataBinding.tvDeliveryLocation.text = it.data!!.address_to
 
-
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.category!!.image,
-                                    mViewDataBinding.ivLogoService
-                                )
+                                    mViewDataBinding.ivLogoService)
+
                                 mViewDataBinding.tvNameService.text = it.data!!.category!!.title
                                 mViewDataBinding.tvNameCategory.text =
                                     "( " + it.data!!.sub_category+ " )"
@@ -420,10 +418,9 @@ private fun onClick() {
         avgRate=NafhasehaProviderApp.pref.getString(PROVIDER_RATING, "")
         val action =
             ShowOrderFragmentDirections.actionShowOrderFragmentToBottomSheetAddOfferFragment(
-                idOrder,avgRate!!,priceOffer!!,"SHOW_ORDER_PAGE")
+                idOrder,avgRate!!,priceOffer!!,"SHOW_ORDER_PAGE",priceType!!)
         mViewDataBinding.root.findNavController().navigate(action)
     }
-
 
 
     mViewDataBinding.btnReject.setOnClickListener {

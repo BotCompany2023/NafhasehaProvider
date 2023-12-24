@@ -241,6 +241,7 @@
     <string name="uavailable">غير متاح</string>
     <string name="welcome">مرحباً بك</string>
     <string name="we_are_happy_to_have_you_join_the_team_we_are_examining_it_please_wait_your_account_will_be_activated_by_the_administration"> نحن سعداء بانضمامك الي فريق نفحصها يرجي الانتظار سيتم تفعيل حسابك من قبل الادارة</string>
+    <string name="there_are_no_requests">لايوجد طلبات </string>
 
 
 </resources>

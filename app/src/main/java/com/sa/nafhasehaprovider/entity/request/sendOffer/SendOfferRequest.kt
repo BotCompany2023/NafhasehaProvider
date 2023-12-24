@@ -7,5 +7,6 @@ data class SendOfferRequest(
     val number_phone: String,
     val order_id: Int,
     val price: Int,
-    val type_provider: String
+    val type_provider: String,
+    val price_type: Int
 )
