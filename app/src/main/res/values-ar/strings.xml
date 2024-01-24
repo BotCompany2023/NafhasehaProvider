@@ -242,6 +242,26 @@
     <string name="welcome">مرحباً بك</string>
     <string name="we_are_happy_to_have_you_join_the_team_we_are_examining_it_please_wait_your_account_will_be_activated_by_the_administration"> نحن سعداء بانضمامك الي فريق نفحصها يرجي الانتظار سيتم تفعيل حسابك من قبل الادارة</string>
     <string name="there_are_no_requests">لايوجد طلبات </string>
+    <string name="searching_for_a_flatbed">جاري البحث عن سطحة</string>
+    <string name="the_mobile_number_must_start_with_the_number_5">يجب أن يبدأ رقم الموبايل بالرقم 5</string>
+    <string name="choose_the_surface_type">اختر نوع السطحة</string>
+    <string name="examination_status">حالة الفحص</string>
+    <string name="submit_reports">رفع تقرير</string>
+    <string name="determine_the_cost">تحديد التكلفة</string>
+    <string name="determine_the_date_and_time_the_car_will_be_ready">قم بتحديد تاريخ و موعد جاهزية السيارة</string>
+    <string name="send_reports">ارسال التقرير</string>
+    <string name="enter_the_maintenance_cost">ادخل تكلفه الصيانه</string>
+    <string name="description_required">الوصف مطلوب</string>
+    <string name="waiting_for_customer_approval">بانتظار موافقة العميل</string>
+    <string name="under_maintenance">قيد الصيانه</string>
+    <string name="cost_of_maintenance">تكلفة الصيانه</string>
+    <string name="the_car_met">التقت السيارة</string>
+    <string name="the_client_is_waiting">العميل ينتظرك</string>
+    <string name="have_been_reached">تم الوصول </string>
+    <string name="the_car_is_being_moved">جاري نقل السيارة</string>
+    <string name="service_cost">تكلفة الخدمة</string>
+    <string name="battery_type">نوع البطارية</string>
+    <string name="battery_subscription">إشتراك  بطارية</string>
 
 
 </resources>

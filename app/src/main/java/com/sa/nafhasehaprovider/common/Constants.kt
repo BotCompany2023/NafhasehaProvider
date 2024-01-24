@@ -5,7 +5,7 @@ import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 
 const val USER_DATA = "user_data"
 var BASE_URL = "https://nafhasuha.com/api/provider/V1/"
-var SOCKET_URL = "http://135.181.122.200:3000"
+var SOCKET_URL = "https://socket.nafhasuha.com:3000"
 const val FIRST_TIME = "first_time"
 const val LOGGED = "logged"
 const val QUERY_PAGE_SIZE = 15
@@ -59,6 +59,7 @@ object EmitKeyWord {
     val SEND_OFFER_ORDER = "send-offer-price"
     val ACCEPTED_OFFER_ORDER = "accepted-offer-price"
     val REJECTED_OFFER_ORDER = "remove_request"
+    val ACCEPTED_ORDER = "accept-request"
 
 }
 

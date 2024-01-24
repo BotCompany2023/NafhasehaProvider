@@ -6,11 +6,14 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -20,6 +23,7 @@ import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.CategoriesAdapter
 import com.sa.nafhasehaprovider.adapter.DropDownAreasAdapter
 import com.sa.nafhasehaprovider.adapter.DropDownCityAdapter
+import com.sa.nafhasehaprovider.adapter.VehicleTransporterAdapter
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
@@ -28,34 +32,41 @@ import com.sa.nafhasehaprovider.common.util.Utilities.Companion.convertFileToMul
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.convertToRequestBody
 import com.sa.nafhasehaprovider.databinding.FragmentRegisterBinding
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
-import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
+import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoryCategoriesResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
+import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.DataVehicleTransporterResponse
 import com.sa.nafhasehaprovider.interfaces.CheckCategory
+import com.sa.nafhasehaprovider.interfaces.ClickItemFilterService
 import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.CityViewModel
+import kotlinx.android.synthetic.main.bottom_sheet_behavior.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
+    ClickItemFilterService,
+CheckCategory{
 
     override fun getLayoutId(): Int = R.layout.fragment_register
+    private var vehicleTransporterID: Int? =0
     private lateinit var typeAccount: String
     private var IDcity: Int = 0
     private val viewModel: AuthenticationViewModel by viewModel()
 
-
     private val viewModelCity: CityViewModel by viewModel()
     private val viewModelAreas: AreasViewModel by viewModel()
+
+
     lateinit var cityDataSource: ArrayList<CityResponseData>
     lateinit var dropDownCityAdapter: DropDownCityAdapter
     lateinit var dropDownAreasAdapter: DropDownAreasAdapter
     lateinit var areasDataSource: ArrayList<AreasResponseData>
 
     lateinit var categoriesAdapter: CategoriesAdapter
-    lateinit var listCategory: ArrayList<DataCategoriesResponse>
+    lateinit var listCategory: ArrayList<CategoryCategoriesResponse>
 
 
     private var imageFile: File? = null
@@ -74,6 +85,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     private val REQUEST_CODE_CHOOSE = 100
     private var imagePath = ""
 
+    lateinit var vehicleTransporterAdapter: VehicleTransporterAdapter
+    private lateinit var listVehicleTransporter: ArrayList<DataVehicleTransporterResponse>
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,9 +102,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
 
     private fun initResponse() {
+
+        listCategory = ArrayList()
+        categoriesAdapter =
+            CategoriesAdapter(requireActivity(), listCategory,
+                listOf(),mViewDataBinding.constraintVehicleTransporter,this)
+
+
+
         cityDataSource = ArrayList()
         areasDataSource = ArrayList()
-        listCategory = ArrayList()
+        listVehicleTransporter = ArrayList()
+
 
         //apiResponse city
         viewModelCity.city(1, "ALL")
@@ -214,10 +238,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
-                                listCategory.addAll(it.data!!)
-                                categoriesAdapter =
-                                    CategoriesAdapter(requireActivity(), listCategory,
-                                        listOf() )
+                                listCategory.addAll(it.data!!.categories!!)
                                 mViewDataBinding.rvAllService.adapter = categoriesAdapter
 
                             }
@@ -251,6 +272,59 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
             }
         })
+
+
+        // resend response Vehicle Transporter
+        viewModel.getVehicleTransporterResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    showProgress(false)
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+                                //Utilities.showToastSuccess(requireActivity(), it.message)
+                                listVehicleTransporter.addAll(it.data!!)
+                                vehicleTransporterAdapter = VehicleTransporterAdapter(requireActivity(), listVehicleTransporter, this,vehicleTransporterID!!)
+                                mViewDataBinding.rvAllTransportVehicle.adapter = vehicleTransporterAdapter
+                                vehicleTransporterAdapter.notifyDataSetChanged()
+
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.logOutApp(requireActivity())
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+
+                            }
+
+
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
 
 
         //apiResponse register
@@ -314,6 +388,19 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     private fun onClick() {
 
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    // Handle the back button event
+                    val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                    mViewDataBinding.root.findNavController().navigate(action)
+
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
+
+
         mViewDataBinding.spCity.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -331,7 +418,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
             }
 
-
         mViewDataBinding.tvAddress.setOnClickListener {
             Utilities.onPermission(requireActivity())
             startActivityForResult(
@@ -339,12 +425,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             )
         }
 
-
         mViewDataBinding.ivImage.setOnClickListener {
             Utilities.onPermission(requireActivity())
             showDialogImage()
         }
-
 
 
         mViewDataBinding.radioGroupTypeAccount.setOnCheckedChangeListener { group, checkedId ->
@@ -368,6 +452,40 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 homeService = 0
             }
         }
+
+        // استخدام TextWatcher لمراقبة التغييرات في نص المدخل
+        mViewDataBinding.tvMobile.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // لاحاجة لتنفيذ أي شيء هنا
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // لاحاجة لتنفيذ أي شيء هنا
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // تحقق إذا كان أول حرف هو 5 وإذا لم يكن قم بحذفه
+                if (!s.isNullOrEmpty() && s[0] != '5') {
+                    s.delete(0, 1) // حذف الحرف الأول
+                    // عرض رسالة تنبيه للمستخدم
+                    Toast.makeText(requireActivity(), getString(R.string.the_mobile_number_must_start_with_the_number_5), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+
+
+
+
+
+
+//                                for (i in listCategory.indices) {
+//                                    if (listCategory[i].id == categoriesID) {
+//
+////                                        listCategory.add(DataCategoriesResponse(
+////                                            listCategory[i].id, "", null,"",true))
+//                                    }
+//                                }
 
 
         mViewDataBinding.btnCreateAnAccount.setOnClickListener {
@@ -415,6 +533,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     getString(R.string.you_do_not_agree_to_the_terms_and_conditions))
             }
             else {
+
                 viewModel.register(
                     convertToRequestBody(typeAccount),
                     convertToRequestBody(nameProvider),
@@ -429,6 +548,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
                     convertFileToMultipart(imageFile!!, "commercial_register"),
                     convertToRequestBody(homeService.toString()),
+                    convertToRequestBody(vehicleTransporterID!!.toString()),
                     categoriesAdapter.idCategory)
             }
         }
@@ -514,15 +634,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             ImagePicker.with(this) // Crop Image(User can choose Aspect Ratio)
                 .crop() // User can only select image from Gallery
                 .galleryOnly().galleryMimeTypes(
-                    arrayOf<String>(
-                        "image/png", "image/jpg", "image/jpeg"
-                    )
+                    arrayOf<String>("image/png", "image/jpg", "image/jpeg")
                 ) // Image resolution will be less than 1080 x 1920
                 .maxResultSize(500, 500) // .saveDir(getExternalFilesDir(null))
                 .start(GALLERY_IMAGE_REQ_CODE)
             dialogImage.dismiss()
         }
-
 
         val window = dialogImage.window
         window!!.setLayout(
@@ -530,7 +647,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         )
         try {
             dialogImage.show()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception){}
+    }
+    override fun Item(_vehicleTransporterID: Int) {
+        vehicleTransporterID=_vehicleTransporterID
+    }
+    override fun ItemCheck(selected: Boolean) {
+        if (selected == true){
+            viewModel.vehicleTransporter()
+            mViewDataBinding.constraintVehicleTransporter.visibility= View.VISIBLE
+        }
+        else{
+            mViewDataBinding.constraintVehicleTransporter.visibility= View.GONE
+            vehicleTransporterID=0
         }
     }
 

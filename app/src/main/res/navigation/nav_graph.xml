@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_menuOrders_to_bottomSheetDeleteOrderFragment"
             app:destination="@id/bottomSheetDeleteOrderFragment" />
+        <action
+            android:id="@+id/action_menuOrders_to_bottomSheetSubmitReportsFragment"
+            app:destination="@id/bottomSheetSubmitReportsFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuSetting"
@@ -183,6 +186,9 @@
         <action
             android:id="@+id/action_showOrderFragment_to_trackingMapsFragment"
             app:destination="@id/trackingMapsFragment" />
+        <action
+            android:id="@+id/action_showOrderFragment_to_bottomSheetSubmitReportsFragment"
+            app:destination="@id/bottomSheetSubmitReportsFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetAddOfferFragment"
@@ -271,6 +277,14 @@
             android:name="id_order"
             app:argType="integer" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetSubmitReportsFragment"
+        android:name="com.sa.nafhasehaprovider.ui.fragment.dialog.BottomSheetSubmitReportsFragment"
+        android:label="BottomSheetSubmitReportsFragment" >
+        <argument
+            android:name="order_id"
+            app:argType="integer" />
+    </dialog>
 
 
 </navigation>

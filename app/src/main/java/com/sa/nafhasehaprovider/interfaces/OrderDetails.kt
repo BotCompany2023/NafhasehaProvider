@@ -11,4 +11,7 @@ interface OrderDetails {
         orderId:Int,
         userID:Int,orderLat:Float,orderLong:Float,userImage:String,userName:String,userPhone:String,
     distance:String,estimatedTime:String)
+
+    fun submitReports(idOrder: Int)
+
 }

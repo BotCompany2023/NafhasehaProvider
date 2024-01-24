@@ -31,3 +31,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NafhasehaProvider"
 include ':app'
+include ':JingleToast'

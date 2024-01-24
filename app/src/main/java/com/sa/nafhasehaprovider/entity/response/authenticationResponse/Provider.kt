@@ -25,5 +25,6 @@ data class Provider(
     val name: String? =null,
     val phone: String? =null,
     val provider_type: String? =null,
-    val services_from_home: Int? =null
+    val services_from_home: Int? =null,
+    val transporter_id: Int? =null
 )

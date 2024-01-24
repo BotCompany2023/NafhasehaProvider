@@ -25,6 +25,7 @@ import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.EndlessRecyclerViewScrollListener
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.di.ordersViewModel
+import com.sa.nafhasehaprovider.entity.request.acceptOrder.AcceptOrderRequest
 import com.sa.nafhasehaprovider.entity.response.acceptedOrRejectedOfferSocketResponse.AcceptedOrRejectedOfferSocketResponse
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.GetNewOrder
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.ResponseNewOrder
@@ -61,7 +62,7 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
     lateinit var  mActivity:MainActivity
 
     var currentPage : Int = 1
-    var countPage =20
+    var countPage =10
     lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
     private var layoutManager: LinearLayoutManager? = null
 
@@ -94,13 +95,12 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 
         listNewOrderSocket = ArrayList()
         newOrderSocketAdapter = NewOrderSocketAdapter(requireActivity(), listNewOrderSocket, this);
-        mViewDataBinding.rvNewOrderSocket.adapter = newOrderSocketAdapter
+      //  mViewDataBinding.rvNewOrderSocket.adapter = newOrderSocketAdapter
 
         listNewOrder = ArrayList()
         newOrderAdapter = NewOrderAdapter(requireActivity(), listNewOrder, this);
         layoutManager = LinearLayoutManager(requireContext())
         mViewDataBinding.rvNewOrder.layoutManager = layoutManager
-        mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
 
 
 
@@ -111,7 +111,7 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
-
+                    listNewOrder.clear()
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
@@ -145,13 +145,10 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 
 
                                 listNewOrder.addAll(it.data!!.new_orders)
+                                mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
                                 newOrderAdapter.notifyDataSetChanged()
 
-                                if (listNewOrder.size == 0) {
-                                    mViewDataBinding.constraintNoOrder.visibility = View.VISIBLE
-                                } else {
-                                    mViewDataBinding.constraintNoOrder.visibility = View.GONE
-                                }
+//
 
 
 
@@ -262,7 +259,8 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 
                                 val action = HomeFragmentDirections.actionMenuHomeToShowOrderFragment(id_Order)
                                 mActivity.navController!!.navigate(action)
-
+                                val model= AcceptOrderRequest(id_Order)
+                                SocketRepository.onAcceptOrderRequest(model)
 
                             }
                             CODE403 -> {
@@ -399,6 +397,10 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 
     }
 
+    override fun submitReports(idOrder: Int) {
+
+    }
+
 
     fun ConnectToSocket() {
         SocketRepository.socketManager = SocketManager()
@@ -411,11 +413,12 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
     override fun newOrder(model: GetNewOrder) {
         requireActivity().runOnUiThread {
             Log.d("newOrderEE:", "SSFKKFKFF")
-           // listNewOrderSocket.addAll(listOf(model.response))
-            listNewOrderSocket.add(model.response)
-            newOrderSocketAdapter.notifyDataSetChanged()
+//           // listNewOrderSocket.addAll(listOf(model.response))
+//            listNewOrderSocket.add(model.response)
+//            newOrderSocketAdapter.notifyDataSetChanged()
+//            mViewDataBinding.constraintNoOrder.visibility = View.GONE
 
-           // viewModel.home(currentPage,countPage)
+             viewModel.home(currentPage,countPage)
         }
 
     }

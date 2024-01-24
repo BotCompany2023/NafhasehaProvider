@@ -1,8 +1,11 @@
 package com.sa.nafhasehaprovider.ui.fragment.auth.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -145,6 +148,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
 
+
+
+        // استخدام TextWatcher لمراقبة التغييرات في نص المدخل
+        mViewDataBinding.tvMobile.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // لاحاجة لتنفيذ أي شيء هنا
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // لاحاجة لتنفيذ أي شيء هنا
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // تحقق إذا كان أول حرف هو 5 وإذا لم يكن قم بحذفه
+                if (!s.isNullOrEmpty() && s[0] != '5') {
+                    s.delete(0, 1) // حذف الحرف الأول
+                    // عرض رسالة تنبيه للمستخدم
+                    Toast.makeText(requireActivity(), getString(R.string.the_mobile_number_must_start_with_the_number_5), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
         mViewDataBinding.btnLogin.setOnClickListener {
 

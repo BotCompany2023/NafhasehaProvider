@@ -5,6 +5,7 @@ import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.CanceledBy
+import com.sa.nafhasehaprovider.entity.response.ordersResponse.Report
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.User
 
 data class Data(
@@ -21,7 +22,7 @@ data class Data(
     val final_total: String? =null,
     val grand_total: String? =null,
     val id: Int,
-    val images: List<String>? =null,
+    val images: List<Images>? =null,
     val invoice_no: String? =null,
     val lat: String? =null,
     val lat_to: String? =null,
@@ -34,6 +35,7 @@ data class Data(
     val reason: String? =null,
     val service: Service? =null,
     val status: String? =null,
+    val is_report: Boolean? =null,
     val sub_category: String? =null,
     val suggested_price: String? =null,
     val price_type: Int? =null,
@@ -46,7 +48,9 @@ data class Data(
     val type_from: String? =null,
     val type_from_value: String? =null,
     val type_gasoline: String? =null,
+    val is_offer_price: Int? =null,
     val user: User? =null,
     val user_vehicle: UserVehicle? =null,
+    val report: Report? =null,
     val vehicle_transporter: VehicleTransporter? =null
 )

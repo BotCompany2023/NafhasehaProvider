@@ -185,6 +185,12 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.3'
     implementation 'com.github.pramonow:android-endlessrecyclerview:1.0.0'
 
+    //StfalconImageViewer
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
+
+    implementation project(path: ':JingleToast')
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 // Apply the Crashlytics Gradle plugin

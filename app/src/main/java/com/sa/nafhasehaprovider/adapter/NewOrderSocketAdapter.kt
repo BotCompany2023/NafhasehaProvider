@@ -74,6 +74,11 @@ class NewOrderSocketAdapter(
             holder.binding.layoutAction.visibility=View.GONE
             holder.binding.btnAcceptOrder.visibility=View.VISIBLE
         }
+        else if (model.type=="Maintenance")
+        {
+            holder.binding.layoutAction.visibility=View.GONE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
         else{
             holder.binding.layoutAction.visibility=View.VISIBLE
             holder.binding.btnAcceptOrder.visibility=View.GONE

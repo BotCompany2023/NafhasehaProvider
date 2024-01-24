@@ -14,6 +14,7 @@ import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthResponse
 import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoriesResponse
+import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.VehicleTransporterResponse
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,6 +31,7 @@ class AuthenticationViewModel(
     val sendActivationCodeResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val editProfileResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<CategoriesResponse>> =MutableLiveData()
+    val getVehicleTransporterResponse: MutableLiveData<Resource<VehicleTransporterResponse>> = MutableLiveData()
 
 
     init {
@@ -70,6 +72,7 @@ class AuthenticationViewModel(
         city_id: RequestBody,
         commercialRegister: MultipartBody.Part? = null,
         services_from_home: RequestBody,
+        transporter_id: RequestBody,
         categories: List<Int>
     ) {
         if (Utilities.hasInternetConnection()) {
@@ -82,6 +85,7 @@ class AuthenticationViewModel(
                         address,lat,long,city_id,area_id,
                         commercialRegister,
                         services_from_home,
+                        transporter_id,
                         categories)
                 if (response.isSuccessful) {
                     authResponse.postValue(Resource.Success(response.body()!!))
@@ -274,6 +278,7 @@ class AuthenticationViewModel(
         city_id: RequestBody,
         area_id: RequestBody,
         services_from_home: RequestBody,
+        transporter_id: RequestBody,
         categories: List<Int>
     ) {
         if (Utilities.hasInternetConnection()) {
@@ -281,7 +286,7 @@ class AuthenticationViewModel(
             viewModelScope.launch {
                 val response = mainRepo.editProfile(
                     image,provider_type,name,country_id,
-                    phone,email,address,lat,long,city_id,area_id, services_from_home, categories
+                    phone,email,address,lat,long,city_id,area_id, services_from_home,transporter_id, categories
                 )
                 if (response.isSuccessful) {
                     editProfileResponse.postValue(Resource.Success(response.body()!!))
@@ -325,4 +330,24 @@ class AuthenticationViewModel(
 
         })
     }
+
+    fun vehicleTransporter() {
+        if (Utilities.hasInternetConnection()) {
+            getVehicleTransporterResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.getVehicleTransporter()
+                if (response.isSuccessful) {
+                    getVehicleTransporterResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
+
 }

@@ -42,11 +42,12 @@ class MainRepo(private val api: APIEndPoint) {
         area_id: RequestBody,
         commercialRegister: MultipartBody.Part? = null,
         services_from_home: RequestBody,
+        transporter_id: RequestBody,
         categories: List<Int>
     ) = api.register(provider_type,
         name,
         country_id,phone,email,password,address,lat,long,city_id,area_id,commercialRegister,
-        services_from_home,categories)
+        services_from_home,transporter_id,categories)
 
     suspend fun checkPhoneUser(
         phone: String, countryId: Int
@@ -85,10 +86,11 @@ class MainRepo(private val api: APIEndPoint) {
         city_id: RequestBody,
         area_id: RequestBody,
         services_from_home: RequestBody,
+        transporter_id: RequestBody,
         categories: List<Int>
     ) = api.editProfile(
         image,provider_type,name,country_id,
-        phone,email,address,lat,long,city_id,area_id, services_from_home, categories
+        phone,email,address,lat,long,city_id,area_id, services_from_home,transporter_id, categories
     )
 
     suspend fun notification(page: Int, countPaginate: Int) = api.getNotification(page,countPaginate)
@@ -134,10 +136,20 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun cancelOrder(idOrder: Int,cancelReasonId: Int) = api.cancelOrder(idOrder, cancelReasonId)
     suspend fun acceptedOrder(idOrder: Int) = api.acceptedOrder(idOrder)
     suspend fun storeCompletedOrder(idOrder: Int) = api.storeCompletedOrder(idOrder)
+    suspend fun pickUp(idOrder: Int) = api.pickUp(idOrder)
+    suspend fun submitReportsOrder(order_id: RequestBody,
+                                  date_at: RequestBody,
+                                   time_at: RequestBody,
+                                    details: RequestBody,
+                                   price: RequestBody,
+                                   image: List<MultipartBody.Part>) = api.submitReports(order_id, date_at, time_at, details, price,image)
 
 
     suspend fun versionUpdate(deviceType: String, currentVersion: String) =
         api.versionUpdate(deviceType,currentVersion)
+
+
+    suspend fun getVehicleTransporter() = api.getVehicleTransporter()
 
 
 

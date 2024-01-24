@@ -17,7 +17,7 @@ class BottomSheetTimePickerFragment : BaseBottomDialog<FragmentBottomSheetTimePi
     override fun getLayoutId(): Int = R.layout.fragment_bottom_sheet_time_picker
     private lateinit var msg: String
     lateinit var timeListener: DateAndTimeResult
-    private var resultTime: String = ""
+    private  var resultTime: String=""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class BottomSheetTimePickerFragment : BaseBottomDialog<FragmentBottomSheetTimePi
         onClick()
     }
 
-    fun setClickListener(dateListener: DateAndTimeResult) {
+    fun setClickListener(dateListener:DateAndTimeResult) {
         this.timeListener = dateListener
     }
 
@@ -38,15 +38,16 @@ class BottomSheetTimePickerFragment : BaseBottomDialog<FragmentBottomSheetTimePi
 
         mViewDataBinding.btnConfirm.setOnClickListener {
 
-            if (mViewDataBinding.tvResultTime.text.toString().isEmpty()) {
+            if (mViewDataBinding.tvResultTime.text.toString().isEmpty())
+            {
                 Utilities.showToastError(
-                    requireActivity(), getString(R.string.please_select_time)
-                )
-            } else {
-                timeListener.resultTime(mViewDataBinding.tvResultTime.text.toString())
+                    requireActivity(), getString(R.string.please_select_time))
+            }else{
+                timeListener.resultTime( mViewDataBinding.tvResultTime.text.toString())
                 timeListener.resultTime(resultTime)
                 dismiss()
             }
+
 
 
         }
@@ -57,40 +58,45 @@ class BottomSheetTimePickerFragment : BaseBottomDialog<FragmentBottomSheetTimePi
 
         val currentTimeMillis = System.currentTimeMillis()
         val date = Date(currentTimeMillis)
-        val timeFormat = SimpleDateFormat("hh:mm", Locale.ENGLISH)
+        val timeFormat = SimpleDateFormat("HH:MM", Locale.ENGLISH)
         val formattedTime = timeFormat.format(date)
 
         mViewDataBinding.tvResultTime.text = formattedTime
         Log.d("Current time", formattedTime)
 
 
-        mViewDataBinding.timePicker.setOnTimeChangedListener { _, hour, minute ->
-            var hour = hour
-            var am_pm = ""
-            // AM_PM decider logic
-            when {
-                hour == 0 -> {
-                    hour += 12
-                    am_pm = "AM"
-                }
-                hour == 12 -> am_pm = "PM"
-                hour > 12 -> {
-                    hour -= 12
-                    am_pm = "PM"
-                }
-                else -> am_pm = "AM"
-            }
-            if (mViewDataBinding.tvResultTime.text != null) {
-                val hour = if (hour < 10) "0" + hour else hour
-                val min = if (minute < 10) "0" + minute else minute
+        mViewDataBinding.timePicker.setOnTimeChangedListener { _, hour, minute -> var hour = hour
+
+//            var am_pm = ""
+//            // AM_PM decider logic
+//            when {hour == 0 ->
+//            {
+//                hour += 12
+//                am_pm = "AM"
+//            }
+//                hour == 12 ->
+//                    am_pm = "PM"
+//                hour > 12 ->
+//                { hour -= 12
+//                    am_pm = "PM"
+//                }
+//                else -> am_pm = "AM"
+//            }
+            if ( mViewDataBinding.tvResultTime.text != null) {
+                mViewDataBinding.timePicker.is24HourView
+
+                val hour = if (hour < 10) "0$hour" else hour
+               // val min = if (minute < 10) "0" + minute else minute
                 // display format of time
-                msg = "$hour : $min "
+                msg = "$hour:$minute"
                 mViewDataBinding.tvResultTime.text = msg
             }
             resultTime = msg
 
         }
     }
+
+
 
 
 }

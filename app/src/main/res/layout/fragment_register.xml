@@ -16,9 +16,9 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar3"
-            android:background="@color/back_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/back_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -59,8 +59,8 @@
                     android:id="@+id/appCompatTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="@string/service_provider_name_service_center"
@@ -131,9 +131,10 @@
                         android:digits="0123456789"
                         android:hint="500000000"
                         android:inputType="phone|number"
+                        android:maxLength="9"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_12ssp"
                         android:textAlignment="viewStart"
+                        android:textSize="@dimen/_12ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/view"
@@ -330,7 +331,7 @@
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:background="@drawable/shape_text"
@@ -400,11 +401,11 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="@string/choose_the_service"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radio_group_type_account" />
@@ -415,39 +416,74 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:spanCount="2"
-                    android:background="@drawable/shape_text"
                     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/radio_group_type_account"
                     app:layout_constraintStart_toStartOf="@+id/radio_group_type_account"
                     app:layout_constraintTop_toBottomOf="@+id/title_choose_the_service"
+                    app:spanCount="1"
                     tools:listitem="@layout/item_service_selected" />
 
 
-                <TextView
-                    android:id="@+id/title_do_you_have_home_service"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_vehicle_transporter"
                     android:layout_width="0dp"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/do_you_have_home_service"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_all_service" />
+                    app:layout_constraintTop_toBottomOf="@+id/rv_all_service">
+
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/choose_the_surface_type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:background="@color/grey4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_all_transport_vehicle"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view7"
+                        tools:listitem="@layout/item_all_vehicle_transporter" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <CheckBox
                     android:id="@+id/cb_do_you_have_home_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/do_you_have_home_service"
-                    app:layout_constraintStart_toStartOf="@+id/title_do_you_have_home_service"
-                    app:layout_constraintTop_toBottomOf="@+id/title_do_you_have_home_service" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_vehicle_transporter" />
 
 
                 <TextView

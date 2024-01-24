@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.ui.fragment.main.orders
 
+import android.media.Image
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,9 @@ import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.FragmentShowOrderBinding
 import com.sa.nafhasehaprovider.di.ordersViewModel
+import com.sa.nafhasehaprovider.entity.request.acceptOrder.AcceptOrderRequest
+import com.sa.nafhasehaprovider.entity.response.showOrderResponse.Images
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.ui.fragment.main.home.HomeFragmentDirections
 import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
@@ -45,7 +49,7 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
 
     lateinit var imageOrderDetailsAdapter: ImageOrderDetailsAdapter
-    lateinit var listImage: ArrayList<String>
+    lateinit var listImage: ArrayList<Images>
 
     lateinit var positionOrderDetailsAdapter: PositionOrderDetailsAdapter
     lateinit var listPosition: ArrayList<String>
@@ -122,29 +126,55 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     mViewDataBinding.btnOffer.text=getString(R.string.offer)
 
                                 }
-
-
                                 //Maintenance >>صيانة
                                 //PeriodicInspection >> الفحص الدوري
                                 //VehicleBarrier >>حواجز سيارات
                                 //TransportVehicle >>سطحة
                                 //s >>استشاره الاعطال
 
-                                if (it.data!!.type == "TransportVehicle") {
+                                if (it.data!!.type == "TransportVehicle" && it.data.is_offer_price == 0) {
+                                    mViewDataBinding.constraintDeliveryLocation.visibility =
+                                        View.VISIBLE
+                                    mViewDataBinding.btnOffer.visibility = View.GONE
+                                    mViewDataBinding.btnAcceptOrder.visibility = View.VISIBLE
+                                    mViewDataBinding.constraintDataCar.visibility = View.VISIBLE
+                                    mViewDataBinding.tvNameCategory.visibility = View.GONE
+
+                                    if (it.data.vehicle_transporter!=null){
+                                        Utilities.onLoadImageFromUrl(
+                                            requireActivity(),
+                                            it.data.vehicle_transporter!!.image!!,
+                                            mViewDataBinding.ivLogoCar
+                                        )
+
+                                        mViewDataBinding.tvNameCar.text =
+                                            it.data.vehicle_transporter.title!!
+                                    }
+
+
+
+                                }
+                                else if (it.data!!.type == "TransportVehicle") {
                                     mViewDataBinding.constraintDeliveryLocation.visibility =
                                         View.VISIBLE
                                     mViewDataBinding.constraintDataCar.visibility = View.VISIBLE
                                     mViewDataBinding.tvNameCategory.visibility = View.GONE
 
-                                    Utilities.onLoadImageFromUrl(
-                                        requireActivity(),
-                                        it.data.vehicle_transporter!!.image!!,
-                                        mViewDataBinding.ivLogoCar
-                                    )
-                                    mViewDataBinding.tvNameCar.text =
-                                        it.data.vehicle_transporter.title!!
+                                    if (it.data.vehicle_transporter!=null){
+                                        Utilities.onLoadImageFromUrl(
+                                            requireActivity(),
+                                            it.data.vehicle_transporter!!.image!!,
+                                            mViewDataBinding.ivLogoCar
+                                        )
 
-                                } else if (it.data.type == "PeriodicInspection") {
+                                        mViewDataBinding.tvNameCar.text =
+                                            it.data.vehicle_transporter.title!!
+                                    }
+
+
+
+                                }
+                                else if (it.data.type == "PeriodicInspection") {
                                     mViewDataBinding.constraintDataCar.visibility = View.VISIBLE
                                     mViewDataBinding.tvNameCategory.visibility = View.VISIBLE
                                     mViewDataBinding.tvModelCar.visibility = View.VISIBLE
@@ -167,6 +197,40 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                         it.data.user_vehicle!!.vehicle_model!!.title
 
                                 }
+                                else if (it.data.type == "Maintenance") {
+                                    mViewDataBinding.constraintDataCar.visibility = View.VISIBLE
+                                    mViewDataBinding.tvNameCategory.visibility = View.VISIBLE
+                                    mViewDataBinding.tvModelCar.visibility = View.VISIBLE
+                                    mViewDataBinding.tvNameCategory.visibility = View.GONE
+                                    mViewDataBinding.tvAddress.text = it.data.user!!.address
+                                    mViewDataBinding.tvCategoryCar.visibility=View.VISIBLE
+                                    mViewDataBinding.btnOffer.visibility=View.GONE
+                                    mViewDataBinding.btnAcceptOrder.visibility=View.VISIBLE
+
+                                    Utilities.onLoadImageFromUrl(
+                                        requireActivity(),
+                                        it.data.user_vehicle!!.first_image!!,
+                                        mViewDataBinding.ivLogoCar)
+                                    mViewDataBinding.tvNameCar.text =
+                                        it.data.user_vehicle!!.vehicle_type!!.title
+                                    mViewDataBinding.tvCategoryCar.text =
+                                        it.data.user_vehicle!!.vehicle_model!!.vehicle_brand!!.title
+                                    mViewDataBinding.tvModelCar.text =
+                                        it.data.user_vehicle!!.vehicle_model!!.title
+
+                                    listImage = ArrayList()
+                                    imageOrderDetailsAdapter =
+                                        ImageOrderDetailsAdapter(requireActivity(), listImage)
+                                    listImage.addAll(it.data.images!!)
+                                    mViewDataBinding.rvHolidayPhotos.adapter = imageOrderDetailsAdapter
+                                    imageOrderDetailsAdapter.notifyDataSetChanged()
+
+                                    if (listImage.size !=0)
+                                    {
+                                        mViewDataBinding.constraintHolidayPhotos.visibility = View.VISIBLE
+
+                                    }
+                                }
                                 else if (it.data.type == "Petrol") {
                                     mViewDataBinding.tvNameCategory.visibility = View.GONE
                                     mViewDataBinding.constraintPetrol.visibility=View.VISIBLE
@@ -174,6 +238,17 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     mViewDataBinding.tvAmount.text=""+ it.data!!.price_type+ getString(R.string.sr)
 
                                 }
+                                else if (it.data.type == "ChangeBattery") {
+                                    mViewDataBinding.constraintTypeBattery.visibility = View.VISIBLE
+                                    mViewDataBinding.tvTypeBattery.text =
+                                        it.data.type_battery!!.title
+                                    mViewDataBinding.tvNameCategory.visibility=View.GONE
+                                }
+                                else if (it.data.type == "SubscriptionBattery") {
+                                    mViewDataBinding.tvNameCategory.text =
+                                        "( " + getString(R.string.battery_subscription)+ " )"
+                                }
+
                                 Utilities.onLoadImageFromUrl(
                                     requireActivity(),
                                     it.data!!.user!!.image,
@@ -195,7 +270,12 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     getString(R.string.code) + " : " + it.data!!.invoice_no
                                 mViewDataBinding.tvComments.text = it.data!!.details
 
-                                mViewDataBinding.tvPaymentStatus.text = it.data!!.payment_method
+                                if (it.data!!.payment_method !=null){
+                                    mViewDataBinding.titlePaymentStatus.visibility =View.VISIBLE
+                                    mViewDataBinding.tvPaymentStatus.visibility =View.VISIBLE
+                                    mViewDataBinding.tvPaymentStatus.text = it.data!!.payment_method
+
+                                }
 
                                 if (it.data!!.details == null)
                                 {
@@ -219,29 +299,68 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
 
                                  }
-                                     else if (it.data.status == "pending") {
-                                        mViewDataBinding.linearAction.visibility=View.VISIBLE
-                                        mViewDataBinding.tvTotelPrice.text =
+
+                                 else if (it.data.status == "pending" && it.data.type == "Maintenance") {
+                                        mViewDataBinding.linearAction.visibility=View.GONE
+                                        mViewDataBinding.constraintExpectedPrice.visibility=View.GONE
+                                     mViewDataBinding.btnOffer.visibility=View.GONE
+                                     mViewDataBinding.btnAcceptOrder.visibility=View.VISIBLE
+                                     mViewDataBinding.tvTotelPrice.text =
                                             it.data!!.suggested_price + getString(R.string.sar)
                                         mViewDataBinding.titleExpectedPrice.text =getString(R.string.starting_price)
                                      mViewDataBinding.tvStatus.text = getString(R.string.news)
 
 
-                                 } else if (it.data.status == "approved") {
-                                    mViewDataBinding.cvMap.visibility=View.VISIBLE
-                                    mViewDataBinding.btnFinishOrder.visibility=View.VISIBLE
-                                    mViewDataBinding.btnReject.visibility=View.VISIBLE
-                                    mViewDataBinding.linearAction.visibility=View.GONE
-                                    mViewDataBinding.tvTotelPrice.text =
-                                        it.data!!.final_total + getString(R.string.sar)
+                                 }
 
-                                    mViewDataBinding.titleExpectedPrice.text =getString(R.string.total_price)
+                                 else if (it.data.status == "pending") {
+                                     mViewDataBinding.linearAction.visibility=View.VISIBLE
+                                     mViewDataBinding.tvTotelPrice.text =
+                                         it.data!!.suggested_price + getString(R.string.sar)
+                                     mViewDataBinding.titleExpectedPrice.text =getString(R.string.starting_price)
+                                     mViewDataBinding.tvStatus.text = getString(R.string.news)
+
+
+                                 }
+
+
+                                 else if (it.data.status == "approved") {
+                                     mViewDataBinding.cvMap.visibility=View.VISIBLE
+                                     mViewDataBinding.btnFinishOrder.visibility=View.VISIBLE
+                                     mViewDataBinding.btnReject.visibility=View.VISIBLE
+                                     mViewDataBinding.linearAction.visibility=View.GONE
+                                     mViewDataBinding.tvTotelPrice.text =
+                                         it.data!!.final_total + getString(R.string.sar)
+                                     mViewDataBinding.titleExpectedPrice.text =getString(R.string.total_price)
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
                                      mViewDataBinding.tvStatus.text = getString(R.string.approved)
 
+                                     if (it.data.type == "Maintenance")
+                                     {
+                                         mViewDataBinding.constraintStatusMessage.visibility=View.VISIBLE
+                                         mViewDataBinding.constraintExpectedPrice.visibility=View.GONE
+                                         mViewDataBinding.cvMap.visibility=View.GONE
+                                         mViewDataBinding.btnFinishOrder.visibility=View.GONE
+                                         mViewDataBinding.btnReject.visibility=View.GONE
+                                         mViewDataBinding.linearAction.visibility=View.GONE
+                                         mViewDataBinding.tvTotelPrice.text =
+                                             it.data!!.final_total + getString(R.string.sar)
+                                         mViewDataBinding.titleExpectedPrice.text =getString(R.string.total_price)
+                                         mViewDataBinding.btnAcceptOrder.visibility=View.GONE
+                                         mViewDataBinding.tvStatus.text = getString(R.string.approved)
 
+                                     }
+                                     else  if (it.data.type == "TransportVehicle")
+                                     {
+                                         mViewDataBinding.btnFinishOrder.visibility=View.GONE
+                                         mViewDataBinding.btnTheCarMet.visibility=View.VISIBLE
+                                         mViewDataBinding.btnReject.visibility=View.VISIBLE
+                                         mViewDataBinding.tvStatus.text = getString(R.string.the_client_is_waiting)
 
-                                 } else if (it.data.status == "completed") {
+                                     }
+
+                                 }
+                                 else if (it.data.status == "completed") {
                                     mViewDataBinding.btnFinishOrder.visibility=View.GONE
                                     mViewDataBinding.linearAction.visibility=View.GONE
                                      mViewDataBinding.btnReject.visibility=View.GONE
@@ -261,6 +380,45 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                     mViewDataBinding.linearAction.visibility=View.GONE
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
                                      mViewDataBinding.tvStatus.text = getString(R.string.canceled)
+                                 }
+
+                                 else if (it.data.status == "PickUp") {
+
+                                     if (it.data.type == "Maintenance")
+                                     {
+                                         mViewDataBinding.btnSubmitReports.visibility=View.VISIBLE
+                                         mViewDataBinding.constraintExpectedPrice.visibility=View.GONE
+
+                                         if (it.data.is_report==true)
+                                         {
+                                             mViewDataBinding.tvStatus.setBackgroundResource(R.drawable.shape_pending)
+                                             mViewDataBinding.tvStatus.text = getString(R.string.waiting_for_customer_approval)
+                                             mViewDataBinding.btnSubmitReports.visibility=View.GONE
+                                             mViewDataBinding.btnOffer.visibility=View.GONE
+                                             mViewDataBinding.btnAcceptOrder.visibility=View.GONE
+
+                                             if (it.data.report!!.status=="Accept")
+                                             {
+                                                 mViewDataBinding.btnFinishOrder.visibility=View.VISIBLE
+                                                 mViewDataBinding.tvStatus.text =getString(R.string.under_maintenance)
+
+                                                 mViewDataBinding.constraintExpectedPrice.visibility=View.VISIBLE
+                                                 mViewDataBinding.tvTotelPrice.text =
+                                                     it.data!!.report!!.price + getString(R.string.sar)
+                                                 mViewDataBinding.titleExpectedPrice.text =getString(R.string.cost_of_maintenance) +" : "
+                                             }
+                                         }
+                                     }
+                                     else{
+                                         mViewDataBinding.tvStatus.text = getString(R.string.the_car_is_being_moved)
+                                         mViewDataBinding.cvMap.visibility=View.VISIBLE
+                                         mViewDataBinding.btnFinishOrder.visibility=View.VISIBLE
+                                         mViewDataBinding.btnTheCarMet.visibility=View.GONE
+                                         mViewDataBinding.tvTotelPrice.text =
+                                             it.data!!.final_total!! + getString(R.string.sar)
+                                         mViewDataBinding.titleExpectedPrice.text =getString(R.string.service_cost) +" : "
+                                     }
+
                                  }
 
                         }
@@ -313,6 +471,9 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                             CODE200 ->
                             {
                                 viewModel.showOrder(idOrder)
+                               val model= AcceptOrderRequest(idOrder)
+                                SocketRepository.onAcceptOrderRequest(model)
+
                             }
                             CODE403 -> {
                                 //unAuthorized()
@@ -403,6 +564,57 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
 
 
+        //response pickUpResponse
+        viewModel.pickUpResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // dismiss loading
+                    showProgress(false)
+
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 ->
+                            {
+                                viewModel.showOrder(idOrder)
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.showToastError(requireActivity(), it.message)
+                                Utilities.logOutApp(requireActivity())
+
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
+
+
     }
 
 
@@ -410,7 +622,10 @@ private fun onClick() {
 
 
     mViewDataBinding.ivBack.setOnClickListener {
-        mainActivity!!.navController!!.popBackStack()
+        //mainActivity!!.navController!!.popBackStack()
+        val action =
+            ShowOrderFragmentDirections.actionShowOrderFragmentToMenuHome()
+        mViewDataBinding.root.findNavController().navigate(action)
     }
 
 
@@ -448,6 +663,18 @@ private fun onClick() {
     mViewDataBinding.btnFinishOrder.setOnClickListener {
      viewModel.storeCompletedOrder(idOrder)
     }
+
+    mViewDataBinding.btnSubmitReports.setOnClickListener {
+        val action = ShowOrderFragmentDirections
+            .actionShowOrderFragmentToBottomSheetSubmitReportsFragment(idOrder)
+        mViewDataBinding.root.findNavController().navigate(action)
+
+    }
+
+    mViewDataBinding.btnTheCarMet.setOnClickListener {
+        viewModel.pickUp(idOrder)
+    }
+
 }
 
 

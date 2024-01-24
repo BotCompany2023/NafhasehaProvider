@@ -98,6 +98,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:inputType="phone|number"
                     android:padding="@dimen/_10sdp"
+                    android:maxLength="9"
                     android:textAlignment="viewStart"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

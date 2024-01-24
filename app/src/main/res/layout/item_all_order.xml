@@ -12,7 +12,7 @@
         app:cardElevation="@dimen/_1sdp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_8sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp">
 
@@ -157,6 +157,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_submit_reports"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shape_bottom"
+                android:fontFamily="@font/tajawal_bold"
+                android:text="@string/submit_reports"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_tracking" />
+
+
 
             <LinearLayout
                 android:visibility="gone"

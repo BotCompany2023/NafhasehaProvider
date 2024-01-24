@@ -14,6 +14,8 @@ import com.sa.nafhasehaprovider.entity.response.ordersResponse.OrdersResponse
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.ShowOrderResponse
 import com.sa.nafhasehaprovider.ui.repository.MainRepo
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class OrdersViewModel(
     private val sharedPreferences: PreferencesUtils, private val mainRepo: MainRepo
@@ -27,6 +29,8 @@ class OrdersViewModel(
     val cancelOrderResponse: MutableLiveData<Resource<CancelOrderResponse>> = MutableLiveData()
     val acceptedOrderResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val storeCompletedOrderResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
+    val pickUpResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
+    val submitReportsOrderResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
 
 
     fun ordersApproved(page: Int, countPaginate: Int) {
@@ -168,6 +172,48 @@ class OrdersViewModel(
                 val response = mainRepo.storeCompletedOrder(idOrder)
                 if (response.isSuccessful) {
                     storeCompletedOrderResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
+    fun pickUp(idOrder: Int) {
+        if (Utilities.hasInternetConnection()) {
+            pickUpResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.pickUp(idOrder)
+                if (response.isSuccessful) {
+                    pickUpResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Resource.Error(response.message())
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
+
+    fun submitReports(order_id: RequestBody,
+                      date_at: RequestBody,
+                      time_at: RequestBody,
+                      details: RequestBody,
+                      price: RequestBody,
+                      image: List<MultipartBody.Part>) {
+        if (Utilities.hasInternetConnection()) {
+            submitReportsOrderResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.submitReportsOrder(order_id, date_at, time_at, details, price, image)
+                if (response.isSuccessful) {
+                    submitReportsOrderResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully
                     Log.i("TestLoginterVM", "${response.body()}")
                 } else {

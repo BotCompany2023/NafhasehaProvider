@@ -19,6 +19,7 @@ import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.CategoriesAdapter
 import com.sa.nafhasehaprovider.adapter.DropDownAreasAdapter
 import com.sa.nafhasehaprovider.adapter.DropDownCityAdapter
+import com.sa.nafhasehaprovider.adapter.VehicleTransporterAdapter
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
@@ -31,8 +32,11 @@ import com.sa.nafhasehaprovider.common.util.Utilities.Companion.showToastError
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.showToastSuccess
 import com.sa.nafhasehaprovider.databinding.FragmentAccountBinding
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
-import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
+import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoryCategoriesResponse
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
+import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.DataVehicleTransporterResponse
+import com.sa.nafhasehaprovider.interfaces.CheckCategory
+import com.sa.nafhasehaprovider.interfaces.ClickItemFilterService
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
@@ -43,9 +47,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
-class AccountFragment : BaseFragment<FragmentAccountBinding>() {
+class AccountFragment : BaseFragment<FragmentAccountBinding>() , ClickItemFilterService,
+    CheckCategory{
 
     override fun getLayoutId(): Int = R.layout.fragment_account
+
+    private lateinit var imageCheck: ImageView
+    private var vehicleTransporterID: Int =0
 
     private lateinit var idss: ArrayList<Int>
     private var imageFile: File? = null
@@ -69,10 +77,13 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     var areasDataSource = ArrayList<AreasResponseData>()
 
     lateinit var categoriesAdapter: CategoriesAdapter
-    lateinit var listCategory: ArrayList<DataCategoriesResponse>
+    lateinit var listCategory: ArrayList<CategoryCategoriesResponse>
+
+    lateinit var vehicleTransporterAdapter: VehicleTransporterAdapter
+    private lateinit var listVehicleTransporter: ArrayList<DataVehicleTransporterResponse>
 
 
-     var addressStr: String=""
+    var addressStr: String=""
     lateinit var city: String
     var lat = 0.0
     var lon: Double = 0.0
@@ -102,6 +113,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     private fun initResponse() {
         listCategory = ArrayList()
+        listVehicleTransporter = ArrayList()
         idss = ArrayList()
 
         //apiResponse city
@@ -233,8 +245,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
-                                listCategory.addAll(it.data!!)
-                                viewModelAuth.getProfile()
+                                listCategory.addAll(it.data!!.categories!!)
+
 //                                categoriesAdapter =
 //                                    CategoriesAdapter(requireActivity(), listCategory,
 //                                         listOf(),  //it.data?.provider?.categories ?:
@@ -280,7 +292,61 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         })
 
 
+        // resend response Vehicle Transporter
+        viewModelAuth.getVehicleTransporterResponse.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Resource.Success -> {
+                    showProgress(false)
+                    result.data?.let { it ->
+                        when (it.code) {
+                            CODE200 -> {
+                                //Utilities.showToastSuccess(requireActivity(), it.message)
+                                listVehicleTransporter.addAll(it.data!!)
+                                vehicleTransporterAdapter = VehicleTransporterAdapter(requireActivity(), listVehicleTransporter, this,vehicleTransporterID!!)
+                                mViewDataBinding.rvAllTransportVehicle.adapter = vehicleTransporterAdapter
+                                vehicleTransporterAdapter.notifyDataSetChanged()
+
+                            }
+                            CODE403 -> {
+                                //unAuthorized()
+                                Utilities.logOutApp(requireActivity())
+                            }
+                            CODE405 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+
+                            }
+                            CODE500 -> {
+                                Utilities.showToastError(requireActivity(), it.message)
+                            }
+                            else -> {
+
+                            }
+
+
+                        }
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    // dismiss loading
+                    showProgress(false)
+                    Log.i("TestVerification", "error")
+
+                }
+                is Resource.Loading -> {
+                    // show loading
+                    Log.i("TestVerification", "loading")
+                    showProgress(true)
+
+                }
+            }
+        })
+
+
+
         // apiResponse getProfile
+        viewModelAuth.getProfile()
         viewModelAuth.authResponse.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Success -> {
@@ -291,22 +357,18 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                             // dismiss loading
                             CODE200 -> {
 
-//                                for (i in  it.data?.provider?.categories!!.indices)
-//                                {
-//                                    var idCa=it.data?.provider?.categories!!.get(i).id
-//                                    ids.add(idCa)
-//                                }
-//                                Log.d("TAG_IDES", "initResponse: $ids")
+                                viewModelAuth.vehicleTransporter()
+                                viewModel.city(1, "ALL")
+
+
+                                vehicleTransporterID=it.data!!.provider!!.transporter_id!!
 
 
                                 categoriesAdapter =
                                     CategoriesAdapter(requireActivity(), listCategory,
-                                        it.data?.provider?.categories ?:   listOf())
+                                        it.data?.provider?.categories ?:listOf(),mViewDataBinding.constraintVehicleTransporter,this)
                                 mViewDataBinding.rvAllService.adapter = categoriesAdapter
                                 categoriesAdapter.notifyDataSetChanged()
-
-                                viewModel.city(1, "ALL")
-
 
                                 //showToastSuccess(requireActivity(), it.message)
                                 if ( it.data!!.provider!!.image !=null){
@@ -341,6 +403,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
                                 } catch (e: Exception) {
                                 }
+
+
 
                             }
                             CODE403 -> {
@@ -555,10 +619,13 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                     {
                         idss.add(categoriesAdapter.listCategory[i].id)
                     }
-                }
-//                categoriesAdapter.listCategory.forEach{
+//                    else  if (categoriesAdapter.listCategory[i].id != 8)
+//                    {
+//                        vehicleTransporterID=0
+//                    }
 
-//                }
+                }
+
 
                 Log.d("TAG_IDES", "initResponse 2: $idss")
 
@@ -575,6 +642,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                     convertToRequestBody(IDcity.toString()),
                     convertToRequestBody(IDarea.toString()),
                     convertToRequestBody(homeService.toString()),
+                    convertToRequestBody(vehicleTransporterID!!.toString()),
                     idss)
             }
         }
@@ -720,6 +788,21 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
     }
 
+    override fun Item(_vehicleTransporterID: Int) {
+        vehicleTransporterID=_vehicleTransporterID
+
+    }
+
+
+    override fun ItemCheck(selected: Boolean) {
+        if (selected == true){
+            mViewDataBinding.constraintVehicleTransporter.visibility= View.VISIBLE
+        }
+        else{
+            mViewDataBinding.constraintVehicleTransporter.visibility= View.GONE
+            vehicleTransporterID=0
+        }
+    }
 
 
 }

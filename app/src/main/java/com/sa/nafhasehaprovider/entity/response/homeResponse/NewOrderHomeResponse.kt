@@ -31,5 +31,6 @@ data class NewOrderHomeResponse(
     val price_request: Int? =null,
     val price_type: Int? =null,
     val type_from: String? =null,
+    val is_offer_price: Int? =null,
     val type_from_value: String? =null
 )

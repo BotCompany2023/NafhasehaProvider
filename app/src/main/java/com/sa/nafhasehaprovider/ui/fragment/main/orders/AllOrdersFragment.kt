@@ -222,5 +222,11 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
         mViewDataBinding.root.findNavController().navigate(action)
     }
 
+    override fun submitReports(idOrder: Int) {
+        val action = AllOrdersFragmentDirections.
+        actionMenuOrdersToBottomSheetSubmitReportsFragment(idOrder)
+        mViewDataBinding.root.findNavController().navigate(action)
+    }
+
 
 }

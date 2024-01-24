@@ -174,6 +174,7 @@ class SocketManager {
     }
 
 
+
     /**
      * close socket and disconnect to socket and set socket and listener to null
      */

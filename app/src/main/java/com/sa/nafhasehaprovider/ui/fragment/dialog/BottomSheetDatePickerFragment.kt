@@ -11,7 +11,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BottomSheetDatePickerFragment : BaseBottomDialog<FragmentBottomSheetDatePickerBinding>() {
+class BottomSheetDatePickerFragment :
+    BaseBottomDialog<FragmentBottomSheetDatePickerBinding>() {
 
     private var resultDate: String = ""
     lateinit var dataListener: DateAndTimeResult
@@ -60,7 +61,6 @@ class BottomSheetDatePickerFragment : BaseBottomDialog<FragmentBottomSheetDatePi
             mViewDataBinding.tvResultDate.text =
                 year.toString() + "/" + (month + 1) + "/" + dayOfMonth
             resultDate = year.toString() + "/" + (month + 1) + "/" + dayOfMonth
-
         })
 
 

@@ -11,11 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.ItemAllOrderBinding
-import com.sa.nafhasehaprovider.databinding.ItemTransactionsBinding
-import com.sa.nafhasehaprovider.entity.response.getNewOrder.ResponseNewOrder
-import com.sa.nafhasehaprovider.entity.response.homeResponse.DataHomeResponse
 import com.sa.nafhasehaprovider.entity.response.homeResponse.NewOrderHomeResponse
-import com.sa.nafhasehaprovider.entity.response.walletResponse.DebitWalletResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 import java.util.*
 
@@ -84,11 +80,28 @@ class NewOrderAdapter(
             holder.binding.layoutAction.visibility=View.GONE
             holder.binding.btnAcceptOrder.visibility=View.VISIBLE
         }
+        else if (model.type=="Maintenance")
+        {
+            holder.binding.tvPrice.text = model.final_total +" "+context.getString(R.string.sar)
+            holder.binding.layoutAction.visibility=View.GONE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
         else if(model.type=="Petrol"){
             holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)
             holder.binding.layoutAction.visibility=View.VISIBLE
             holder.binding.btnAcceptOrder.visibility=View.GONE
         }
+        else if(model.type=="TransportVehicle" && model.is_offer_price== 0){
+            holder.binding.layoutAction.visibility=View.GONE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+        }
+
+        else if(model.type=="TransportVehicle"){
+            holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)
+            holder.binding.layoutAction.visibility=View.VISIBLE
+            holder.binding.btnAcceptOrder.visibility=View.GONE
+        }
+
         else{
             holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)
             holder.binding.layoutAction.visibility=View.VISIBLE

@@ -3,30 +3,21 @@ package com.sa.nafhasehaprovider.ui.fragment.dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseBottomDialog
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
 import com.sa.nafhasehaprovider.databinding.FragmentBottomSheetAddOfferBinding
-import com.sa.nafhasehaprovider.databinding.FragmentBottomSheetRatingBinding
+import com.sa.nafhasehaprovider.entity.request.acceptOrder.AcceptOrderRequest
 import com.sa.nafhasehaprovider.entity.request.sendOffer.SendOfferRequest
-import com.sa.nafhasehaprovider.entity.response.sockeEmmitModel.TrackerLocation
 import com.sa.nafhasehaprovider.interfaces.SuccessEmit
 import com.sa.nafhasehaprovider.network.soketManager.SocketManager
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
-import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.ConnectToSocket
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
-import com.sa.nafhasehaprovider.ui.fragment.auth.login.LoginFragmentDirections
-import com.sa.nafhasehaprovider.ui.fragment.main.orders.ShowOrderFragmentArgs
 import com.sa.nafhasehaprovider.viewModels.OrdersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.text.Typography.quote
 
 
 class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOfferBinding>() ,

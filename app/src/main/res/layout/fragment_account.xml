@@ -105,383 +105,453 @@
                     app:layout_constraintTop_toBottomOf="@+id/iv_image_user" />
 
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/service_provider_name_service_center"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_upload_image" />
-
-                <EditText
-                    android:id="@+id/tv_name"
-                    style="@style/editText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
-                    android:inputType="text" />
-
-
-                <TextView
-                    android:id="@+id/title_mobile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/mobile"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout_mobile"
                     android:layout_width="match_parent"
-                    android:background="@drawable/shape_text"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_16sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_mobile" >
+                    app:layout_constraintTop_toBottomOf="@+id/iv_upload_image">
 
-                    <View
-                        android:id="@+id/view"
-                        android:layout_width="@dimen/_1sdp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:background="@color/shape_border"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/appCompatTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/service_provider_name_service_center"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/tv_mobile"
+                        android:id="@+id/tv_name"
+                        style="@style/editText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:digits="0123456789"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:hint="05"
-                        android:inputType="phone|number"
-                        android:padding="@dimen/_8sdp"
+                        android:inputType="text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+
+                    <TextView
+                        android:id="@+id/title_mobile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/mobile"
                         android:textAlignment="viewStart"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/view"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sa"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                <TextView
-                    android:id="@+id/title_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/email"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout_mobile" />
-
-
-
-
-                <EditText
-                    style="@style/editText"
-                    android:id="@+id/tv_email"
-                    android:layout_width="0dp"
-                    android:textAlignment="viewStart"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/tajawal_medium"
-                    android:inputType="textEmailAddress"
-                    android:hint="@string/optional"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_email" />
-
-
-                <TextView
-                    android:id="@+id/title_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/address"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_email" />
-
-
-                <TextView
-                    style="@style/editText"
-                    android:id="@+id/tv_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:lines="1"
-                    android:ellipsize="end"
-                    android:drawablePadding="@dimen/_12sdp"
-                    android:drawableEnd="@drawable/ic_marker"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_address"
-                    android:focusable="true" />
-
-
-
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.50" />
-
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutCity"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/title_city" />
-
-                <TextView
-                    android:id="@+id/title_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/city"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toStartOf="@+id/view1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_address" />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayoutCity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:background="@drawable/shape_text"
-                    app:layout_constraintEnd_toStartOf="@+id/view1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_city">
-
-
-                    <Spinner
-                        android:id="@+id/sp_city"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:padding="@dimen/_5sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <TextView
-                    android:id="@+id/title_district"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/district"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view1"
-                    app:layout_constraintTop_toTopOf="@+id/title_city" />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayoutDistrict"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:background="@drawable/shape_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view1"
-                    app:layout_constraintTop_toBottomOf="@+id/title_district">
-
-
-                    <Spinner
-                        android:id="@+id/sp_areas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/shape_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/title_mobile">
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:background="@color/shape_border"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/tv_mobile"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:background="@null"
+                            android:digits="0123456789"
+                            android:hint="500000000"
+                            android:inputType="phone|number"
+                            android:maxLength="9"
+                            android:enabled="false"
+                            android:padding="@dimen/_10sdp"
+                            android:textAlignment="viewStart"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/view"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/sa"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/title_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/email"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_mobile" />
+
+
+                    <EditText
+                        android:id="@+id/tv_email"
+                        style="@style/editText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_email" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.50" />
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutCity"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline"
+                        app:layout_constraintStart_toStartOf="@+id/guideline"
+                        app:layout_constraintTop_toTopOf="@+id/title_city" />
+
+                    <TextView
+                        android:id="@+id/title_city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/city"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toStartOf="@+id/view1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutCity"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:background="@drawable/shape_text"
+                        app:layout_constraintEnd_toStartOf="@+id/view1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_city">
+
+
+                        <Spinner
+                            android:id="@+id/sp_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/title_district"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/district"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/view1"
+                        app:layout_constraintTop_toTopOf="@+id/title_city" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutDistrict"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/shape_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/view1"
+                        app:layout_constraintTop_toBottomOf="@+id/title_district">
+
+
+                        <Spinner
+                            android:id="@+id/sp_areas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/title_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/address"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutCity" />
+
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/shape_text"
+                        android:drawableEnd="@drawable/ic_marker"
+                        android:drawablePadding="@dimen/_12sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/_12sdp"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_address" />
+
+
+                    <TextView
+                        android:id="@+id/title_type_account"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/account_type"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+
+                    <RadioGroup
+                        android:id="@+id/radio_group_type_account"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_address"
+                        app:layout_constraintStart_toStartOf="@+id/tv_address"
+                        app:layout_constraintTop_toBottomOf="@+id/title_type_account">
+
+                        <RadioButton
+                            android:id="@+id/radio_center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/center" />
+
+
+                        <RadioButton
+                            android:id="@+id/radio_person"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_24sdp"
+                            android:text="@string/person" />
+
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:id="@+id/title_choose_the_service"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/choose_the_service"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/radio_group_type_account" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_all_service"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@+id/radio_group_type_account"
+                        app:layout_constraintStart_toStartOf="@+id/radio_group_type_account"
+                        app:layout_constraintTop_toBottomOf="@+id/title_choose_the_service"
+                        app:spanCount="1"
+                        tools:listitem="@layout/item_service_selected" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_vehicle_transporter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_all_service">
+
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/choose_the_surface_type"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <View
+                            android:id="@+id/view7"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:background="@color/grey4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_all_transport_vehicle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view7"
+                            tools:listitem="@layout/item_all_vehicle_transporter" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <CheckBox
+                        android:id="@+id/cb_do_you_have_home_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@string/do_you_have_home_service"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraint_vehicle_transporter" />
+
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        style="@style/bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_24sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:text="@string/update"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cb_do_you_have_home_service" />
+
+
+                    <!--            <TextView-->
+                    <!--                android:id="@+id/title"-->
+                    <!--                android:layout_width="wrap_content"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginTop="@dimen/_8sdp"-->
+                    <!--                android:fontFamily="@font/tajawal_medium"-->
+                    <!--                android:text="@string/already_have_an_account"-->
+                    <!--                android:textColor="@color/grey2"-->
+                    <!--                android:textSize="@dimen/_14ssp"-->
+                    <!--                app:layout_constraintStart_toStartOf="@+id/btn_create_an_account"-->
+                    <!--                app:layout_constraintTop_toBottomOf="@+id/btn_create_an_account" />-->
+
+
+                    <!--            <TextView-->
+                    <!--                android:id="@+id/tv_sign_in"-->
+                    <!--                android:layout_width="wrap_content"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginStart="@dimen/_4sdp"-->
+                    <!--                android:fontFamily="@font/tajawal_medium"-->
+                    <!--                android:text="@string/sign_in"-->
+                    <!--                android:textColor="@color/appColor"-->
+                    <!--                android:textSize="@dimen/_14ssp"-->
+                    <!--                app:layout_constraintBottom_toBottomOf="@+id/title"-->
+                    <!--                app:layout_constraintStart_toEndOf="@+id/title"-->
+                    <!--                app:layout_constraintTop_toTopOf="@+id/title" />-->
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                <TextView
-                    android:id="@+id/title_type_account"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/account_type"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDistrict" />
-
-
-                <RadioGroup
-                    android:id="@+id/radio_group_type_account"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_address"
-                    app:layout_constraintStart_toStartOf="@+id/tv_address"
-                    app:layout_constraintTop_toBottomOf="@+id/title_type_account">
-
-                    <RadioButton
-                        android:id="@+id/radio_center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/center"
-                        />
-
-
-                    <RadioButton
-                        android:id="@+id/radio_person"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_24sdp"
-                        android:text="@string/person" />
-
-
-                </RadioGroup>
-
-
-                <TextView
-                    android:id="@+id/title_choose_the_service"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/choose_the_service"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radio_group_type_account" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_all_service"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:spanCount="2"
-                    android:background="@drawable/shape_text"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/radio_group_type_account"
-                    app:layout_constraintStart_toStartOf="@+id/radio_group_type_account"
-                    app:layout_constraintTop_toBottomOf="@+id/title_choose_the_service"
-                    tools:listitem="@layout/item_service_selected" />
-
-
-                <TextView
-                    android:id="@+id/title_do_you_have_home_service"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/do_you_have_home_service"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_all_service" />
-
-
-                <CheckBox
-                    android:id="@+id/cb_do_you_have_home_service"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/do_you_have_home_service"
-                    app:layout_constraintStart_toStartOf="@+id/title_do_you_have_home_service"
-                    app:layout_constraintTop_toBottomOf="@+id/title_do_you_have_home_service" />
-
-                <Button
-                    android:id="@+id/btn_update"
-                    style="@style/bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/update"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cb_do_you_have_home_service" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

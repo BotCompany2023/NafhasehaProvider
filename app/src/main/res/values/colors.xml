@@ -25,7 +25,9 @@
     <color name="shape_border2">#E4E4EF</color>
     <color name="back_layout">#F3F4F8</color>
     <color name="green">#28B446</color>
+    <color name="red">#A61106</color>
     <color name="yellow">#FFA500</color>
     <color name="transparent">@android:color/transparent</color>
+    <color name="blackTrans75">#BF000000</color>
 
 </resources>

@@ -64,8 +64,7 @@ class AllOrderAdapter(
         }
         //استشارة الاعطال
         else if (model.type == "Consultation") {
-
-        }
+       }
         //الفحص الدوري
         else if (model.type == "PeriodicInspection") {
 
@@ -85,10 +84,11 @@ class AllOrderAdapter(
         //تم الموافقة عليه
         else if (model.status == "approved") {
             holder.binding.tvStatus.visibility=View.VISIBLE
-            holder.binding.viewTracking.visibility=View.VISIBLE
-            holder.binding.layoutTraking.visibility=View.VISIBLE
+            holder.binding.viewTracking.visibility=View.GONE
+            holder.binding.layoutTraking.visibility=View.GONE
+            holder.binding.tvCancelOrder.visibility=View.GONE
             holder.binding.tvStatus.text = context.getString(R.string.approved)
-            holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
+            holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_pending)
 
             if (model.user!!.image !=null){
                 imageUser=model.user!!.image!!
@@ -104,20 +104,64 @@ class AllOrderAdapter(
                 model.distance!!,
                 "")
             }
+
+            //سطحه
+            if (model.type == "TransportVehicle") {
+                holder.binding.tvStatus.text = context.getString(R.string.the_client_is_waiting)
+            }
+
+
         }
         //مرفوض
         else if (model.status == "canceled") {
             holder.binding.tvStatus.visibility=View.VISIBLE
             holder.binding.tvStatus.text = context.getString(R.string.canceled)
-            holder.binding.tvStatus.setTextColor(context.resources.getColor(`in`.aabhasjindal.otptextview.R.color.red))
+            holder.binding.tvStatus.setTextColor(context.resources.getColor(R.color.red))
             holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_cancel)
 
         }
-
         //مكتمل
         else if (model.status == "completed") {
             holder.binding.tvStatus.text = context.getString(R.string.completed)
             holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_abrroved)
+            holder.binding.tvStatus.setTextColor(context.resources.getColor(R.color.green))
+
+        }
+
+        //جاري فحص السياره في مركز الصيانه
+        else if (model.status == "PickUp") {
+
+
+            //صيانه
+            if (model.type == "Maintenance") {
+                if (model.is_report==true)
+                {
+
+                    holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_pending)
+                    holder.binding.tvStatus.text = context.getString(R.string.waiting_for_customer_approval)
+                    holder.binding.viewTracking.visibility=View.GONE
+                    holder.binding.btnSubmitReports.visibility=View.GONE
+
+                    if (model.report!!.status=="Accept")
+                    {
+                        holder.binding.tvStatus.text =context.getString(R.string.under_maintenance)
+                    }
+                }
+
+                holder.binding.btnSubmitReports.setOnClickListener {
+                    orderDetails.submitReports(model.id)
+                }
+            }
+            else{
+                holder.binding.tvStatus.text = context.getString(R.string.the_car_is_being_moved)
+                holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_pending)
+                holder.binding.btnSubmitReports.visibility=View.GONE
+                holder.binding.viewTracking.visibility=View.GONE
+            }
+
+
+
+
         }
     }
 

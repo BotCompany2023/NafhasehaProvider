@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.sa.nafhasehaprovider.R
-import com.sa.nafhasehaprovider.entity.response.categoriesResponse.DataCategoriesResponse
+import com.sa.nafhasehaprovider.entity.response.categoriesResponse.CategoryCategoriesResponse
 
 
 class DropDownCategoriesAdapter(
-    val context: Context, var dataSource: List<DataCategoriesResponse>
+    val context: Context, var dataSource: List<CategoryCategoriesResponse>
 ) : BaseAdapter() {
 
     private val inflater: LayoutInflater =

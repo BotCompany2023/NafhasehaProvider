@@ -4,5 +4,6 @@ data class DataVehicleTransporterResponse(
     val id: Int,
     val image: String,
     val price: Int,
-    val title: String
+    val title: String,
+    var isSelected: Boolean?=false
 )

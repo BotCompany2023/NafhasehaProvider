@@ -14,6 +14,13 @@
         android:fillViewport="true">
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -174,24 +181,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_new_order_socket"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_8sdp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView"
-                        tools:itemCount="10"
-                        tools:listitem="@layout/item_all_order" />
+                    <!--                    <androidx.recyclerview.widget.RecyclerView-->
+                    <!--                        android:id="@+id/rv_new_order_socket"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_8sdp"-->
+                    <!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/textView"-->
+                    <!--                        tools:itemCount="1"-->
+                    <!--                        tools:listitem="@layout/item_all_order" />-->
 
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_new_order"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -250,8 +256,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_activation"
                 android:layout_width="match_parent"
-                android:visibility="invisible"
-                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -302,6 +308,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,23 +3,18 @@ package com.sa.nafhasehaprovider.network.soketManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.media.MediaPlayer
-import android.util.Log
 import com.sa.nafhasehaprovider.entity.response.sockeEmmitModel.TrackerLocation
 import com.sa.nafhasehaprovider.entity.response.sockeEmmitModel.TrackerModel
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.sa.nafhasehaprovider.base.BaseActivity
 import com.sa.nafhasehaprovider.common.EmitKeyWord
 import com.sa.nafhasehaprovider.common.onConvertObjToJson
-import com.sa.nafhasehaprovider.common.util.MapUtil.animateMarker
+import com.sa.nafhasehaprovider.entity.request.acceptOrder.AcceptOrderRequest
 import com.sa.nafhasehaprovider.entity.request.sendOffer.SendOfferRequest
 import com.sa.nafhasehaprovider.entity.response.conversationModel.ConversationModel
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.GetNewOrder
 import com.sa.nafhasehaprovider.interfaces.NewOrder
 import com.sa.nafhasehaprovider.interfaces.SuccessEmit
-import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.marker
-import com.sa.nafhasehaprovider.ui.activity.MainActivity
 
 /**
 < Vampire >
@@ -46,9 +41,9 @@ object SocketRepository : SocketManagerListener, NewOrder, SuccessEmit {
     }
 
 
-    fun onSendLocation(model: TrackerLocation) {
+    fun onAcceptOrderRequest(model: AcceptOrderRequest) {
         socketManager?.emitMessage(
-            EmitKeyWord.UPDATELOCATOON,
+            EmitKeyWord.ACCEPTED_ORDER,
             onConvertObjToJson(model)!!)
 
         return
@@ -57,6 +52,14 @@ object SocketRepository : SocketManagerListener, NewOrder, SuccessEmit {
     fun onSendOfferRequest(model: SendOfferRequest) {
         socketManager?.emitMessage(
             EmitKeyWord.SEND_OFFER_ORDER,
+            onConvertObjToJson(model)!!)
+
+        return
+    }
+
+    fun onSendLocation(model: TrackerLocation) {
+        socketManager?.emitMessage(
+            EmitKeyWord.UPDATELOCATOON,
             onConvertObjToJson(model)!!)
 
         return

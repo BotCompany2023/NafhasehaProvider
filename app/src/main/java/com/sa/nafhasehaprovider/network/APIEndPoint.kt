@@ -26,6 +26,7 @@ import com.sa.nafhasehaprovider.entity.response.providesMapResponse.ProvidesMapR
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.ShowOrderResponse
 import com.sa.nafhasehaprovider.entity.response.showPackageResponse.ShowPackageResponse
 import com.sa.nafhasehaprovider.entity.response.typeCarResponse.CarTypeResponse
+import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.VehicleTransporterResponse
 import com.sa.nafhasehaprovider.entity.response.walletResponse.WalletResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -77,6 +78,7 @@ interface APIEndPoint {
         @Part("area_id") area_id: RequestBody,
         @Part commercialRegister: MultipartBody.Part? = null,
         @Part("services_from_home") services_from_home: RequestBody,
+        @Part("transporter_id") transporter_id: RequestBody ? =null,
         @Part("categories[]") categories: List<Int>
     ): Response<AuthResponse>
 
@@ -150,6 +152,7 @@ interface APIEndPoint {
         @Part("city_id") city_id: RequestBody,
         @Part("area_id") area_id: RequestBody,
         @Part("services_from_home") services_from_home: RequestBody,
+        @Part("transporter_id")transporter_id: RequestBody,
         @Part("categories[]") categories: List<Int>
     ): Response<AuthResponse>
 
@@ -167,7 +170,7 @@ interface APIEndPoint {
 
     @GET("home")
     suspend fun getHome(
-        @Query("page") page: Int, @Query("count_paginate") countPaginate: Int
+        @Query("page") page: Int, @Query("count_p aginate") countPaginate: Int
     ): Response<HomeResponse>
 
 
@@ -255,6 +258,8 @@ interface APIEndPoint {
     ): Response<AddCarResponse>
 
 
+
+
     @DELETE("vehicles/delete/{idCar}")
     suspend fun deleteCar(@Path("idCar") idCar: Int): Response<GeneralResponse>
 
@@ -334,9 +339,33 @@ interface APIEndPoint {
             Response<GeneralResponse>
 
 
+    @POST("pick-up")
+    suspend fun pickUp(@Query("order_id") idOrder: Int):
+            Response<GeneralResponse>
+
+
+    @POST("maintenance-report")
+    @Multipart
+    suspend fun submitReports(
+        @Part("order_id") order_id: RequestBody,
+        @Part("date_at") date_at: RequestBody,
+        @Part("time_at") time_at: RequestBody,
+        @Part("details") details: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part images: List<MultipartBody.Part>? = null
+    ): Response<GeneralResponse>
+
+
+
     @GET("update-version")
     suspend fun versionUpdate(@Query("device_type") deviceType: String,
                               @Query("current_version")currentVersion:String
     ): Response<VersionUpdateResponse>
+
+    @GET("transport-vehicles")
+    suspend fun getVehicleTransporter(
+        @Query("count_paginate") countPaginate: String = "ALL"
+    ): Response<VehicleTransporterResponse>
+
 
 }

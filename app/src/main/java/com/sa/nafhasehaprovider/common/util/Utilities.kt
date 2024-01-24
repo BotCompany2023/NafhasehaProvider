@@ -44,6 +44,7 @@ import androidx.core.widget.NestedScrollView
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
+import com.github.jingletoast.JingleToast
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.material.textfield.TextInputEditText
@@ -765,31 +766,39 @@ abstract class Utilities(var context: Context) {
             )
         }
 
-        fun showToastSuccess(activity: Activity, messageToast: String) {
-
-            messageSuccessDialog(activity, messageToast)
+        fun showToastSuccess(context: Activity, messageToast: String) {
+            //  messageSuccessDialog(context, messageToast)
 //            MotionToast.darkToast(
-//                activity,
-//                activity.getString(R.string.success),
+//                context,
+//                context.getString(com.sa.nafhaseha.R.string.success),
 //                messageToast,
 //                MotionToastStyle.SUCCESS,
 //                MotionToast.GRAVITY_BOTTOM,
 //                MotionToast.LONG_DURATION,
-//                ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
+//                ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
 //            )
+
+            JingleToast.makeToast(
+                context,
+                messageToast,
+                JingleToast.LENGTH_LONG,
+                JingleToast.SUCCESS,
+                JingleToast.TOP,
+
+                ).show()
         }
 
-        fun showToastError(activity: Activity, messageToast: String) {
-            messageErrorDialog(activity, messageToast)
+        fun showToastError(context: Activity, messageToast: String) {
+            //   messageErrorDialog(context, messageToast)
 
 //            MotionToast.darkToast(
-//                activity,
-//                activity.getString(R.string.ops),
+//                context,
+//                context.getString(com.sa.nafhaseha.R.string.ops),
 //                messageToast,
 //                MotionToastStyle.ERROR,
 //                MotionToast.GRAVITY_BOTTOM,
 //                MotionToast.LONG_DURATION,
-//                ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
+//                ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular)
 //            )
 
             //1. TOAST_SUCCESS
@@ -798,6 +807,13 @@ abstract class Utilities(var context: Context) {
             //4.TOAST_INFO
             //5.TOAST_DELETE
 
+            JingleToast.makeToast(
+                context,
+                messageToast,
+                JingleToast.LENGTH_LONG,
+                JingleToast.FAILURE,
+                JingleToast.TOP
+            ).show()
         }
 
 
