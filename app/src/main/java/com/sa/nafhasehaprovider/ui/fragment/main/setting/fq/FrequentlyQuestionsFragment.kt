@@ -30,10 +30,22 @@ class FrequentlyQuestionsFragment : BaseFragment<FragmentFrequentlyQuestionsBind
         super.onViewCreated(view, savedInstanceState)
         mainActivity = requireActivity() as MainActivity
 
-        initResponse()
         onClick()
     }
 
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
+    }
 
     private fun initResponse() {
         // resend response

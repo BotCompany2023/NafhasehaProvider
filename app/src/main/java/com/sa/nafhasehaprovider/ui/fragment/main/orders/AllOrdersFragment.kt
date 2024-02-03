@@ -17,7 +17,7 @@ import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.DataOrdersResponse
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 
-class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails {
+class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(), OrderDetails {
 
     override fun getLayoutId(): Int = R.layout.fragment_all_orders
     private val viewModel: OrdersViewModel by viewModel()
@@ -30,7 +30,19 @@ class AllOrdersFragment : BaseFragment<FragmentAllOrdersBinding>(),OrderDetails 
         super.onViewCreated(view, savedInstanceState)
 
         onClick()
-        initResponse()
+
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
 
     }
 

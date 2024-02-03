@@ -85,16 +85,15 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_close"
             style="@style/bottom"
-            android:backgroundTint="@color/icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
+            android:backgroundTint="@color/icon"
             android:text="@string/no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+            app:layout_constraintTop_toTopOf="@+id/btn_confirm" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

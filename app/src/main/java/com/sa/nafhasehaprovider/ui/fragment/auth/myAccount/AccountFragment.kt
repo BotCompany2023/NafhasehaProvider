@@ -48,7 +48,7 @@ import java.io.File
 
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>() , ClickItemFilterService,
-    CheckCategory{
+    CheckCategory {
 
     override fun getLayoutId(): Int = R.layout.fragment_account
 
@@ -106,8 +106,20 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() , ClickItemFilter
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.GONE
 
         onPermission(requireActivity())
-        initResponse()
         onClick()
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

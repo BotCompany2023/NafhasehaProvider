@@ -26,6 +26,7 @@ import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.LANG
 import com.sa.nafhasehaprovider.common.util.LocaleUtil
+import java.util.Locale
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
@@ -47,39 +48,9 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         performDataBinding()
         // makeStatusbarTransparent()
 
-        val connectivityManager = getSystemService(
-            ConnectivityManager::class.java
-        ) as ConnectivityManager
-        connectivityManager.requestNetwork(networkRequest, networkCallback)
-
-        checkConnection()
     }
 
 
-    var networkRequest =
-        NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR).build()!!
-
-    private val networkCallback: NetworkCallback = object : NetworkCallback() {
-        override fun onAvailable(@NonNull network: Network) {
-            super.onAvailable(network)
-            dismissDialogNoInternet()
-        }
-
-        override fun onLost(@NonNull network: Network) {
-            super.onLost(network)
-            showDialogNoInternet()
-        }
-
-        override fun onCapabilitiesChanged(
-            @NonNull network: Network, @NonNull networkCapabilities: NetworkCapabilities
-        ) {
-            super.onCapabilitiesChanged(network, networkCapabilities)
-            val unmetered =
-                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-        }
-    }
 
 
     private fun performDataBinding() {
@@ -107,17 +78,22 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         finish()
     }
 
-    override fun attachBaseContext(newBase: Context) {
-        var prefrence = PreferencesUtils(newBase)
-        applyOverrideConfiguration(
-            LocaleUtil.getLocalizedConfiguration(
-                prefrence.getString(
-                    LANG, "ar"
-                )!!
-            )
-        )
-        super.attachBaseContext(newBase)
+    override fun attachBaseContext(newBase: Context ) {
+        if ( Locale.getDefault().language =="ar")
+        {
+            var prefrence = PreferencesUtils(newBase)
+            applyOverrideConfiguration(LocaleUtil.getLocalizedConfiguration(prefrence.getString(LANG , "ar")!!))
+            super.attachBaseContext(newBase)
+        }
+        else{
+            var prefrence = PreferencesUtils(newBase)
+            applyOverrideConfiguration(LocaleUtil.getLocalizedConfiguration(prefrence.getString(LANG , "en")!!))
+            super.attachBaseContext(newBase)
+        }
+
+
     }
+
 
     fun showProgress(it: Boolean) {
         if (it) showProgressDialog()
@@ -261,44 +237,8 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     }
 
 
-    open fun checkConnection() {
-        val connectivityManager = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        val network = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-        if (wifi!!.isConnected) {
-            //Internet available
-            dismissDialogNoInternet()
-        } else if (network!!.isConnected) {
-            //Internet available
-            dismissDialogNoInternet()
-        } else {
-            //Internet is not available
-            showDialogNoInternet()
-        }
-    }
 
-    open fun showDialogNoInternet() {
-        dialogNoInternet = Dialog(this, R.style.customDialogTheme)
-        dialogNoInternet.setCancelable(false)
-        val inflater = this.layoutInflater
-        val v: View = inflater.inflate(R.layout.dialog_check_internet, null)
-        dialogNoInternet.setContentView(v)
-        val window = dialogNoInternet.getWindow()
-        window!!.setLayout(
-            ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        try {
-            dialogNoInternet.show()
-        } catch (e: Exception) {
-        }
-    }
 
-    open fun dismissDialogNoInternet() {
-        try {
-            dialogNoInternet!!.dismiss()
-        } catch (e: Exception) {
-        }
-    }
 
 //    override fun onDestroy() {
 //        super.onDestroy()

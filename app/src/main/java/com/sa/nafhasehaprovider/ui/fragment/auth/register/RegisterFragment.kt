@@ -48,7 +48,7 @@ import java.io.File
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
     ClickItemFilterService,
-CheckCategory{
+    CheckCategory {
 
     override fun getLayoutId(): Int = R.layout.fragment_register
     private var vehicleTransporterID: Int? =0
@@ -93,10 +93,22 @@ CheckCategory{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClick()
-        initResponse()
 
         mViewDataBinding.cbIAgreeToThePrivacyPolicy.paintFlags =
             mViewDataBinding.cbIAgreeToThePrivacyPolicy.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
 
     }
 

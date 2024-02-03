@@ -13,6 +13,7 @@ import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
+import java.util.Locale
 
 
 class ConnectivityInterceptor(private val context: Context) : Interceptor {
@@ -49,10 +50,22 @@ class ConnectivityInterceptor(private val context: Context) : Interceptor {
 
 class AuthenticationInterceptor(private val context: Context) : Interceptor {
 
+    private lateinit var lang: String
+
+
     @Throws(NoInternetException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = BEARER + " " + NafhasehaProviderApp.pref.authToken.toString()
-        val lang = NafhasehaProviderApp.pref.getString(LANG, "ar").toString()
+
+        if ( Locale.getDefault().language =="ar")
+        {
+            lang = NafhasehaProviderApp.pref.getString(LANG, "ar").toString()
+
+        }
+        else{
+            lang = NafhasehaProviderApp.pref.getString(LANG, "en").toString()
+
+        }
 
         val requestBuilder = chain.request().newBuilder()
             .header("Authorization", token)

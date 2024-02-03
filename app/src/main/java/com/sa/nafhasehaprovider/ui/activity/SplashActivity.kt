@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     private var accessToken: AuthResponse? =null
     private lateinit var orderStep: String
     //private  var accessToken: String? =null
-    private val SPLASH_TIME = 4000L
+    private val SPLASH_TIME = 2000L
     private lateinit var nbody: String
     private lateinit var ntitle: String
     private lateinit var typeId: String

@@ -81,17 +81,16 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:background="@drawable/shape_text7"
                 android:backgroundTint="#FFFDF0"
-                android:drawableStart="@drawable/icons_star"
                 android:drawablePadding="@dimen/_4sdp"
                 android:fontFamily="@font/tajawal_regular"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:text="0.0"
                 android:textColor="#FFDE17"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_total_wallet"
                 app:layout_constraintStart_toEndOf="@+id/tv_total_wallet"
-                app:layout_constraintTop_toTopOf="@+id/tv_total_wallet" />
+                app:layout_constraintTop_toTopOf="@+id/tv_total_wallet"
+                app:drawableStartCompat="@drawable/icons_star" />
 
 
             <TextView

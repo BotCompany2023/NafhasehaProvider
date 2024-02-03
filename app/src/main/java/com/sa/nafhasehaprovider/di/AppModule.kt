@@ -29,8 +29,10 @@ val appModule = module {
 }
 
 private val moshi by lazy {
-    val moshiBuilder = Moshi.Builder().add(KotlinJsonAdapterFactory())
+    val moshiBuilder = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
     moshiBuilder.build()
+
 }
 
 private val loggingInterceptor by lazy {

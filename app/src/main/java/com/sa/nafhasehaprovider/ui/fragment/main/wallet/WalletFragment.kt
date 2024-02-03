@@ -40,15 +40,23 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         onClick()
-        initResponse()
 
         //** Set the scrollListerner of the RecyclerView
 
     }
 
-    // initScrollListener() method is the method where we are checking
-    // the scrolled state of the RecyclerView and if bottom-most is visible
-    // we are showing the loading view and populating the next list
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
+    }
 
 
     private fun initResponse() {

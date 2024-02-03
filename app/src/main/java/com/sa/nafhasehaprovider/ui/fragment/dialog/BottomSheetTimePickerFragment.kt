@@ -27,7 +27,7 @@ class BottomSheetTimePickerFragment : BaseBottomDialog<FragmentBottomSheetTimePi
         onClick()
     }
 
-    fun setClickListener(dateListener:DateAndTimeResult) {
+    fun setClickListener(dateListener: DateAndTimeResult) {
         this.timeListener = dateListener
     }
 

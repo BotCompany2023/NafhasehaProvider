@@ -5,19 +5,11 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven {
-            url = uri("https://maven.pkg.github.com/google/secrets-gradle-plugin")
-            credentials {
-                username = project.findProperty("ghGprUser") ?: System.getenv("ghGprUser")
-                password = project.findProperty("ghGprToken") ?: System.getenv("ghGprToken")
-            }
-        }
 
     }
 
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
-        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
 
     }
 
@@ -37,7 +29,7 @@ plugins {
 
 
 ext{
-    kotlin_version ='1.6.21'
+    kotlin_version ='1.6.0'
     glide_version = '4.11.0'
     sdp_ssp_version = "1.0.6"
     lottie_version = '3.4.0'

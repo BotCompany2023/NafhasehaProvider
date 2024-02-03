@@ -3,7 +3,9 @@ package com.sa.nafhasehaprovider.ui.fragment.main.home
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.IntentFilter
 import android.icu.text.IDNA.Info
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +25,9 @@ import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseFragment
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.EndlessRecyclerViewScrollListener
+import com.sa.nafhasehaprovider.common.util.NetworkReceiver
 import com.sa.nafhasehaprovider.common.util.Utilities
+import com.sa.nafhasehaprovider.databinding.FragmentHomeBinding
 import com.sa.nafhasehaprovider.di.ordersViewModel
 import com.sa.nafhasehaprovider.entity.request.acceptOrder.AcceptOrderRequest
 import com.sa.nafhasehaprovider.entity.response.acceptedOrRejectedOfferSocketResponse.AcceptedOrRejectedOfferSocketResponse
@@ -31,6 +35,7 @@ import com.sa.nafhasehaprovider.entity.response.getNewOrder.GetNewOrder
 import com.sa.nafhasehaprovider.entity.response.getNewOrder.ResponseNewOrder
 import com.sa.nafhasehaprovider.entity.response.homeResponse.NewOrderHomeResponse
 import com.sa.nafhasehaprovider.interfaces.AcceptedOrRejectedOffer
+import com.sa.nafhasehaprovider.interfaces.ConnectivityListener
 import com.sa.nafhasehaprovider.interfaces.NewOrder
 import com.sa.nafhasehaprovider.interfaces.OrderDetails
 import com.sa.nafhasehaprovider.network.soketManager.SocketManager
@@ -43,7 +48,7 @@ import gun0912.tedimagepicker.util.ToastUtil.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentHomeBinding>(),
+class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     OrderDetails, NewOrder, AcceptedOrRejectedOffer {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
@@ -67,8 +72,12 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
     private var layoutManager: LinearLayoutManager? = null
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         mActivity=requireActivity() as MainActivity
         ConnectToSocket()
@@ -76,7 +85,8 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
         NafhasehaProviderApp.pref.putBoolean(FIRST_TIME, true)
 
         onClick()
-        initResponse()
+
+        layoutManager = LinearLayoutManager(requireContext())
 
         endlessRecyclerViewScrollListener=object : EndlessRecyclerViewScrollListener(layoutManager!!){
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
@@ -99,7 +109,6 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 
         listNewOrder = ArrayList()
         newOrderAdapter = NewOrderAdapter(requireActivity(), listNewOrder, this);
-        layoutManager = LinearLayoutManager(requireContext())
         mViewDataBinding.rvNewOrder.layoutManager = layoutManager
 
 
@@ -463,6 +472,19 @@ class HomeFragment : BaseFragment<com.sa.nafhasehaprovider.databinding.FragmentH
 //            ConstraintLayout.LayoutParams.WRAP_CONTENT,)
 
         dialogDietReport.show()
+
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
 
     }
 

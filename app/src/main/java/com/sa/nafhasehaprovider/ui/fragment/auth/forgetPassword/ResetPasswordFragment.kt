@@ -29,7 +29,6 @@ class ResetPasswordFragment : BaseFragment<FragmentResetPasswordBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClick()
-        initResponse()
 
         if (arguments != null) {
             val args: ResetPasswordFragmentArgs =
@@ -41,6 +40,18 @@ class ResetPasswordFragment : BaseFragment<FragmentResetPasswordBinding>() {
 
     }
 
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
+    }
 
     private fun initResponse() {
         // resend response

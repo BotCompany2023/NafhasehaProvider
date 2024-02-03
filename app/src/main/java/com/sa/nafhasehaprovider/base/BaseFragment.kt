@@ -1,6 +1,8 @@
 package com.sa.nafhasehaprovider.base
 
 import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +11,14 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.sa.nafhasehaprovider.base.BaseActivity
+import com.sa.nafhasehaprovider.common.util.NetworkReceiver
+import com.sa.nafhasehaprovider.interfaces.ConnectivityListener
 
-abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() , ConnectivityListener {
     lateinit var mViewDataBinding: T
     protected var activity: BaseActivity<*>? = null
+
+    private lateinit var networkReceiver: NetworkReceiver
 
 
     override fun onAttach(context: Context) {
@@ -36,6 +41,10 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
             inflater, getLayoutId(), container, false
         )
         //   mViewDatamViewDataBinding.lifecycleOwner = viewLifecycleOwner
+        networkReceiver = NetworkReceiver(this)
+        requireActivity().registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+
+
         return mViewDataBinding.root
     }
 
@@ -73,5 +82,11 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 //    fun onBack() {
 //        view?.let { activity?.onBackPressed() }
 //    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // قم بإلغاء تسجيل المستمع هنا في onDestroyView
+        requireActivity().unregisterReceiver(networkReceiver)
+    }
 
 }

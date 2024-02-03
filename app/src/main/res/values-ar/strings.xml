@@ -86,6 +86,7 @@
     <string name="please_enter_the_code_sent_to_the_mobile_number">الرجاء إدخال الكود المرسل علي رقم الجوال</string>
     <string name="address">العنوان</string>
     <string name="select">إختر</string>
+    <string name="title_activity_maps">MapsActivity</string>
     <string name="search_here">ابحث هنا ...</string>
     <string name="confirm_address">احفظ العنوان</string>
     <string name="optional">إختياري</string>
@@ -170,6 +171,7 @@
     <string name="a_copy_of_the_commercial_register_or_national_id">صوره السجل التجاري او الهوية الوطنية</string>
     <string name="i_declare_that_i_have_read_the_mentioned_conditions_and_agreed_to_them">اقر باني قد قرات الشروط المذكورة ووافقت عليها.</string>
     <string name="person">فرد</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
     <string name="please_select_an_account_type">الرجاء اختيار نوع الحساب</string>
     <string name="attach_the_photo">قم بارفاق الصوره</string>
     <string name="you_do_not_agree_to_the_terms_and_conditions">لم توافق علي الشروط والاحكام</string>
@@ -186,6 +188,7 @@
     <string name="recent_shipments">عمليات الشحن الاخيره </string>
     <string name="the_code">كود الطلب </string>
     <string name="km">كم</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order_details">تفاصيل الطلب</string>
     <string name="expected_price">السعر المتوقع:</string>
     <string name="offer">تقديم عرض</string>

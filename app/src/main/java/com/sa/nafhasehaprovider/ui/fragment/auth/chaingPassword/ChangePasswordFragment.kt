@@ -36,7 +36,6 @@ class ChangePasswordFragment : BaseFragment<FragmentChaingPasswordBinding>() {
 
 
         onClick()
-        initResponse()
 
     }
 
@@ -130,6 +129,19 @@ class ChangePasswordFragment : BaseFragment<FragmentChaingPasswordBinding>() {
         super.onDestroy()
         mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
     }
 
 

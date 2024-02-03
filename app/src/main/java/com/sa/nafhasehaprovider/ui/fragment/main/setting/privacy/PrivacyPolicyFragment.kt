@@ -27,7 +27,19 @@ class PrivacyPolicyFragment : BaseFragment<FragmentPrivacyPolicyBinding>() {
         mainActivity = requireActivity() as MainActivity
 
         onClick()
-        initResponse()
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
     }
 
     private fun initResponse() {

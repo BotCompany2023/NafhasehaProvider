@@ -49,7 +49,6 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClick()
-        initResponse()
         countDownTimer()
 
         // Init Sms Retriever >>>>
@@ -63,6 +62,19 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
             typePage = args.typePage
             userId = args.userId
             mobile = args.mobile
+        }
+
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
         }
 
     }

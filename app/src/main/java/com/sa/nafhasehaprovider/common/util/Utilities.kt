@@ -37,6 +37,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -212,6 +213,7 @@ abstract class Utilities(var context: Context) {
 
     companion object {
 
+        private  var dialogNoInternet: Dialog ? =null
         private lateinit var mAlbumFiles: ArrayList<AlbumFile>
         open var image_url: String? = null
 
@@ -938,6 +940,32 @@ abstract class Utilities(var context: Context) {
             try {
                 dialog.show()
             }catch (e:Exception){}
+
+        }
+
+        fun showDialogNoInternet(activity: Activity ) {
+            dialogNoInternet = Dialog(activity, R.style.customDialogTheme)
+            dialogNoInternet!!.setCancelable(false)
+            val inflater = activity.layoutInflater
+            val v: View = inflater.inflate(R.layout.dialog_check_internet, null)
+            dialogNoInternet!!.setContentView(v)
+            val window = dialogNoInternet!!.getWindow()
+            window!!.setLayout(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            dialogNoInternet!!.show()
+
+        }
+
+         fun dismissDialogNoInternet() {
+            // قم بفحص إذا كان الديالوج ليس null قبل استخدامه
+            dialogNoInternet?.let {
+                if (it.isShowing) {
+                    it.dismiss()
+                }
+            }
 
         }
 
