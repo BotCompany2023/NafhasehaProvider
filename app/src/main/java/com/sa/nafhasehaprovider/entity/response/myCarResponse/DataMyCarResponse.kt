@@ -1,6 +1,8 @@
 package  com.sa.nafhasehaprovider.entity.response.myCarResponse
 
+import androidx.annotation.Keep
 
+@Keep
 data class DataMyCarResponse(
     val first_image: String,
     val id: Int,

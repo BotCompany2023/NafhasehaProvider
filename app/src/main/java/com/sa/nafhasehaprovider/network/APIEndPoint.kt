@@ -1,7 +1,7 @@
 package com.sa.nafhasehaprovider.network
 
-import com.ksa.smartcarb.entity.response.versionUpdateResponse.VersionUpdateResponse
-import com.sa.nafhaseha.entity.response.canceledReasonsResponse.CanceledReasonsResponse
+import com.sa.nafhasehaprovider.entity.response.versionUpdateResponse.VersionUpdateResponse
+import com.sa.nafhasehaprovider.entity.response.canceledReasonsResponse.CanceledReasonsResponse
 import com.sa.nafhasehaprovider.entity.response.addCarResponse.AddCarResponse
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponse
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.AuthResponse

@@ -1,4 +1,8 @@
-package com.ksa.smartcarb.entity.response.versionUpdateResponse
+package com.sa.nafhasehaprovider.entity.response.versionUpdateResponse
+
+import androidx.annotation.Keep
+
+@Keep
 
 data class VersionUpdateResponse(
     val code: Int,

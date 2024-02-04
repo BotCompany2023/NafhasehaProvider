@@ -5,27 +5,22 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -37,8 +32,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.api.Billing
-import com.google.firebase.database.core.utilities.Utilities
 import com.google.gson.Gson
 import com.sa.nafhasehaprovider.BuildConfig
 import com.sa.nafhasehaprovider.R
@@ -51,20 +44,14 @@ import com.sa.nafhasehaprovider.databinding.FragmentTrackingMapsBinding
 import com.sa.nafhasehaprovider.entity.response.sockeEmmitModel.TrackerLocation
 import com.sa.nafhasehaprovider.network.soketManager.SocketManager
 import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
-import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.ConnectToSocket
-import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.marker
 import com.sa.nafhasehaprovider.ui.activity.MainActivity
-import kotlinx.android.synthetic.main.bottom_sheet_behavior.view.*
-import kotlinx.android.synthetic.main.fragment_account.view.*
-import kotlinx.android.synthetic.main.fragment_show_order.*
-import kotlinx.android.synthetic.main.fragment_tracking_maps.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
 
 class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
-    lateinit var  binding:FragmentTrackingMapsBinding
+    lateinit var binding: FragmentTrackingMapsBinding
     private lateinit var apiKey: String
     private lateinit var latLngProvider: LatLng
     private var updateLocation: Location? = null
@@ -97,8 +84,8 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private var userName: String? = null
     private var orderID: Int? = null
     private var userID: Int? = null
-    private var distance: String? =null
-    private var estimatedTime: String? =null
+    private var distance: String? = null
+    private var estimatedTime: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -111,8 +98,10 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         super.onViewCreated(view, savedInstanceState)
 
         // Fetching API_KEY which we wrapped
-        val ai: ApplicationInfo = requireActivity().packageManager
-            .getApplicationInfo(requireActivity().packageName, PackageManager.GET_META_DATA)
+        val ai: ApplicationInfo = requireActivity().packageManager.getApplicationInfo(
+                requireActivity().packageName,
+                PackageManager.GET_META_DATA
+            )
 //        val value = ai.metaData["YOUR_API_KEY"]
 //        val value = ai.metaData["com.google.android.geo.API_KEY"]
         apiKey = BuildConfig.API_KEY
@@ -144,21 +133,26 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             distance = args.distance
             estimatedTime = args.estimatedTime
 
-            bottomSheetLayout.tv_time.text=estimatedTime!!
-            bottomSheetLayout.tv_distance.text=distance!! +getString(R.string.km)
-            bottomSheetLayout.tv_name_user.text=userName!!
+            var  tvTime=view.findViewById<TextView>(R.id.tv_time)
+            var  ivPhone=view.findViewById<ImageView>(R.id.iv_call)
+            var  imageUser=view.findViewById<ImageView>(R.id.iv_client)
+            tvTime.text = estimatedTime!!
+//            bottomSheetLayout.tv_distance.text = distance!! + getString(R.string.km)
+//            bottomSheetLayout.tv_name_user.text = userName!!
             onLoadImageFromUrl(
-                requireActivity(), userImage, bottomSheetLayout.iv_client
+                requireActivity(), userImage,imageUser
             )
 
-            bottomSheetLayout.tv_cancel_order.setOnClickListener {
-                val action = TrackingMapsFragmentDirections
-                    .actionTrackingMapsFragmentToBottomSheetDeleteOrderFragment(orderID!!)
-                mainActivity!!.navController!!.navigate(action)
-            }
+//            bottomSheetLayout.tv_cancel_order.setOnClickListener {
+//                val action =
+//                    TrackingMapsFragmentDirections.actionTrackingMapsFragmentToBottomSheetDeleteOrderFragment(
+//                            orderID!!
+//                        )
+//                mainActivity!!.navController!!.navigate(action)
+//            }
 
-            bottomSheetLayout.iv_call.setOnClickListener {
-                    makePhoneCall(requireActivity(),userPhone)
+            ivPhone.setOnClickListener {
+                makePhoneCall(requireActivity(), userPhone)
             }
 
         }
@@ -201,14 +195,11 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         latLngUser = LatLng(orderLat!!.toDouble(), orderLong!!.toDouble())
         // إضافة المركر الثابت
         googleMap.addMarker(
-            MarkerOptions()
-                .position(latLngUser)
+            MarkerOptions().position(latLngUser)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marker))
         )
         //zoom map
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngUser, 17f))
-
-
 
 
     }
@@ -238,21 +229,17 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
         // إضافة المركر المتحرك
         val marker2 = mMap.addMarker(
-            MarkerOptions()
-                .position(latLngProvider)
+            MarkerOptions().position(latLngProvider)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_markar_provider))
         )
-       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngProvider, 17f))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngProvider, 17f))
 
 
         // إضافة المركر الثابت
-        val marker1=mMap.addMarker(
-            MarkerOptions()
-                .position(latLngUser)
+        val marker1 = mMap.addMarker(
+            MarkerOptions().position(latLngUser)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marker))
         )
-
-
 
 
 //        // تحديث موقع المركر المتحرك
@@ -268,7 +255,6 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 //            }
 //        }
 //        handler.post(runnable)
-
 
 
 //
@@ -312,18 +298,16 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 //        mMap.animateCamera(cu)
 
 
-
         val location1 = TrackerLocation(
-            userID!!,
-            location.latitude,
-            location.longitude)
+            userID!!, location.latitude, location.longitude
+        )
         onPrintLog(onConvertObjToJson(location1))
 
         SocketRepository.onSendLocation(location1)
 
 
         val urll = getDirectionURL(latLngUser, latLngProvider, apiKey)
-      // GetDirection(urll).execute()
+        // GetDirection(urll).execute()
 
     }
 
@@ -340,32 +324,28 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
     }
 
 
-
-    private fun getDirectionURL(origin:LatLng, dest:LatLng, secret: String) : String{
-        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" +
-                "&destination=${dest.latitude},${dest.longitude}" +
-                "&sensor=false" +
-                "&mode=driving" +
-                "&key=$secret"
+    private fun getDirectionURL(origin: LatLng, dest: LatLng, secret: String): String {
+        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" + "&destination=${dest.latitude},${dest.longitude}" + "&sensor=false" + "&mode=driving" + "&key=$secret"
     }
 
     @SuppressLint("StaticFieldLeak")
-    private inner class GetDirection(val url : String) : AsyncTask<Void, Void, List<List<LatLng>>>(){
+    private inner class GetDirection(val url: String) :
+        AsyncTask<Void, Void, List<List<LatLng>>>() {
         override fun doInBackground(vararg params: Void?): List<List<LatLng>> {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
             val data = response.body!!.string()
 
-            val result =  ArrayList<List<LatLng>>()
-            try{
-                val respObj = Gson().fromJson(data,MapData::class.java)
-                val path =  ArrayList<LatLng>()
-                for (i in 0 until respObj.routes[0].legs[0].steps.size){
+            val result = ArrayList<List<LatLng>>()
+            try {
+                val respObj = Gson().fromJson(data, MapData::class.java)
+                val path = ArrayList<LatLng>()
+                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
                     path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
                 }
                 result.add(path)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
             return result
@@ -373,7 +353,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
         override fun onPostExecute(result: List<List<LatLng>>) {
             val lineoption = PolylineOptions()
-            for (i in result.indices){
+            for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(15f)
                 lineoption.color(R.color.appColor)
@@ -409,7 +389,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             } while (b >= 0x20)
             val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
             lng += dlng
-            val latLng = LatLng((lat.toDouble() / 1E5),(lng.toDouble() / 1E5))
+            val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
             poly.add(latLng)
         }
         return poly
@@ -418,7 +398,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
     fun ConnectToSocket() {
         SocketRepository.socketManager = SocketManager()
         SocketRepository.socketManager?.tryToReconnect()
-      //  SocketRepository.socketManager?.dataLocationListener = this
+        //  SocketRepository.socketManager?.dataLocationListener = this
     }
 
 
@@ -434,6 +414,7 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         super.onPause()
         SocketRepository.onDisconnect()
     }
+
     override fun onResume() {
         super.onResume()
         ConnectToSocket()

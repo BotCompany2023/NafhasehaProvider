@@ -41,7 +41,6 @@ import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.CityViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_behavior.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 

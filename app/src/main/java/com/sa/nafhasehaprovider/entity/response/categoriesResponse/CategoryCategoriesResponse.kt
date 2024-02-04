@@ -1,5 +1,8 @@
 package com.sa.nafhasehaprovider.entity.response.categoriesResponse
 
+import androidx.annotation.Keep
+
+@Keep
 data class CategoryCategoriesResponse(
     val id: Int,
     val image: String,

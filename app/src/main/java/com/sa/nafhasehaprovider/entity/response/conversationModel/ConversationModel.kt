@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.entity.response.conversationModel
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
@@ -8,6 +9,7 @@ import java.util.*
  * < Vampire >
  */
 
+@Keep
 class ConversationModel : Serializable {
 
     @SerializedName("messages")

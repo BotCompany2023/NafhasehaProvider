@@ -1,9 +1,10 @@
 package com.sa.nafhasehaprovider.entity.response.conversationModel
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 import java.io.Serializable
-
+@Keep
 class Seconduser : Serializable {
     @SerializedName("avatar")
     var avatar: String? = null

@@ -1,7 +1,8 @@
 package com.sa.nafhasehaprovider.entity.response.showOrderResponse
 
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleType
-
+@Keep
 data class UserVehicle(
     val first_image: String? =null,
     val id: Int,

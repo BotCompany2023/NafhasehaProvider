@@ -1,5 +1,9 @@
 package com.sa.nafhasehaprovider.entity.request.sendOffer
 
+import androidx.annotation.Keep
+
+@Keep
+
 data class SendOfferRequest(
     val avg_rate: String,
     val image: String,

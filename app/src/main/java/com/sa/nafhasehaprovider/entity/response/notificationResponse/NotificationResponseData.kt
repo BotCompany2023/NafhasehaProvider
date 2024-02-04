@@ -1,5 +1,8 @@
 package  com.sa.nafhasehaprovider.entity.response.notificationResponse
 
+import androidx.annotation.Keep
+
+@Keep
 data class NotificationResponseData(
     val body: String? =null,
     val id: Int? =null,

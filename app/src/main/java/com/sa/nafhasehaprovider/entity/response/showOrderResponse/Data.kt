@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.entity.response.showOrderResponse
 
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
@@ -7,7 +8,7 @@ import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.CanceledBy
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.Report
 import com.sa.nafhasehaprovider.entity.response.ordersResponse.User
-
+@Keep
 data class Data(
     val canceled_by: CanceledBy? =null,
     val address: String? =null,

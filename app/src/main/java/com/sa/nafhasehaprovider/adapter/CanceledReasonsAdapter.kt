@@ -1,19 +1,15 @@
 package com.sa.nafhasehaprovider.adapter
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.sa.nafhaseha.entity.response.canceledReasonsResponse.DataCanceledReasonsResponse
+import com.sa.nafhasehaprovider.entity.response.canceledReasonsResponse.DataCanceledReasonsResponse
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.databinding.ItemReasonBinding
-import kotlinx.android.synthetic.main.custom_spinner_item.view.*
 
 class CanceledReasonsAdapter(
     var context: Activity, var list: List<DataCanceledReasonsResponse>) : RecyclerView.Adapter<CanceledReasonsAdapter.ViewHolder?>() {

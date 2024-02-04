@@ -1,9 +1,10 @@
 package  com.sa.nafhasehaprovider.entity.response.providerDataResponse
 
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.cityResponse.Country
-
+@Keep
 data class Data(
     val address: String,
     val area: AreasResponseData,

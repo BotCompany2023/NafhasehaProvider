@@ -1,5 +1,8 @@
 package com.sa.nafhasehaprovider.entity.response.homeResponse
 
+import androidx.annotation.Keep
+
+@Keep
 data class ProviderHomeResponse(
     val avg_rate: String,
     val count_orders_completed: Int,

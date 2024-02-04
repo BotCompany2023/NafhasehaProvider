@@ -9,8 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
-import com.pramonow.endlessrecyclerview.EndlessRecyclerView
-import com.pramonow.endlessrecyclerview.EndlessScrollCallback
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.NewOrderAdapter
 import com.sa.nafhasehaprovider.adapter.NotificationAdapter
@@ -50,7 +48,7 @@ class NotificationActivity : BaseActivity<ActivityNotificationBinding>() {
                 viewModel.notification(currentPage, countPage)
             }
         }
-        mViewDataBinding.rvNotification.addOnScrollListener(endlessRecyclerViewScrollListener)
+       // mViewDataBinding.rvNotification.addOnScrollListener(endlessRecyclerViewScrollListener)
 
 
     }

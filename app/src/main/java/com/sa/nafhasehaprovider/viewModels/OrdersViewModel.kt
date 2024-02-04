@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sa.nafhaseha.entity.response.canceledReasonsResponse.CanceledReasonsResponse
+import com.sa.nafhasehaprovider.entity.response.canceledReasonsResponse.CanceledReasonsResponse
 import com.sa.nafhasehaprovider.common.Resource
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 import com.sa.nafhasehaprovider.common.util.Utilities

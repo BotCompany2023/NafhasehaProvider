@@ -1,5 +1,8 @@
 package com.sa.nafhasehaprovider.entity.response.getNewOrder
 
+import androidx.annotation.Keep
+
+@Keep
 data class ResponseNewOrder(
     val category_image: String,
 //    val category_name: List<CategoryName>? =null,

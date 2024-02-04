@@ -1,6 +1,7 @@
 package com.sa.nafhasehaprovider.entity.response.conversationModel
 
 import android.util.Log
+import androidx.annotation.Keep
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
@@ -8,6 +9,7 @@ import com.sand.sa.data.Model.ConversationModel.GeoModel
 
 import java.io.Serializable
 
+@Keep
 class Messages : Serializable {
 
     @SerializedName("date")

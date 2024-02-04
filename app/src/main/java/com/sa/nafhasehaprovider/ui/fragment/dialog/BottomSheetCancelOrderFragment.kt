@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sa.nafhaseha.entity.response.canceledReasonsResponse.DataCanceledReasonsResponse
+import com.sa.nafhasehaprovider.entity.response.canceledReasonsResponse.DataCanceledReasonsResponse
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.CanceledReasonsAdapter
 import com.sa.nafhasehaprovider.base.BaseBottomDialog

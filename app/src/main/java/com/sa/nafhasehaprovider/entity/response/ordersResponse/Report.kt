@@ -1,5 +1,8 @@
 package com.sa.nafhasehaprovider.entity.response.ordersResponse
 
+import androidx.annotation.Keep
+
+@Keep
 class Report(
     val id: Int,
     val order_service_id: Int,

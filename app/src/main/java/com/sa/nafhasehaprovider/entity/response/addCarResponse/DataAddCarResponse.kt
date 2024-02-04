@@ -1,11 +1,12 @@
 package com.sa.nafhasehaprovider.entity.response.addCarResponse
 
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleBrand
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleManufactureYear
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleModel
 import com.sa.nafhasehaprovider.entity.response.myCarResponse.VehicleType
 
-
+@Keep
 data class DataAddCarResponse(
     val first_image: String,
     val id: Int,

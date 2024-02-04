@@ -12,10 +12,8 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sa.nafhasehaprovider.R
-import com.sa.nafhasehaprovider.databinding.ItemNotificationBinding
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.onLoadImageFromUrl
 import com.sa.nafhasehaprovider.databinding.ItemImagesBinding
-import com.sa.nafhasehaprovider.entity.response.notificationResponse.NotificationResponseData
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.Images
 import com.stfalcon.imageviewer.StfalconImageViewer
 import com.stfalcon.imageviewer.loader.ImageLoader

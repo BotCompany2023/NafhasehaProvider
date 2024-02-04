@@ -1,10 +1,11 @@
 package com.sa.nafhasehaprovider.entity.response.ordersResponse
 
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Category
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Provider
 import com.sa.nafhasehaprovider.entity.response.authenticationResponse.Service
 import com.sa.nafhasehaprovider.entity.response.showOrderResponse.Images
-
+@Keep
 data class DataOrdersResponse(
     val address: String? =null,
     val address_to: String? =null,

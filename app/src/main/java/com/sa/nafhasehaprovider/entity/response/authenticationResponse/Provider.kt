@@ -1,10 +1,12 @@
 package com.sa.nafhasehaprovider.entity.response.authenticationResponse
 
 import android.hardware.Camera
+import androidx.annotation.Keep
 import com.sa.nafhasehaprovider.entity.response.areasResponse.AreasResponseData
 import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.cityResponse.Country
 
+@Keep
 data class Provider(
     val address: String? =null,
     val area: AreasResponseData? =null,
