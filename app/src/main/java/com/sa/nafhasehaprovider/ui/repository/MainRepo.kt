@@ -62,6 +62,10 @@ class MainRepo(private val api: APIEndPoint) {
         provider_id: Int, code: String
     ) = api.checkCode(provider_id, code)
 
+    suspend fun checkCodeReset(
+        provider_id: Int, code: String
+    ) = api.checkCodeReset(provider_id, code)
+
     suspend fun sendActivationCode(
         userId: Int, type: String
     ) = api.sendActivationCode(userId, type)

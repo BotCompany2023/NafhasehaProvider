@@ -26,10 +26,12 @@ class AuthenticationViewModel(
 
     var firebaseToken = ""
     val authResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
+    val checkCodeResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
+    val checkCodeResetResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val checkPhoneResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
-    val changePasswordResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val sendActivationCodeResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val editProfileResponse: MutableLiveData<Resource<AuthResponse>> = MutableLiveData()
+    val changePasswordResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<CategoriesResponse>> =MutableLiveData()
     val getVehicleTransporterResponse: MutableLiveData<Resource<VehicleTransporterResponse>> = MutableLiveData()
 
@@ -172,28 +174,52 @@ class AuthenticationViewModel(
     }
 
 
-    fun checkCode(provider_id: Int, otpCode: String) {
+    fun checkCode(userId: Int, otpCode: String) {
         if (Utilities.hasInternetConnection()) {
-            checkPhoneResponse.postValue(Resource.Loading())
+            checkCodeResponse.postValue(Resource.Loading())
             viewModelScope.launch {
                 val response = mainRepo.checkOtpCode(
-                    provider_id, otpCode
+                    userId,otpCode
                 )
                 try {
                     if (response.isSuccessful) {
-                        checkPhoneResponse.postValue(Resource.Success(response.body()!!))
+                        checkCodeResponse.postValue(Resource.Success(response.body()!!))
                         // handling if repsonse is succesfully
                         Log.i("TestLoginterVM", "${response.body()}")
                     } else {
-                        Resource.Error(response.message())
                         Log.i("TestLoginterVM", " error ${response.code()}")
+                        Resource.Error(response.message())
+
                     }
-                } catch (e: Exception) {
-                }
+                }catch (e:Exception){}
 
             }
         }
     }
+
+    fun checkCodeReset(userId: Int, otpCode: String) {
+        if (Utilities.hasInternetConnection()) {
+            checkCodeResetResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.checkCodeReset(
+                    userId,otpCode
+                )
+                try {
+                    if (response.isSuccessful) {
+                        checkCodeResetResponse.postValue(Resource.Success(response.body()!!))
+                        // handling if repsonse is succesfully
+                        Log.i("TestLoginterVM", "${response.body()}")
+                    } else {
+                        Log.i("TestLoginterVM", " error ${response.code()}")
+                        Resource.Error(response.message())
+
+                    }
+                }catch (e:Exception){}
+
+            }
+        }
+    }
+
 
 
     fun resetPass(userId: Int, newPassword: String) {

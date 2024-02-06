@@ -91,16 +91,28 @@ interface APIEndPoint {
     ): Response<GeneralResponse>
 
 
+
     @POST("change-password")
     suspend fun changePassword(
         @Query("old_password") oldPassword: String, @Query("new_password") newPassword: String
     ): Response<GeneralResponse>
 
+
     @POST("check-code")
     suspend fun checkCode(
-        @Query("provider_id") provider_id: Int,
+        @Query("provider_id") userId: Int,
+        @Query("code") code: String,
+    ): Response<AuthResponse>
+
+
+    @POST("check-code")
+    suspend fun checkCodeReset(
+        @Query("provider_id") userId: Int,
         @Query("code") code: String,
     ): Response<GeneralResponse>
+
+
+
 
     @POST("send-code")
     suspend fun sendActivationCode(

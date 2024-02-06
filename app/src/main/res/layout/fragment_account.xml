@@ -203,11 +203,12 @@
 
                         <ImageView
                             android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
-                            android:src="@drawable/sa"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:src="@drawable/icon_ar"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

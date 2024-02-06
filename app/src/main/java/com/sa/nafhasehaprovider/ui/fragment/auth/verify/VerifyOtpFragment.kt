@@ -1,6 +1,7 @@
 package com.sa.nafhasehaprovider.ui.fragment.auth.verify
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
@@ -62,90 +63,153 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
             typePage = args.typePage
             userId = args.userId
             mobile = args.mobile
-        }
-
-    }
-
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
-        if (isConnected) {
-            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
-            initResponse()
-            Utilities.dismissDialogNoInternet()
-        }
-        else{
-            Utilities.showDialogNoInternet(requireActivity())
+            mViewDataBinding.tvPhone.text="+966"+mobile
         }
 
     }
 
     private fun initResponse() {
-        // resend response
-        viewModel.checkPhoneResponse.observe(viewLifecycleOwner, Observer { result ->
-            when (result) {
-                is Resource.Success -> {
-                    // dismiss loading
-                    showProgress(false)
-                    result.data?.let { it ->
-                        when (it.code) {
 
-                            CODE200 -> {
-                                Utilities.showToastSuccess(requireActivity(), it.message)
-                                if (typePage == "REGISTER") {
-                                    startActivity(
-                                        Intent(
-                                            requireActivity(), MainActivity::class.java
-                                        )
-                                    )
-                                    requireActivity().finish()
-                                } else if (typePage == "CHECK_MOBILE") {
+        if (typePage == "CHECK_MOBILE_FORGET") {
+
+            // resend response
+            viewModel.checkCodeResetResponse.observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        // dismiss loading
+                        showProgress(false)
+                        result.data?.let { it ->
+                            when (it.code) {
+
+                                CODE200 -> {
+                                    Utilities.showToastSuccess(requireActivity(), it.message)
+
                                     val action =
                                         VerifyOtpFragmentDirections.actionVerifyOtpFragmentToResetPasswordFragment(
-                                            mobile, userId!!
-                                        )
+                                            mobile, userId!!)
                                     mViewDataBinding.root.findNavController().navigate(action)
-                                } else if (typePage == "LOGIN") {
-                                    val action =
-                                        VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
-                                    mViewDataBinding.root.findNavController().navigate(action)
+
+
+                                }
+                                CODE403 -> {
+                                    //unAuthorized()
+                                    NafhasehaProviderApp.pref.clearSharedPref()
+                                }
+                                CODE405 -> {
+                                    Utilities.showToastError(requireActivity(), it.message)
+
+                                }
+                                CODE500 -> {
+                                    Utilities.showToastError(requireActivity(), it.message)
+                                }
+                                else -> {
+
                                 }
 
-                            }
-                            CODE403 -> {
-                                //unAuthorized()
-                                NafhasehaProviderApp.pref.clearSharedPref()
-                            }
-                            CODE405 -> {
-                                Utilities.showToastError(requireActivity(), it.message)
 
                             }
-                            CODE500 -> {
-                                Utilities.showToastError(requireActivity(), it.message)
-                            }
-                            else -> {
-
-                            }
-
 
                         }
 
                     }
+                    is Resource.Error -> {
+                        // dismiss loading
+                        showProgress(false)
+                        Log.i("TestVerification", "error")
 
-                }
-                is Resource.Error -> {
-                    // dismiss loading
-                    showProgress(false)
-                    Log.i("TestVerification", "error")
+                    }
+                    is Resource.Loading -> {
+                        // show loading
+                        Log.i("TestVerification", "loading")
+                        showProgress(true)
 
+                    }
                 }
-                is Resource.Loading -> {
-                    // show loading
-                    Log.i("TestVerification", "loading")
-                    showProgress(true)
+            })
 
+        }
+        else{
+
+            // resend response
+            viewModel.checkCodeResponse.observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        // dismiss loading
+                        showProgress(false)
+                        result.data?.let { it ->
+                            when (it.code) {
+
+                                CODE200 -> {
+                                    Utilities.showToastSuccess(requireActivity(), it.message)
+                                    if (typePage == "REGISTER") {
+
+                                        // saving token
+                                        NafhasehaProviderApp.pref.authToken =it.data!!.access_token
+                                        NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
+
+                                        startActivity(
+                                            Intent(
+                                                requireActivity(), MainActivity::class.java
+                                            )
+                                        )
+                                        requireActivity().finish()
+                                    }
+                                    else if (typePage == "LOGIN") {
+//                                        val action =
+//                                            VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
+//                                        mViewDataBinding.root.findNavController().navigate(action)
+
+                                        NafhasehaProviderApp.pref.authToken =it.data!!.access_token
+                                        NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
+
+                                        startActivity(
+                                            Intent(
+                                                requireActivity(), MainActivity::class.java
+                                            )
+                                        )
+                                        requireActivity().finish()
+                                    }
+
+                                }
+                                CODE403 -> {
+                                    //unAuthorized()
+                                    NafhasehaProviderApp.pref.clearSharedPref()
+                                }
+                                CODE405 -> {
+                                    Utilities.showToastError(requireActivity(), it.message)
+
+                                }
+                                CODE500 -> {
+                                    Utilities.showToastError(requireActivity(), it.message)
+                                }
+                                else -> {
+
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+                    is Resource.Error -> {
+                        // dismiss loading
+                        showProgress(false)
+                        Log.i("TestVerification", "error")
+
+                    }
+                    is Resource.Loading -> {
+                        // show loading
+                        Log.i("TestVerification", "loading")
+                        showProgress(true)
+
+                    }
                 }
-            }
-        })
+            })
+
+        }
+
+
 
         // resend response send Activation code
         viewModel.sendActivationCodeResponse.observe(viewLifecycleOwner, Observer { result ->
@@ -198,6 +262,7 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
     }
 
 
+
     private fun onClick() {
 
         val callback: OnBackPressedCallback =
@@ -211,7 +276,7 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
                                     val action =
                                         VerifyOtpFragmentDirections.actionVerifyOtpFragmentToRegisterFragment()
                                     mViewDataBinding.root.findNavController().navigate(action)
-                                } else if (typePage == "CHECK_MOBILE") {
+                                } else if (typePage == "CHECK_MOBILE_FORGET") {
                                     val action =
                                         VerifyOtpFragmentDirections.actionVerifyOtpFragmentToMobileForgetPasswordFragment()
                                     mViewDataBinding.root.findNavController().navigate(action)
@@ -234,7 +299,7 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
             if (typePage == "REGISTER") {
                 val action = VerifyOtpFragmentDirections.actionVerifyOtpFragmentToRegisterFragment()
                 mViewDataBinding.root.findNavController().navigate(action)
-            } else if (typePage == "CHECK_MOBILE") {
+            } else if (typePage == "CHECK_MOBILE_FORGET") {
                 val action =
                     VerifyOtpFragmentDirections.actionVerifyOtpFragmentToMobileForgetPasswordFragment()
                 mViewDataBinding.root.findNavController().navigate(action)
@@ -251,24 +316,38 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
 
             override fun onOTPComplete(otp: String) {
                 // fired when user has entered the OTP fully.
-                viewModel.checkCode(userId!!, otp)
+                if (typePage == "CHECK_MOBILE_FORGET") {
+                    viewModel.checkCodeReset(userId!!, otp)
+
+                }
+                else{
+                    viewModel.checkCode(userId!!, otp)
+                }
+
+
             }
         }
 
 
-//        mViewDataBinding.otpBtnLogin.setOnClickListener {
-//
-//            val otp = mViewDataBinding.otpView.otp.toString().trim()
-//
-//            if (otp.isEmpty()) {
-//                Utilities.showToastError(
-//                    requireActivity(),
-//                    getString(R.string.please_enter_the_code_sent_to_the_mobile_number)
-//                )
-//            } else {
-//                viewModel.checkCode(userId!!, otp)
-//            }
-//        }
+        mViewDataBinding.otpBtnLogin.setOnClickListener {
+
+            val otp = mViewDataBinding.otpView.otp.toString().trim()
+
+            if (otp.isEmpty()) {
+                Utilities.showToastError(
+                    requireActivity(),
+                    getString(R.string.please_enter_the_code_sent_to_the_mobile_number)
+                )
+            } else {
+                if (typePage == "CHECK_MOBILE_FORGET") {
+                    viewModel.checkCodeReset(userId!!, otp)
+
+                }
+                else{
+                    viewModel.checkCode(userId!!, otp)
+                }
+            }
+        }
 
         mViewDataBinding.tvResendTheCode.setOnClickListener {
 
@@ -393,5 +472,19 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
         super.onDestroy()
         smsBroadcastReceive = null
     }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
+        if (isConnected) {
+            // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
+            initResponse()
+            Utilities.dismissDialogNoInternet()
+        }
+        else{
+            Utilities.showDialogNoInternet(requireActivity())
+        }
+
+    }
+
 
 }
