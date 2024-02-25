@@ -7,5 +7,6 @@ import androidx.annotation.Keep
 data class DataHomeResponse(
     val new_orders: List<NewOrderHomeResponse>,
     val provider: ProviderHomeResponse,
-    val my_wallet: String? =null
+    val my_wallet: String? =null,
+    val is_have_order:Boolean?=false
 )

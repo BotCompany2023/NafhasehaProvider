@@ -67,7 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     lateinit var  mActivity:MainActivity
 
     var currentPage : Int = 1
-    var countPage =10
+    var countPage =5
     lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
     private var layoutManager: LinearLayoutManager? = null
 
@@ -120,7 +120,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
-                    listNewOrder.clear()
+                   // listNewOrder.clear()
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
@@ -153,12 +153,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
 
 
-                                listNewOrder.addAll(it.data!!.new_orders)
+                                listNewOrder.addAll(it.data.new_orders)
                                 mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
                                 newOrderAdapter.notifyDataSetChanged()
 
-//
+                                if (listNewOrder.size==0){
+                                    mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
+                                }
 
+                                if (it.data.is_have_order!! ==true)
+                                {
+                                    mViewDataBinding.constraintIsHaveOrder.visibility=View.VISIBLE
+                                    mActivity.mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_off)
+                                    mActivity. mViewDataBinding.tvTitleStatus.text=getText(R.string.uavailable)
+                                    mActivity.mViewDataBinding.constraintSwitch.isEnabled=false
+                                    mViewDataBinding.constraintNoOrder.visibility=View.GONE
+                                    mViewDataBinding.textView.visibility=View.GONE
+
+
+                                }
+                                else{
+                                    mViewDataBinding.constraintIsHaveOrder.visibility=View.GONE
+                                    mActivity.mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
+                                    mActivity.mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
+                                    mActivity.mViewDataBinding.constraintSwitch.isEnabled=true
+                                    mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
+                                    mViewDataBinding.textView.visibility=View.VISIBLE
+
+                                }
 
 
                                 infoViewModel.versionUpdate("Android", BuildConfig.VERSION_NAME)

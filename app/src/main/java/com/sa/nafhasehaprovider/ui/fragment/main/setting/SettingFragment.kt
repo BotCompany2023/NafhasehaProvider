@@ -1,10 +1,13 @@
 package com.sa.nafhasehaprovider.ui.fragment.main.setting
 
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
@@ -95,6 +98,22 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
 
         mViewDataBinding.shearing.setOnClickListener {
             shareLinkApp(requireActivity())
+        }
+
+        mViewDataBinding.rating.setOnClickListener {
+            val packageName = requireActivity().packageName
+            val uri = Uri.parse("market://details?id=$packageName")
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+
+            try {
+                requireActivity().startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                // يمكن أن يحدث هذا الخطأ إذا لم يكن التطبيق مثبتًا على الجهاز
+                // يمكنك التعامل مع هذا الحالة حسب احتياجاتك
+                Toast.makeText(context, "تطبيق متجر جوجل غير مثبت", Toast.LENGTH_SHORT).show()
+            }
         }
 
 

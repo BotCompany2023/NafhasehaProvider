@@ -9,4 +9,5 @@ data class HomeResponse(
     val `data`: DataHomeResponse? =null,
     val message: String,
     val status: String
+
 )

@@ -507,7 +507,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
             val address = mViewDataBinding.tvAddress.text.toString().trim()
 
             if (nameProvider.isEmpty()) {
-                mViewDataBinding.tvName.error = getString(R.string.mobile_number_is_required)
+                mViewDataBinding.tvName.error = getString(R.string.name_is_required )
             } else if (phone.isEmpty()) {
                 mViewDataBinding.tvName.error = getString(R.string.mobile_number_is_required)
             } else if (password.isEmpty()) {
@@ -603,7 +603,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                     .show()
             }
             else -> {
-                Toast.makeText(requireActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show()
             }
         }
 

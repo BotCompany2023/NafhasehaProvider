@@ -91,8 +91,13 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
                                 mViewDataBinding.rvDebit.adapter = debitWalletAdapter
 
 
-                                listCredit.addAll(it.data.credit!!)
-                                mViewDataBinding.rvCredit.adapter = creditWalletAdapter
+//                                listCredit.addAll(it.data.credit!!)
+//                                mViewDataBinding.rvCredit.adapter = creditWalletAdapter
+
+
+                                if (listDebit.size==0){
+                                    mViewDataBinding.constraintLayout8.visibility=View.GONE
+                                }
 
 
                             }

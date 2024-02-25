@@ -265,6 +265,7 @@
     <string name="service_cost">تكلفة الخدمة</string>
     <string name="battery_type">نوع البطارية</string>
     <string name="battery_subscription">إشتراك  بطارية</string>
+    <string name="you_have_an_ongoing_request">لديك طلب جاري ...</string>
 
 
 </resources>

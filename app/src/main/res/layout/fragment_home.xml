@@ -16,11 +16,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
-
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -61,17 +61,16 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:background="@drawable/shape_text7"
                 android:backgroundTint="#FFFFFF"
-                android:drawableStart="@drawable/icons_wallet_home"
                 android:drawablePadding="@dimen/_4sdp"
                 android:fontFamily="@font/tajawal_regular"
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:paddingVertical="@dimen/_3sdp"
-                android:text="500 ر.س"
                 android:textAlignment="viewStart"
                 android:textColor="#98B0C3"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintStart_toEndOf="@+id/iv_logo_user"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name_provider" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_provider"
+                app:drawableStartCompat="@drawable/icons_wallet_home" />
 
 
             <TextView
@@ -87,10 +86,10 @@
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:textColor="#FFDE17"
                 android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/icons_star"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_total_wallet"
                 app:layout_constraintStart_toEndOf="@+id/tv_total_wallet"
-                app:layout_constraintTop_toTopOf="@+id/tv_total_wallet"
-                app:drawableStartCompat="@drawable/icons_star" />
+                app:layout_constraintTop_toTopOf="@+id/tv_total_wallet" />
 
 
             <TextView
@@ -147,6 +146,59 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView11">
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_is_have_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@drawable/shape_bottom"
+                    android:backgroundTint="#ffffff"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieAnimationView2"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/lod" />
+
+<!--                    <pl.droidsonroids.gif.GifImageView-->
+<!--                        android:id="@+id/lottieAnimationView2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:scaleType="fitXY"-->
+<!--                        android:src="@drawable/car_loging"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="@string/you_have_an_ongoing_request"
+                        android:textAlignment="center"
+                        android:textColor="@color/icon"
+                        android:layout_margin="@dimen/_16sdp"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
@@ -157,7 +209,7 @@
                     android:textColor="@color/appColor"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_is_have_order" />
 
 
                 <!--                <androidx.core.widget.NestedScrollView-->
@@ -170,14 +222,14 @@
                 <!--                    app:layout_constraintStart_toStartOf="parent"-->
                 <!--                    app:layout_constraintTop_toBottomOf="@+id/textView">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:orientation="vertical"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView">-->
 
 
                     <!--                    <androidx.recyclerview.widget.RecyclerView-->
@@ -196,17 +248,18 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_new_order"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_marginTop="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
                         tools:itemCount="10"
-                        tools:listitem="@layout/item_all_order" />
+                        tools:listitem="@layout/item_all_order"
+                        />
 
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
 
                 <!--                </androidx.core.widget.NestedScrollView>-->
@@ -255,21 +308,21 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_activation"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="0dp"
+                android:background="@color/back_layout"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/back_layout">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_50sdp"
                     android:src="@drawable/icons_welcom"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -282,9 +335,9 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="@string/welcome"
+                    android:textAlignment="center"
                     android:textColor="#1A1D1F"
                     android:textSize="@dimen/_16ssp"
-                    android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView12" />
@@ -292,19 +345,22 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16ssp"
+                    android:layout_marginEnd="@dimen/_16ssp"
                     android:fontFamily="@font/tajawal_medium"
                     android:text="@string/we_are_happy_to_have_you_join_the_team_we_are_examining_it_please_wait_your_account_will_be_activated_by_the_administration"
-                    android:textColor="#1A1D1F"
                     android:textAlignment="center"
+                    android:textColor="#1A1D1F"
                     android:textSize="@dimen/_14ssp"
-                    android:layout_marginEnd="@dimen/_16ssp"
-                    android:layout_marginStart="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

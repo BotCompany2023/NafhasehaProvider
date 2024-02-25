@@ -730,7 +730,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() , ClickItemFilter
                     .show()
             }
             else -> {
-                Toast.makeText(requireActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(requireActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -34,13 +34,16 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.sa.nafhasehaprovider.R
+import com.sa.nafhasehaprovider.base.BaseActivity
 import com.sa.nafhasehaprovider.common.util.Utilities.Companion.onPermission
 import com.sa.nafhasehaprovider.databinding.ActivityMapsBinding
 import java.io.IOException
 import java.util.*
 
 
-class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback {
+class MapsActivity :  BaseActivity<ActivityMapsBinding>(), OnMapClickListener, OnMapReadyCallback {
+
+    override fun getLayoutId(): Int =R.layout.activity_maps
 
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val REQUEST_CHECK_SETTINGS = 10001
@@ -56,14 +59,12 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
     //    private SupportMapFragment mapFragment;
     private var manager: LocationManager? = null
     private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         onPermission(this)
-        binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -189,12 +190,12 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marker))
                 )
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 17f))
-                binding.tvAutocomplete.setText(
+                mViewDataBinding.tvAutocomplete.setText(
                     getAddressFromLatLng(
                         LATITUDE, LONGITUDE, geocoderMaxResults
                     )
                 )
-                binding.tvResultAddress.text = getAddressFromLatLng(
+                mViewDataBinding.tvResultAddress.text = getAddressFromLatLng(
                     LATITUDE, LONGITUDE, geocoderMaxResults
                 )
 
@@ -244,7 +245,7 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
             mMap.addMarker(options)
             getAddressFromLatLng(LATITUDE, LONGITUDE, geocoderMaxResults)
 
-            binding.tvResultAddress.text = fullADDRESS
+            mViewDataBinding.tvResultAddress.text = fullADDRESS
 //            mMap.setOnMapClickListener(MapsActivity.this);
         }
     }
@@ -272,8 +273,8 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
             fullADDRESS = address.getAddressLine(0) + address.adminArea + address.subAdminArea
             CITY = address.adminArea
             markerOptions.title(address.getAddressLine(0) + "")
-            binding.tvResultAddress.text = fullADDRESS
-            binding.tvAutocomplete.text = ""
+            mViewDataBinding.tvResultAddress.text = fullADDRESS
+            mViewDataBinding.tvAutocomplete.text = ""
 
         } catch (e: Exception) {
             //e.printStackTrace();
@@ -288,7 +289,7 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
 
 
     private fun onClick() {
-        binding.btnAddAddress.setOnClickListener { view ->
+        mViewDataBinding.btnAddAddress.setOnClickListener { view ->
             val intent = Intent()
             intent.putExtra("ADDRESS", fullADDRESS)
             intent.putExtra("CITY", CITY)
@@ -297,7 +298,7 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
             setResult(RESULT_OK, intent)
             finish()
         }
-        binding.tvAutocomplete.setOnClickListener { view ->
+        mViewDataBinding.tvAutocomplete.setOnClickListener { view ->
             if (!manager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //buildAlertMessageNoGps();
             } else {
@@ -316,15 +317,15 @@ class MapsActivity : FragmentActivity(), OnMapClickListener, OnMapReadyCallback 
             }
         }
 
-        binding.tvHome.setOnClickListener {
-            binding.tvHome.setBackgroundResource(R.drawable.shape_text4)
-            binding.tvWork.setBackgroundResource(R.drawable.shape_text)
+        mViewDataBinding.tvHome.setOnClickListener {
+            mViewDataBinding.tvHome.setBackgroundResource(R.drawable.shape_text4)
+            mViewDataBinding.tvWork.setBackgroundResource(R.drawable.shape_text)
 
         }
 
-        binding.tvWork.setOnClickListener {
-            binding.tvWork.setBackgroundResource(R.drawable.shape_text4)
-            binding.tvHome.setBackgroundResource(R.drawable.shape_text)
+        mViewDataBinding.tvWork.setOnClickListener {
+            mViewDataBinding.tvWork.setBackgroundResource(R.drawable.shape_text4)
+            mViewDataBinding.tvHome.setBackgroundResource(R.drawable.shape_text)
 
         }
     }
