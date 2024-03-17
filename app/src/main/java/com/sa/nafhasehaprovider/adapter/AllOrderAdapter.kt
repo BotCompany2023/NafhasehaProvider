@@ -118,6 +118,10 @@ class AllOrderAdapter(
             holder.binding.tvStatus.text = context.getString(R.string.canceled)
             holder.binding.tvStatus.setTextColor(context.resources.getColor(R.color.red))
             holder.binding.tvStatus.setBackgroundResource(R.drawable.shape_cancel)
+            holder.binding.viewTracking.visibility=View.VISIBLE
+            holder.binding.tvReason.visibility=View.VISIBLE
+            holder.binding.titleReason.visibility=View.VISIBLE
+            holder.binding.tvReason.text=model.reason
 
         }
         //مكتمل
@@ -158,9 +162,6 @@ class AllOrderAdapter(
                 holder.binding.btnSubmitReports.visibility=View.GONE
                 holder.binding.viewTracking.visibility=View.GONE
             }
-
-
-
 
         }
     }

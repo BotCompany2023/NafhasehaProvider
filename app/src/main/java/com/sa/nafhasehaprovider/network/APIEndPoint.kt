@@ -380,4 +380,10 @@ interface APIEndPoint {
     ): Response<VehicleTransporterResponse>
 
 
+
+    @POST("change-default-language")
+    suspend fun changeLanguage(@Query("default_language") defaultLanguage: String): Response<GeneralResponse>
+
+
+
 }

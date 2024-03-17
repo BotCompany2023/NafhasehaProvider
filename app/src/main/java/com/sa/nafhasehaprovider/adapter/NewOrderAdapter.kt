@@ -85,6 +85,9 @@ class NewOrderAdapter(
             holder.binding.tvPrice.text = model.final_total +" "+context.getString(R.string.sar)
             holder.binding.layoutAction.visibility=View.GONE
             holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+            holder.binding.btnAcceptOrder.visibility=View.VISIBLE
+            holder.binding.tvPrice.visibility=View.GONE
+            holder.binding.titlePrice.visibility=View.GONE
         }
         else if(model.type=="Petrol"){
             holder.binding.tvPrice.text = model.suggested_price +" "+context.getString(R.string.sar)

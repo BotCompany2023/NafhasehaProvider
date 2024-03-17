@@ -317,13 +317,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                             CODE200 -> {
 
                                 if (it.data!! ==1){
-                                    Utilities.showToastSuccess(this, "متاح الان ")
+                                    Utilities.showToastSuccess(this, getString(R.string.available))
                                 }
                                 else{
-                                    Utilities.showToastError(this, "غير متاح ")
+                                    Utilities.showToastSuccess(this, getString(R.string.uavailable))
 
                                 }
-                                if (it.data!! ==1){
+                                if (it.data ==1){
                                     mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
                                     mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
                                 }

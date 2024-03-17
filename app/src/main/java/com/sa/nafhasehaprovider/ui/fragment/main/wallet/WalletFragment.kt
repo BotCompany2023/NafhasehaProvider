@@ -98,6 +98,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
                                 if (listDebit.size==0){
                                     mViewDataBinding.constraintLayout8.visibility=View.GONE
                                 }
+                                else{
+                                    mViewDataBinding.constraintLayout8.visibility=View.VISIBLE
+
+                                }
 
 
                             }
@@ -143,6 +147,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
 
     private fun onClick() {
+
+        if (totalWallet == null){
+            mViewDataBinding.btnWithdrawNow.visibility=View.VISIBLE
+        }
         mViewDataBinding.btnChargeNow.setOnClickListener {
 
                 val action = WalletFragmentDirections.

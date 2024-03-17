@@ -104,7 +104,7 @@
     <string name="address_is_required">العنوان مطلوب</string>
     <string name="please_selected_city">الرجاء اختيار المدينة</string>
     <string name="please_selected_aras">الرجاء اختيار الحي</string>
-    <string name="sr">ر.س</string>
+    <string name="sr">رس</string>
     <string name="to_increase_your_credit_share_the_invitation_code_with_your_friends">لزيادة رصيدك , شارك رمز الدعوة مع اصدقائك ......</string>
     <string name="upon_completing_the_first_request_a_balance_will_be_added_to_your_wallet_and_your_friend_s_wallet">عند اتمام اول طلب سيتم اضافة رصيد لمحفظتك  ومحفظة صديقك</string>
     <string name="share_the_invitation_code">مشاركة رمز الدعوة</string>
@@ -133,7 +133,7 @@
     <string name="time">الوقت</string>
     <string name="my_location">موقعي</string>
     <string name="details">لديك تفاصيل</string>
-    <string name="holiday_photos">صور العطل</string>
+    <string name="holiday_photos">صور عطل السيارة</string>
     <string name="coupon_discount">كوبون الخصم</string>
     <string name="enter_the_discount_coupon">ادخل كوبون الخصم</string>
     <string name="value_discount">خصم بقيمة  </string>
@@ -207,7 +207,7 @@
     <string name="please_enter_your_account_information_to_complete_the_withdrawal_procedures">نرجو منك ادخال بيانات الحساب لاستكمال اجراءات السحب</string>
     <string name="bank_name">اسم البنك</string>
     <string name="account_holder_s_name">اسم صاحب الحساب</string>
-    <string name="iban_number">رقم الايبان</string>
+    <string name="iban_number">رقم الايبان او رقم الحساب</string>
     <string name="withdrawal_amount">مبلغ السحب</string>
     <string name="news">جديد</string>
     <string name="approved">تمت الموفقة</string>
@@ -266,6 +266,13 @@
     <string name="battery_type">نوع البطارية</string>
     <string name="battery_subscription">إشتراك  بطارية</string>
     <string name="you_have_an_ongoing_request">لديك طلب جاري ...</string>
+    <string name="your_balance_is_insufficients">رصيدك غير كافي</string>
+    <string name="enter_a_valid_amount">ادخل مبلغ صحيح</string>
+    <string name="invalid_account_iban">رقم الحساب أو IBAN غير صحيح</string>
+    <string name="invalid_account">رقم الحساب غير صحيح</string>
+    <string name="invalid_iban">IBAN غير صحيح</string>
+    <string name="valid">صحيح</string>
+    <string name="the_reason_of_refuse">سبب الرفض</string>
 
 
 </resources>

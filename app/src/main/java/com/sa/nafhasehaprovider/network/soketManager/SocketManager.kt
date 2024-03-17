@@ -65,7 +65,8 @@ class SocketManager {
                 Log.e("TAGffffff", "Full socket url:" + "${SOCKET_URL}?type=Proviedr&id=${NafhasehaProviderApp.pref.getInt(USER_ID, 0)}")
 
             }
-        } catch (e: URISyntaxException) {
+        }
+        catch (e: URISyntaxException) {
             e.printStackTrace()
             socketFailedDialog()
             return
@@ -191,6 +192,7 @@ class SocketManager {
     /**
      * reconnect to socket if socket is null or disconnected
      */
+
     fun tryToReconnect() {
         Log.e(TAG, "Check for socket reconnect")
         if (mSocket != null) {

@@ -45,6 +45,7 @@ class MapsActivity :  BaseActivity<ActivityMapsBinding>(), OnMapClickListener, O
 
     override fun getLayoutId(): Int =R.layout.activity_maps
 
+
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val REQUEST_CHECK_SETTINGS = 10001
     var fullADDRESS: String? = null
@@ -52,6 +53,7 @@ class MapsActivity :  BaseActivity<ActivityMapsBinding>(), OnMapClickListener, O
     var LATITUDE = 1.55555
     var LONGITUDE: Double = 1.55566
     var geocoderMaxResults = 1
+
 
     //    private GoogleMap mMap;
     lateinit var client: FusedLocationProviderClient

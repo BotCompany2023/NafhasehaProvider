@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="4dp"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/ic_view"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
             android:text="@string/please_enter_your_account_information_to_complete_the_withdrawal_procedures"
             android:textAlignment="center"
             android:textColor="#4FAB47"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
@@ -104,7 +104,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_text"
-            android:padding="@dimen/_6sdp"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/title_bank_name">
@@ -141,11 +141,9 @@
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
             android:background="@drawable/shape_text"
             android:inputType="text"
-            android:padding="@dimen/_10sdp"
+            style="@style/editText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_name" />
@@ -169,14 +167,12 @@
 
 
         <EditText
+            style="@style/editText"
             android:id="@+id/tv_iban_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
             android:background="@drawable/shape_text"
             android:inputType="text"
-            android:padding="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_iban_number" />
@@ -201,23 +197,22 @@
             android:id="@+id/tv_withdrawal_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
             android:background="@drawable/shape_text"
             android:inputType="numberDecimal"
-            android:padding="@dimen/_10sdp"
+            style="@style/editText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_withdrawal_amount" />
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_charge_now"
+            android:id="@+id/btn_send_request"
             style="@style/bottom"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16sdp"
-            android:text="@string/charge_now"
+            android:text="@string/send_request"
             android:backgroundTint="@color/icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

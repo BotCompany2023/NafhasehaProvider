@@ -34,6 +34,7 @@ class AuthenticationViewModel(
     val changePasswordResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<CategoriesResponse>> =MutableLiveData()
     val getVehicleTransporterResponse: MutableLiveData<Resource<VehicleTransporterResponse>> = MutableLiveData()
+    val changeDefaultLanguageResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
 
 
     init {
@@ -326,6 +327,28 @@ class AuthenticationViewModel(
             }
         }
     }
+
+    fun changeLanguage(defaultLanguage: String) {
+        if (Utilities.hasInternetConnection()) {
+            changeDefaultLanguageResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.changeLanguage(defaultLanguage)
+                try {
+                    if (response.isSuccessful) {
+                        changeDefaultLanguageResponse.postValue(Resource.Success(response.body()!!))
+                        // handling if repsonse is succesfully
+                        Log.i("TestGetProfileVM", "${response.body()}")
+                    } else {
+                        Log.i("TestGetProfileVM", " error ${response.code()}")
+                        Resource.Error(response.message())
+
+                    }
+                }catch (e:Exception){}
+
+            }
+        }
+    }
+
 
     fun getDeviceID(): String {
         return Settings.Secure.getString(

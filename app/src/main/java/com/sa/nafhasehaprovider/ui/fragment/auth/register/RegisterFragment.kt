@@ -159,7 +159,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                                 Utilities.showToastError(requireActivity(), it.message)
                             }
                             else -> {
-
+                                showProgress(false)
                             }
 
                         }
@@ -215,7 +215,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                                 Utilities.showToastError(requireActivity(), it.message)
                             }
                             else -> {
-
+                                showProgress(false)
                             }
 
                         }
@@ -265,7 +265,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                                 Utilities.showToastError(requireActivity(), it.message)
                             }
                             else -> {
-
+                                showProgress(false)
                             }
                         }
                     }
@@ -312,7 +312,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                                 Utilities.showToastError(requireActivity(), it.message)
                             }
                             else -> {
-
+                                showProgress(false)
                             }
 
 
@@ -350,9 +350,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
 
                                 Utilities.showToastSuccess(requireActivity(), it.message)
                                 // saving token
-                                //NafhasehaApp.pref.saveUserData(requireActivity(),USER_DATA,it)
+                                NafhasehaProviderApp.pref.authToken =it.data!!.access_token
 
-                                //  NafhasehaProviderApp.pref.authToken =it.data!!.access_token
 
                                 val action =
                                     RegisterFragmentDirections.actionRegisterFragmentToVerifyOtpFragment(
@@ -374,7 +373,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                                 Utilities.showToastError(requireActivity(), it.message)
                             }
                             else -> {
-
+                                showProgress(false)
                             }
                         }
                     }

@@ -104,7 +104,7 @@
     <string name="address_is_required">Address is required</string>
     <string name="please_selected_city">Please selected city</string>
     <string name="please_selected_aras">Please selected aras</string>
-    <string name="sr">S.R</string>
+    <string name="sr">SR</string>
     <string name="to_increase_your_credit_share_the_invitation_code_with_your_friends">To increase your credit, share the invitation code with your friends...</string>
     <string name="upon_completing_the_first_request_a_balance_will_be_added_to_your_wallet_and_your_friend_s_wallet">Upon completing the first request, a balance will be added to your \n\ wallet and your friend\'s wallet</string>
     <string name="share_the_invitation_code">Share the invitation code</string>
@@ -133,7 +133,7 @@
     <string name="time">Time</string>
     <string name="my_location">My Location</string>
     <string name="details">Details</string>
-    <string name="holiday_photos">Holiday photos</string>
+    <string name="holiday_photos">Car breakdown images</string>
     <string name="coupon_discount">Coupon Discount</string>
     <string name="enter_the_discount_coupon">Enter the discount coupon</string>
     <string name="value_discount">Value discount</string>
@@ -208,7 +208,7 @@
     <string name="please_enter_your_account_information_to_complete_the_withdrawal_procedures">Please enter your account information to complete the withdrawal procedures</string>
     <string name="bank_name">Bank name</string>
     <string name="account_holder_s_name">Account Holder\'s Name</string>
-    <string name="iban_number">IBAN number</string>
+    <string name="iban_number">IBAN number or account number</string>
     <string name="withdrawal_amount">Withdrawal amount</string>
     <string name="news">new</string>
     <string name="approved">Approved</string>
@@ -267,6 +267,15 @@
     <string name="battery_type">Battery type</string>
     <string name="battery_subscription">"Battery subscription "</string>
     <string name="you_have_an_ongoing_request">You have an ongoing request...</string>
+    <string name="your_balance_is_insufficients">Your balance is insufficient</string>
+    <string name="enter_a_valid_amount">Enter a valid amount</string>
+
+        <string name="invalid_account_iban">Invalid bank account number or IBAN</string>
+        <string name="invalid_account">Invalid bank account number</string>
+        <string name="invalid_iban">Invalid IBAN</string>
+        <string name="valid">Valid</string>
+
+    <string name="the_reason_of_refuse">The reason of refuse</string>
 
 
 </resources>

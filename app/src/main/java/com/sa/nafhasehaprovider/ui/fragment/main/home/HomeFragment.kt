@@ -77,6 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mViewDataBinding.viewBack.visibility=View.VISIBLE
 
 
         mActivity=requireActivity() as MainActivity
@@ -103,8 +104,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
     private fun initResponse() {
 
-        listNewOrderSocket = ArrayList()
-        newOrderSocketAdapter = NewOrderSocketAdapter(requireActivity(), listNewOrderSocket, this);
+
+
+//        listNewOrderSocket = ArrayList()
+//        newOrderSocketAdapter = NewOrderSocketAdapter(requireActivity(), listNewOrderSocket, this);
       //  mViewDataBinding.rvNewOrderSocket.adapter = newOrderSocketAdapter
 
         listNewOrder = ArrayList()
@@ -120,10 +123,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
-                   // listNewOrder.clear()
+                    mViewDataBinding.viewBack.visibility=View.GONE
+
+                    // listNewOrder.clear()
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
+
 
                                 if (it.data!!.provider.is_active == 1) {
                                     mViewDataBinding.constraintActivation.visibility = View.GONE
@@ -153,13 +159,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
 
 
+
+
                                 listNewOrder.addAll(it.data.new_orders)
                                 mViewDataBinding.rvNewOrder.adapter = newOrderAdapter
                                 newOrderAdapter.notifyDataSetChanged()
 
-                                if (listNewOrder.size==0){
-                                    mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
-                                }
+
+
+
 
                                 if (it.data.is_have_order!! ==true)
                                 {
@@ -174,13 +182,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                                 }
                                 else{
                                     mViewDataBinding.constraintIsHaveOrder.visibility=View.GONE
-                                    mActivity.mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
-                                    mActivity.mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
+//                                    mActivity.mViewDataBinding.ivOnOff.setImageResource(R.drawable.icon_on)
+//                                    mActivity.mViewDataBinding.tvTitleStatus.text=getText(R.string.available)
                                     mActivity.mViewDataBinding.constraintSwitch.isEnabled=true
-                                    mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
+                                    mViewDataBinding.constraintNoOrder.visibility=View.GONE
                                     mViewDataBinding.textView.visibility=View.VISIBLE
 
+                                    if (listNewOrder.size!=0){
+                                        mViewDataBinding.constraintNoOrder.visibility=View.GONE
+                                    }
+                                    else {
+                                        mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
+                                    }
+
+
                                 }
+
 
 
                                 infoViewModel.versionUpdate("Android", BuildConfig.VERSION_NAME)
@@ -450,6 +467,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 //            mViewDataBinding.constraintNoOrder.visibility = View.GONE
 
              viewModel.home(currentPage,countPage)
+//            if (listNewOrder.size!=0){
+//                mViewDataBinding.constraintNoOrder.visibility=View.GONE
+//            }
+//            else {
+//                mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
+//            }
         }
 
     }

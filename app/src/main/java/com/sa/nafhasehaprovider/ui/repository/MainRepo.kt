@@ -157,5 +157,10 @@ class MainRepo(private val api: APIEndPoint) {
 
 
 
+    suspend fun changeLanguage(defaultLanguage: String) =
+        api.changeLanguage(defaultLanguage)
+
+
+
 }
 

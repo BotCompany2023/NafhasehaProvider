@@ -141,34 +141,14 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
 
                                 CODE200 -> {
                                     Utilities.showToastSuccess(requireActivity(), it.message)
-                                    if (typePage == "REGISTER") {
 
-                                        // saving token
-                                        NafhasehaProviderApp.pref.authToken =it.data!!.access_token
-                                        NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
+                                    // saving token
+                                    NafhasehaProviderApp.pref.authToken =it.data!!.access_token
+                                    NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
 
-                                        startActivity(
-                                            Intent(
-                                                requireActivity(), MainActivity::class.java
-                                            )
-                                        )
-                                        requireActivity().finish()
-                                    }
-                                    else if (typePage == "LOGIN") {
-//                                        val action =
-//                                            VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
-//                                        mViewDataBinding.root.findNavController().navigate(action)
+                                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                    requireActivity().finish()
 
-                                        NafhasehaProviderApp.pref.authToken =it.data!!.access_token
-                                        NafhasehaProviderApp.pref.saveUserData(requireActivity(),USER_DATA,it)
-
-                                        startActivity(
-                                            Intent(
-                                                requireActivity(), MainActivity::class.java
-                                            )
-                                        )
-                                        requireActivity().finish()
-                                    }
 
                                 }
                                 CODE403 -> {
@@ -278,7 +258,7 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
                                     mViewDataBinding.root.findNavController().navigate(action)
                                 } else if (typePage == "CHECK_MOBILE_FORGET") {
                                     val action =
-                                        VerifyOtpFragmentDirections.actionVerifyOtpFragmentToMobileForgetPasswordFragment()
+                                        VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
                                     mViewDataBinding.root.findNavController().navigate(action)
                                 } else if (typePage == "LOGIN") {
                                     val action =
@@ -301,7 +281,7 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
                 mViewDataBinding.root.findNavController().navigate(action)
             } else if (typePage == "CHECK_MOBILE_FORGET") {
                 val action =
-                    VerifyOtpFragmentDirections.actionVerifyOtpFragmentToMobileForgetPasswordFragment()
+                    VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
                 mViewDataBinding.root.findNavController().navigate(action)
             } else if (typePage == "LOGIN") {
                 val action = VerifyOtpFragmentDirections.actionVerifyOtpFragmentToLoginFragment()
@@ -382,7 +362,6 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
                 //here you can have your logic to set text to edittext
             }
 
-            @RequiresApi(Build.VERSION_CODES.M)
             override fun onFinish() {
                 try {
                     mViewDataBinding.tvResendTheCode.setTextColor(
@@ -454,7 +433,14 @@ class VerifyOtpFragment : BaseFragment<FragmentVerifyOtpBinding>() {
 
     private fun initBroadCast() {
         val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        requireActivity().registerReceiver(smsBroadcastReceive, intentFilter)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireActivity().registerReceiver(smsBroadcastReceive, intentFilter,
+                Context.RECEIVER_EXPORTED
+            )
+        }else {
+            requireActivity(). registerReceiver(smsBroadcastReceive, intentFilter)
+        }
+
     }
 
 

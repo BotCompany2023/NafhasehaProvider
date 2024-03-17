@@ -13,14 +13,14 @@ apikeyPropertiesFile.load(new FileInputStream(rootProject.file("key.properties")
 
 android {
     namespace 'com.sa.nafhasehaprovider'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.sa.nafhasehaprovider"
         minSdk 24
-        targetSdk 33
-        versionCode 8
-        versionName "1.8"
+        targetSdk 34
+        versionCode 7
+        versionName "1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.google.firebase:firebase-messaging:23.3.1'
+    implementation 'com.google.firebase:firebase-messaging:23.4.1'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -215,6 +215,10 @@ dependencies {
     implementation project(path: ':JingleToast')
 
 
+}
+
+configurations.all {
+    exclude group:'com.google.android.gms', module:'play-services-safetynet'
 }
 
 apply plugin: 'com.google.gms.google-services'

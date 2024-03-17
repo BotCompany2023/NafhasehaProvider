@@ -1,18 +1,24 @@
 package com.sa.nafhasehaprovider.ui.fragment.dialog
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.adapter.DropDownBanksAdapter
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.base.BaseBottomDialog
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
+import com.sa.nafhasehaprovider.common.util.Utilities.Companion.showToastError
 import com.sa.nafhasehaprovider.databinding.FragmentBottomSheetAddOfferBinding
 import com.sa.nafhasehaprovider.databinding.FragmentBottomSheetRatingBinding
 import com.sa.nafhasehaprovider.databinding.FragmentBottomSheetRechargeBinding
@@ -30,6 +36,11 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
 
     override fun getLayoutId(): Int = R.layout.fragment_bottom_sheet_withdraw
 
+    private lateinit var name: String
+    private lateinit var Iban: String
+    private lateinit var price: String
+    private lateinit var mess: String
+    private var totalWallet: Int=1
     private var idBank: Int=0
     private val viewModel: WalletViewModel by viewModel()
 
@@ -37,6 +48,17 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
     lateinit var dataSource: ArrayList<GetBanksResponseData>
 
     lateinit var mActivity:MainActivity
+
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener {
+            val bottomSheetDialog = it as BottomSheetDialog
+            val parentLayout = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            parentLayout?.layoutParams?.height = ViewGroup.LayoutParams.MATCH_PARENT
+        }
+        return dialog
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,12 +69,23 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
         if (arguments != null) {
             val args:BottomSheetWithdrawFragmentArgs= BottomSheetWithdrawFragmentArgs.fromBundle(requireArguments())
            mViewDataBinding.tvTotalWallet.text=""+args.amount +getString(R.string.sr)
+            totalWallet=args.amount
+
+
+            if (totalWallet>0){
+                mViewDataBinding.btnSendRequest.visibility=View.VISIBLE
+            }
+
         }
+
+
 
         initResponse()
         onClick()
 
     }
+
+
 
     private fun initResponse() {
 
@@ -136,6 +169,7 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
                             }
                             CODE500 -> {
                                 Utilities.showToastError(requireActivity(), it.message)
+
                             }
                             else -> {
 
@@ -186,13 +220,19 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
             }
 
 
-        mViewDataBinding.btnChargeNow.setOnClickListener {
-            val name=mViewDataBinding.tvName.text.toString()
-            val Iban=mViewDataBinding.tvIbanNumber.text.toString()
-            val price=mViewDataBinding.tvWithdrawalAmount.text.toString()
+        mViewDataBinding.btnSendRequest.setOnClickListener {
+
+
+            name=mViewDataBinding.tvName.text.toString()
+             Iban=mViewDataBinding.tvIbanNumber.text.toString()
+            price=mViewDataBinding.tvWithdrawalAmount.text.toString()
+            val validationResult = validateBankAccountAndIBAN(requireContext(),Iban)
+//            Toast.makeText(requireActivity(), Iban, Toast.LENGTH_SHORT).show()
+
+
             if (idBank==0)
             {
-                Utilities.showToastError(requireActivity(),getString(R.string.please_select_a_bank))
+                showToastError(requireActivity(),getString(R.string.please_select_a_bank))
             }
             else if (name.isEmpty())
             {
@@ -202,13 +242,50 @@ class BottomSheetWithdrawFragment : BaseBottomDialog<FragmentBottomSheetWithdraw
             {
                 mViewDataBinding.tvIbanNumber.error=getString(R.string.iban_number)
             }
+
             else if (price.isEmpty())
             {
                 mViewDataBinding.tvWithdrawalAmount.error=getString(R.string.tell_us_the_shipping_amount)
             }
-            else{
-                viewModel.requestWithdrawal(idBank,name,Iban,price.toInt())
+            else if (mViewDataBinding.tvWithdrawalAmount.text.toString().toInt() ==0)
+            {
+                showToastError(requireActivity(),getString(R.string.enter_a_valid_amount))
             }
+            else if (mViewDataBinding.tvWithdrawalAmount.text.toString().toInt() > totalWallet)
+            {
+                showToastError(requireActivity(),getString(R.string.your_balance_is_insufficients))
+            }
+            else{
+
+                viewModel.requestWithdrawal(idBank,name,Iban,price.toInt())
+
+
+//                if (validationResult == getString(R.string.valid)) {
+//                    // الرقم صحيح، قم بتنفيذ الدالة المعينة هنا
+//                    viewModel.requestWithdrawal(idBank,name,Iban,price.toInt())
+//                } else {
+//                    // الرقم غير صحيح، يمكنك هنا إظهار رسالة للمستخدم أو إجراء إجراءات أخرى
+//                    showToastError(requireActivity(),validationResult)
+//                }
+
+
+            }
+        }
+    }
+
+
+    fun validateBankAccountAndIBAN(context: Context, accountNumber: String): String {
+        val bankAccountPattern = "^SA\\d{22}$".toRegex()
+        val ibanPattern = "^\\d{14}$".toRegex()
+
+        return if (!bankAccountPattern.matches(accountNumber) && !ibanPattern.matches(accountNumber)) {
+            context.getString(R.string.invalid_account_iban)
+        } else if (!bankAccountPattern.matches(accountNumber)) {
+            context.getString(R.string.invalid_account)
+        } else if (!ibanPattern.matches(accountNumber)) {
+            context.getString(R.string.invalid_iban)
+        } else {
+            context.getString(R.string.valid)
         }
     }
 
