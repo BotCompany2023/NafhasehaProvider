@@ -209,4 +209,26 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
 //        mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
 //        mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
 //    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SocketRepository.onDisconnect()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SocketRepository.onDisconnect()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ConnectToSocket()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ConnectToSocket()
+    }
 }

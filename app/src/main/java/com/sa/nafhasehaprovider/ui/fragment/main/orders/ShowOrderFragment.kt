@@ -64,6 +64,9 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        mViewDataBinding.viewBack.visibility=View.VISIBLE
+
         mainActivity = requireActivity() as MainActivity
         mainActivity!!.mViewDataBinding.bottomNav.visibility = View.GONE
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.GONE
@@ -105,12 +108,14 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
     private fun initResponse() {
 
 
+
         //response show orders
         viewModel.showOrderResponse.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Success -> {
                     // dismiss loading
                     showProgress(false)
+
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
@@ -391,7 +396,13 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
                                      mViewDataBinding.btnFinishOrder.visibility=View.GONE
                                     mViewDataBinding.linearAction.visibility=View.GONE
                                      mViewDataBinding.btnAcceptOrder.visibility=View.GONE
+                                     mViewDataBinding.constraintReason.visibility=View.VISIBLE
                                      mViewDataBinding.tvStatus.text = getString(R.string.canceled)
+                                     mViewDataBinding.tvStatus.setTextColor(resources.getColor(R.color.red))
+                                     mViewDataBinding.tvStatus.setBackgroundResource(R.drawable.shape_cancel)
+
+                                     mViewDataBinding.tvReason.text=it.data.reason
+
                                  }
 
                                  else if (it.data.status == "PickUp") {
@@ -433,7 +444,10 @@ class ShowOrderFragment : BaseFragment<FragmentShowOrderBinding>() {
 
                                  }
 
-                        }
+                                mViewDataBinding.viewBack.visibility=View.GONE
+
+
+                            }
                         CODE403 -> {
                         //unAuthorized()
                         Utilities.showToastError(requireActivity(), it.message)

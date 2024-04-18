@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.sa.nafhasehaprovider.common.util.NetworkReceiver
 import com.sa.nafhasehaprovider.interfaces.ConnectivityListener
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() , ConnectivityListener {
     lateinit var mViewDataBinding: T
@@ -88,5 +89,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() , ConnectivityList
         // قم بإلغاء تسجيل المستمع هنا في onDestroyView
         requireActivity().unregisterReceiver(networkReceiver)
     }
+
+
 
 }

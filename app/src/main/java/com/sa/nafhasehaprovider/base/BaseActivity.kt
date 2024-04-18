@@ -26,6 +26,8 @@ import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 import com.sa.nafhasehaprovider.common.LANG
 import com.sa.nafhasehaprovider.common.util.LocaleUtil
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository.ConnectToSocket
 import java.util.Locale
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
@@ -47,6 +49,8 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         activity = this
         performDataBinding()
         // makeStatusbarTransparent()
+
+
 
     }
 
@@ -211,10 +215,6 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
            toast.show()
        }
    */
-    override fun onResume() {
-        super.onResume()
-        // Utilities.setLocalFrom(Utilities.getCachedString(this, LANG, "ar"), this)
-    }
 
     fun setLocal(lang: String, activity: Activity) {
 //        Utilities.cacheString(activity, LANG, lang)
@@ -238,15 +238,19 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
 
 
+    override fun onPause() {
+        super.onPause()
+        SocketRepository.onDisconnect()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        ConnectToSocket()
+    }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//            SocketRepository.onDisconnect()
-//    }
-//    override fun onPause() {
-//        super.onPause()
-//        SocketRepository.onDisconnect()
-//
-//    }
+    override fun onDestroy() {
+        super.onDestroy()
+            SocketRepository.onDisconnect()
+    }
+
 }

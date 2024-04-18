@@ -176,6 +176,9 @@ interface APIEndPoint {
     @POST("notifications/save_token")
     suspend fun saveToken(@Query("fcm_token")fcmToken:String): Response<GeneralResponse>
 
+    @GET("notifications/show-all")
+    suspend fun showAllNotification(): Response<GeneralResponse>
+
     @GET("notifications/count")
     suspend fun getCountNotification(): Response<CountNotificationResponse>
 

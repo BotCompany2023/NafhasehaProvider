@@ -103,6 +103,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
                                 }
 
+                                if (totalWallet != null){
+                                    mViewDataBinding.btnWithdrawNow.visibility=View.VISIBLE
+                                }
 
                             }
                             CODE403 -> {
@@ -148,9 +151,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>() {
 
     private fun onClick() {
 
-        if (totalWallet == null){
-            mViewDataBinding.btnWithdrawNow.visibility=View.VISIBLE
-        }
+
         mViewDataBinding.btnChargeNow.setOnClickListener {
 
                 val action = WalletFragmentDirections.

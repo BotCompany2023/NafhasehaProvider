@@ -751,6 +751,7 @@ abstract class Utilities(var context: Context) {
 
         fun onPermission(activity: Activity) {
             val perms = arrayOf(
+                Manifest.permission.POST_NOTIFICATIONS,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.CAMERA,
@@ -758,8 +759,7 @@ abstract class Utilities(var context: Context) {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.CALL_PHONE,
-                Manifest.permission.READ_CONTACTS,
-//                Manifest.permission.RECORD_AUDIO
+                Manifest.permission.READ_CONTACTS
             )
             ActivityCompat.requestPermissions(
                 activity!!,

@@ -175,7 +175,7 @@
             android:id="@+id/action_showOrderFragment_to_menuHome"
             app:destination="@id/menuHome" />
         <argument
-            android:name="idOrder"
+            android:name=  "idOrder"
             app:argType="integer" />
         <action
             android:id="@+id/action_showOrderFragment_to_bottomSheetAddOfferFragment"

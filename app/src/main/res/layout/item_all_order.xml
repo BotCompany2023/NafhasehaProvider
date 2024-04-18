@@ -359,7 +359,7 @@
                 android:fontFamily="@font/tajawal_regular"
                 android:text="سبب الرفض ..."
                 android:textColor="@color/red"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_10ssp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/title_reason"

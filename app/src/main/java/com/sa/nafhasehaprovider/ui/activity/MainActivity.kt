@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Switch
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -19,11 +21,19 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.DexterError
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.sa.nafhasehaprovider.R
 import com.sa.nafhasehaprovider.base.BaseActivity
 import com.sa.nafhasehaprovider.common.*
 import com.sa.nafhasehaprovider.common.util.Utilities
+import com.sa.nafhasehaprovider.common.util.Utilities.Companion.onPermission
 import com.sa.nafhasehaprovider.databinding.ActivityMainBinding
+import com.sa.nafhasehaprovider.network.soketManager.SocketRepository
 import com.sa.nafhasehaprovider.ui.activity.notification.NotificationActivity
 import com.sa.nafhasehaprovider.viewModels.HomeViewModel
 import com.sa.nafhasehaprovider.viewModels.NotificationViewModel
@@ -53,8 +63,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //setupWindowAnimations()
         checkFragment = intent.getStringExtra("type").toString()
 
+        onPermission(this@MainActivity)
         getFirebaseToken()
         initResponse()
+
 
 
 
@@ -411,6 +423,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
     }
+
+
 
 
 }

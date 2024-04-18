@@ -12,6 +12,7 @@ import com.sa.nafhasehaprovider.entity.response.generalResponse.GeneralResponse
 import com.sa.nafhasehaprovider.entity.response.notificationResponse.NotificationResponse
 import com.sa.nafhasehaprovider.ui.repository.MainRepo
 import kotlinx.coroutines.launch
+import java.lang.Error
 
 class NotificationViewModel(
     private val sharedPreferences: PreferencesUtils, private val mainRepo: MainRepo
@@ -21,6 +22,7 @@ class NotificationViewModel(
     val saveTokenResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
     val countNotificationResponse: MutableLiveData<Resource<CountNotificationResponse>> = MutableLiveData()
     val changeStatusGetOrdersResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
+    val showAllNotificationResponse: MutableLiveData<Resource<GeneralResponse>> = MutableLiveData()
 
 
     fun saveToken(fcmToken : String) {
@@ -91,6 +93,27 @@ class NotificationViewModel(
                 } else {
                     Resource.Error(response.message())
                     Log.i("TestLoginterVM", " error ${response.code()}")
+                }
+
+            }
+        }
+    }
+
+
+
+    fun showAllNotification() {
+        if (Utilities.hasInternetConnection()) {
+            showAllNotificationResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = mainRepo.showAllNotification()
+                if (response.isSuccessful) {
+                    showAllNotificationResponse.postValue(Resource.Success(response.body()!!))
+                    // handling if repsonse is succesfully
+                    Log.i("TestLoginterVM", "${response.body()}")
+                } else {
+                    Log.i("TestLoginterVM", " error ${response.code()}")
+                    Resource.Error(response.message())
+
                 }
 
             }

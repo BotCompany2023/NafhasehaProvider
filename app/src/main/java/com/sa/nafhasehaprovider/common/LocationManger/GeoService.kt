@@ -140,6 +140,7 @@ class GeoService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     /**
      * Place the service into the foreground
      */
+    @SuppressLint("ForegroundServiceType")
     fun foreground() {
         startForeground(NOTIFICATION_ID, createNotification())
     }

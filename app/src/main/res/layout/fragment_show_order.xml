@@ -11,6 +11,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.main.orders.ShowOrderFragment">
 
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/viewBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/back_layout"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -55,6 +68,7 @@
 
 
         <ScrollView
+            android:id="@+id/scrollView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
@@ -80,7 +94,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -144,11 +157,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:fontFamily="@font/cairo_semibold"
-                            android:textStyle="bold"
                             android:text="@string/address"
                             android:textAlignment="viewStart"
                             android:textColor="@color/black2"
                             android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/icon"
                             app:layout_constraintTop_toTopOf="@+id/icon" />
 
@@ -204,10 +217,10 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:fontFamily="@font/cairo_semibold"
                             android:text="@string/delivery_location"
-                            android:textStyle="bold"
                             android:textAlignment="viewStart"
                             android:textColor="@color/black2"
                             android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/icon2"
                             app:layout_constraintTop_toTopOf="@+id/icon2" />
 
@@ -225,10 +238,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/title_delivery_location" />
 
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -268,7 +278,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-
                     <TextView
                         android:id="@+id/tv_name_service"
                         android:layout_width="wrap_content"
@@ -297,8 +306,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_name_service"
                         app:layout_constraintStart_toEndOf="@+id/tv_name_service"
                         app:layout_constraintTop_toTopOf="@+id/tv_name_service" />
-
-
 
 
                     <TextView
@@ -389,8 +396,8 @@
                             android:id="@+id/view"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/grey4"
                             android:layout_marginTop="@dimen/_8sdp"
+                            android:background="@color/grey4"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -524,39 +531,36 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint_holiday_photos"
                         android:layout_width="0dp"
-                        android:visibility="gone"
-                        android:layout_marginTop="@dimen/_8sdp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view6">
 
 
-
-
-                            <TextView
-                                android:id="@+id/title_holiday_photos"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:text="@string/holiday_photos"
-                                android:textAlignment="viewStart"
-                                android:textColor="@color/black2"
-                                android:textSize="@dimen/_12ssp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/title_holiday_photos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/holiday_photos"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black2"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_holiday_photos"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
                             android:layout_marginTop="@dimen/_4sdp"
+                            android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -567,15 +571,14 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey4"
-                            app:layout_constraintTop_toBottomOf="@+id/rv_holiday_photos"
-                            app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/_6sdp"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            android:background="@color/grey4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_holiday_photos" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                     <TextView
@@ -586,11 +589,11 @@
                         android:drawablePadding="@dimen/_4sdp"
                         android:fontFamily="@font/tajawal_medium"
                         android:gravity="center|start"
-                        android:textColor="#374151"
-                        android:textStyle="bold"
                         android:text="@string/order_status"
                         android:textAlignment="viewStart"
+                        android:textColor="#374151"
                         android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraint_holiday_photos" />
 
@@ -611,9 +614,7 @@
                         app:layout_constraintTop_toTopOf="@+id/title" />
 
 
-
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/title_payment_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -624,12 +625,12 @@
                         android:textColor="#374151"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_status" />
 
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_payment_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -638,6 +639,7 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/appColor"
                         android:textSize="@dimen/_10ssp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/title_payment_status"
                         app:layout_constraintEnd_toEndOf="@+id/tv_status"
                         app:layout_constraintStart_toStartOf="@+id/tv_status"
@@ -670,8 +672,8 @@
                     android:background="@drawable/shape_text5"
                     android:fontFamily="@font/tajawal_medium"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/black"
                     android:textAlignment="viewStart"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -723,14 +725,59 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.cardview.widget.CardView
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:textAlignment="viewStart"
+                    android:textSize="@dimen/_10ssp"
                     android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_expected_price">
+
+                    <TextView
+                        android:id="@+id/title_reason"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="@string/the_reason_of_refuse"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_reason"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:text="@string/the_reason_of_refuse"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_reason" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.cardview.widget.CardView
                     android:id="@+id/cv_map"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_120sdp"
                     android:layout_marginHorizontal="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_12sdp"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -741,19 +788,18 @@
                         android:id="@+id/tv_traking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/icon_tracking"
-                        android:drawablePadding="@dimen/_4sdp"
-                        android:fontFamily="@font/tajawal_bold"
-                        android:text="@string/tracking_order"
-                        android:textColor="@color/appColor"
-                        android:elevation="@dimen/_2sdp"
-                        android:textSize="@dimen/_12ssp"
                         android:layout_gravity="bottom|center"
                         android:layout_marginBottom="@dimen/_6sdp"
-                        android:paddingVertical="@dimen/_4sdp"
+                        android:background="@drawable/shape_pending"
+                        android:drawableStart="@drawable/icon_tracking"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:fontFamily="@font/tajawal_bold"
                         android:paddingHorizontal="@dimen/_16sdp"
-                        android:background="@drawable/shape_pending"/>
-
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="@string/tracking_order"
+                        android:textColor="@color/appColor"
+                        android:textSize="@dimen/_12ssp" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -778,8 +824,6 @@
                             app:lottie_autoPlay="true"
                             app:lottie_loop="true"
                             app:lottie_rawRes="@raw/car" />
-
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -832,8 +876,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_24sdp"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_weight="1"
                     android:background="@drawable/shape_text4"
                     android:backgroundTint="@color/appColor"
                     android:fontFamily="@font/tajawal_bold"
@@ -852,8 +896,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_24sdp"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="1"
                     android:background="@drawable/shape_text4"
                     android:backgroundTint="@color/red"
                     android:fontFamily="@font/tajawal_bold"
@@ -867,17 +911,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_the_car_met" />
 
 
-
-
                 <LinearLayout
                     android:id="@+id/linearAction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
                     android:padding="@dimen/_8sdp"
                     android:visibility="gone"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/cv_map"
                     app:layout_constraintTop_toBottomOf="@+id/btn_reject">
@@ -887,33 +929,32 @@
                         android:id="@+id/btn_offer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="1"
                         android:background="@drawable/shape_bottom"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="@string/offer"
-                        android:layout_weight="1"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
-                        android:layout_marginHorizontal="@dimen/_8sdp"/>
-
+                        android:textSize="@dimen/_10ssp" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint_offer_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:layout_marginHorizontal="@dimen/_8sdp" >
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:visibility="gone">
 
 
                         <TextView
                             android:id="@+id/title_offer_price"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center"
                             android:fontFamily="@font/tajawal_medium"
+                            android:gravity="center"
                             android:text="@string/offer_price"
                             android:textAllCaps="false"
                             android:textSize="@dimen/_11ssp"
@@ -926,33 +967,31 @@
                             android:id="@+id/tv_offer_price"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:fontFamily="@font/tajawal_medium"
-                            android:textStyle="bold"
-                            android:text="@string/sr"
-                            android:textAllCaps="false"
-                            android:textAlignment="center"
                             android:layout_marginStart="@dimen/_4sdp"
+                            android:fontFamily="@font/tajawal_medium"
+                            android:text="@string/sr"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/title_offer_price"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_submit_reports"
+                    style="@style/bottom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
-                    style="@style/bottom"
                     android:text="@string/submit_reports"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -962,12 +1001,12 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:visibility="gone"
                     android:id="@+id/constraintStatusMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_expected_price">
 

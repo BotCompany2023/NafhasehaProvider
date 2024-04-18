@@ -99,6 +99,8 @@ class MainRepo(private val api: APIEndPoint) {
 
     suspend fun notification(page: Int, countPaginate: Int) = api.getNotification(page,countPaginate)
     suspend fun saveToken(fcmToken:String) = api.saveToken(fcmToken)
+    suspend fun showAllNotification() = api.showAllNotification()
+
 
     suspend fun countNotification() = api.getCountNotification()
 

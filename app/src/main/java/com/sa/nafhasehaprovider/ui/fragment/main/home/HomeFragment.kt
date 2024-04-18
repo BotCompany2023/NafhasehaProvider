@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.ui.fragment.main.home
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -81,7 +82,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
 
         mActivity=requireActivity() as MainActivity
-        ConnectToSocket()
 
         NafhasehaProviderApp.pref.putBoolean(FIRST_TIME, true)
 
@@ -102,6 +102,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initResponse() {
 
 
@@ -122,6 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
             when (result) {
                 is Resource.Success -> {
                     // dismiss loading
+//                    listNewOrder.clear()
                     showProgress(false)
                     mViewDataBinding.viewBack.visibility=View.GONE
 
@@ -129,7 +131,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                     result.data?.let { it ->
                         when (it.code) {
                             CODE200 -> {
-
 
                                 if (it.data!!.provider.is_active == 1) {
                                     mViewDataBinding.constraintActivation.visibility = View.GONE
@@ -194,11 +195,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                                     else {
                                         mViewDataBinding.constraintNoOrder.visibility=View.VISIBLE
                                     }
-
-
                                 }
-
-
 
                                 infoViewModel.versionUpdate("Android", BuildConfig.VERSION_NAME)
 
@@ -440,8 +437,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         userName: String,
         userPhone: String,
         distance: String,
-        estimatedTime: String
-    ) {
+        estimatedTime: String) {
 
     }
 
@@ -460,6 +456,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
     override fun newOrder(model: GetNewOrder) {
         requireActivity().runOnUiThread {
+
             Log.d("newOrderEE:", "SSFKKFKFF")
 //           // listNewOrderSocket.addAll(listOf(model.response))
 //            listNewOrderSocket.add(model.response)
@@ -482,10 +479,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         initResponse()
     }
 
-    override fun onResume() {
-        super.onResume()
-     //   initResponse()
-    }
+
 
 
 
@@ -524,13 +518,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         // يتم استدعاء هذه الدالة عندما يتغير حالة الاتصال
         if (isConnected) {
             // يمكنك إجراء أي إجراءات إضافية هنا عند الاتصال بالإنترنت
-            initResponse()
-            Utilities.dismissDialogNoInternet()
-        }
-        else{
+            if (view != null) {
+                initResponse()
+                Utilities.dismissDialogNoInternet()
+            }
+        } else {
             Utilities.showDialogNoInternet(requireActivity())
         }
+    }
 
+
+
+//    override fun onResume() {
+//        super.onResume()
+//        SocketRepository.ConnectToSocket()
+//    }
+
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SocketRepository.onDisconnect()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SocketRepository.onDisconnect()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ConnectToSocket()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ConnectToSocket()
     }
 
 
