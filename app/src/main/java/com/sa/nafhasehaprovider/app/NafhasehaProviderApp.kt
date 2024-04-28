@@ -1,5 +1,6 @@
 package com.sa.nafhasehaprovider.app
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -17,6 +18,7 @@ class NafhasehaProviderApp : Application() {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         var context: Context? = null
         lateinit var pref: PreferencesUtils
     }

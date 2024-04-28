@@ -208,7 +208,7 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
 //        super.onDestroy()
 //        mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
 //        mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
-//    }
+//    } b
 
 
     override fun onDestroy() {

@@ -36,6 +36,7 @@ open class FirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
             Log.i(TAG, "data payload: ${remoteMessage.data}")
+            Log.i(TAG, "notification payload: ${remoteMessage.notification!!.title}")
 
             try {
                 val params = remoteMessage.data
