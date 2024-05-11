@@ -238,19 +238,4 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
 
 
-    override fun onPause() {
-        super.onPause()
-        SocketRepository.onDisconnect()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectToSocket()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-            SocketRepository.onDisconnect()
-    }
-
 }

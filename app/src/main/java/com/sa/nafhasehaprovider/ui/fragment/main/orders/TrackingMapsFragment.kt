@@ -395,30 +395,14 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         return poly
     }
 
-    fun ConnectToSocket() {
-        SocketRepository.socketManager = SocketManager()
-        SocketRepository.socketManager?.tryToReconnect()
-        //  SocketRepository.socketManager?.dataLocationListener = this
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
         mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
         mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
-        SocketRepository.onDisconnect()
     }
 
 
-    override fun onPause() {
-        super.onPause()
-        SocketRepository.onDisconnect()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectToSocket()
-    }
 
 
 }

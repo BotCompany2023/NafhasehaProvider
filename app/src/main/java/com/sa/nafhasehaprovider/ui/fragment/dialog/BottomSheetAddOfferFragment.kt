@@ -188,8 +188,6 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
 
     }
     fun ConnectToSocket() {
-        SocketRepository.socketManager = SocketManager()
-        SocketRepository.socketManager?.tryToReconnect()
         SocketRepository.socketManager?.successEmit = this
     }
 
@@ -204,31 +202,5 @@ class BottomSheetAddOfferFragment : BaseBottomDialog<FragmentBottomSheetAddOffer
         }
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mainActivity!!.mViewDataBinding.bottomNav.visibility = View.VISIBLE
-//        mainActivity!!.mViewDataBinding.toolbar.visibility = View.VISIBLE
-//    } b
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        SocketRepository.onDisconnect()
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        SocketRepository.onDisconnect()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectToSocket()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        ConnectToSocket()
-    }
 }

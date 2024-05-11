@@ -99,6 +99,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         mViewDataBinding.rvNewOrder.addOnScrollListener(endlessRecyclerViewScrollListener)
 
 
+        ConnectToSocket()
     }
 
 
@@ -447,8 +448,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
 
     fun ConnectToSocket() {
-        SocketRepository.socketManager = SocketManager()
-        SocketRepository.socketManager?.tryToReconnect()
         SocketRepository.socketManager?.onGetAcceptedOrRejectedOffers()
         SocketRepository.socketManager?.acceptedOrRejectedOffer = this
         SocketRepository.socketManager?.dataNewOrder = this
@@ -525,37 +524,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         } else {
             Utilities.showDialogNoInternet(requireActivity())
         }
-    }
-
-
-
-//    override fun onResume() {
-//        super.onResume()
-//        SocketRepository.ConnectToSocket()
-//    }
-
-
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        SocketRepository.onDisconnect()
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        SocketRepository.onDisconnect()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ConnectToSocket()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        ConnectToSocket()
     }
 
 

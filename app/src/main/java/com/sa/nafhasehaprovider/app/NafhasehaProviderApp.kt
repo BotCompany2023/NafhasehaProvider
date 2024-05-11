@@ -58,4 +58,9 @@ class NafhasehaProviderApp : Application() {
 
     }
 
+    override fun onTerminate() {
+        super.onTerminate()
+        SocketRepository.onDisconnect()
+    }
+
 }

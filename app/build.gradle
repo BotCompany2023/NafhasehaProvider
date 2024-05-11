@@ -187,8 +187,7 @@ dependencies {
     implementation 'com.github.iammert:MultiSearchView:0.3'
     implementation 'com.github.yalantis:jellytoolbar:v1.0'
     implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
-    //AndroidRatingStar
-    implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
+
 
     //SegmentedProgressBar
     implementation 'com.github.TOrnelas:SegmentedProgressBar:0.0.3'
