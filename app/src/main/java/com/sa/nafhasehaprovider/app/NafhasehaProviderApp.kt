@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.sa.nafhasehaprovider.common.USER_DATA
 import com.sa.nafhasehaprovider.common.sharedprefrence.PreferencesUtils
 
 import com.sa.nafhasehaprovider.di.*
@@ -28,6 +29,14 @@ class NafhasehaProviderApp : Application() {
         context = this
         pref = PreferencesUtils(this)
 
+
+        try {
+            if (pref.loadUserData(context!!, USER_DATA)!!.data!!.provider!!.id !=0) {
+                SocketRepository.ConnectToSocket()
+
+            }
+        }catch (e:Exception)
+        {}
 
 
         startKoin {
@@ -54,7 +63,8 @@ class NafhasehaProviderApp : Application() {
             )
         }
 
-       SocketRepository.ConnectToSocket()
+
+
 
     }
 

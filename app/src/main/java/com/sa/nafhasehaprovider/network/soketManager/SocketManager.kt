@@ -41,9 +41,15 @@ class SocketManager {
 
 
 
+    val userData = NafhasehaProviderApp.pref.loadUserData(
+        NafhasehaProviderApp.context!!, USER_DATA
+    )
+    val id: Int = userData?.data?.provider?.id!!
+
+
     fun connectToSocket() {
 
-        var id=NafhasehaProviderApp.pref.getInt(USER_ID, 0)
+//        var id=NafhasehaProviderApp.pref.getInt(USER_ID, 0)
 
         Log.d("DDHHDHD", id.toString())
         Log.e(TAG, "Try Connecting to socket")
@@ -59,18 +65,18 @@ class SocketManager {
                 Log.e(TAG, "Socket equal null")
                 val opts = IO.Options()
                 opts.forceNew = true
-                mSocket = IO.socket("${SOCKET_URL}?type=Proviedr&id=${NafhasehaProviderApp.pref.getInt(USER_ID, 0)}")
+                mSocket = IO.socket("${SOCKET_URL}?type=Proviedr&id=${id}")
                 mSocket!!.connect()
 
-                Log.e("TAGffffff", "Full socket url:" + "${SOCKET_URL}?type=Proviedr&id=${NafhasehaProviderApp.pref.getInt(USER_ID, 0)}")
 
             }
-        }
-        catch (e: URISyntaxException) {
+        } catch (e: URISyntaxException) {
             e.printStackTrace()
             socketFailedDialog()
             return
         }
+
+
 
         if (mListener != null) mListener!!.onLoginWithSocket()
         mSocket!!.on(Socket.EVENT_CONNECT) {

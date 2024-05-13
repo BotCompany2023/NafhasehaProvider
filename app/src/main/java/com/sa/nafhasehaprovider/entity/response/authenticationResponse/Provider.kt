@@ -16,7 +16,7 @@ data class Provider(
     val country: Country? =null,
     val default_language: String? =null,
     val email: String? =null,
-    val id: Int,
+    val id: Int=0,
     val image: String? ="",
     val is_activation: Boolean? =null,
     val is_active: Int? =null,

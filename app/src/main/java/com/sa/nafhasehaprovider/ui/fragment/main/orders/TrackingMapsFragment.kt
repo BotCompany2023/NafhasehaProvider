@@ -136,9 +136,10 @@ class TrackingMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
             var  tvTime=view.findViewById<TextView>(R.id.tv_time)
             var  ivPhone=view.findViewById<ImageView>(R.id.iv_call)
             var  imageUser=view.findViewById<ImageView>(R.id.iv_client)
+            var  nameUser=view.findViewById<TextView>(R.id.tv_name_user)
             tvTime.text = estimatedTime!!
 //            bottomSheetLayout.tv_distance.text = distance!! + getString(R.string.km)
-//            bottomSheetLayout.tv_name_user.text = userName!!
+            nameUser.text = userName!!
             onLoadImageFromUrl(
                 requireActivity(), userImage,imageUser
             )

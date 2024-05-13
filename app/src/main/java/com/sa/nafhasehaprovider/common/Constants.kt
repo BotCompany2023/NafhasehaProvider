@@ -5,8 +5,7 @@ import com.sa.nafhasehaprovider.app.NafhasehaProviderApp
 
 const val USER_DATA = "user_data"
 var BASE_URL = "https://dev.nafhasuha.com/api/provider/V1/"
-//var SOCKET_URL = "https://socket.nafhasuha.com:3000"
-var SOCKET_URL = "http://135.181.122.200:3200"
+var SOCKET_URL = "https://socket.nafhasuha.com:3000"
 
 const val FIRST_TIME = "first_time"
 const val LOGGED = "logged"

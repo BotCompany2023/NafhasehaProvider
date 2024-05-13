@@ -220,9 +220,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_client"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:src="@drawable/man"
+                app:civ_border_color="@color/grey"
+                app:civ_border_width="@dimen/_2sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +238,7 @@
                 android:fontFamily="@font/tajawal_bold"
                 android:text="اسم المندوب "
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_client"
                 app:layout_constraintStart_toEndOf="@+id/iv_client"
                 app:layout_constraintTop_toTopOf="@+id/iv_client" />
