@@ -77,6 +77,10 @@ interface APIEndPoint {
         @Part("city_id") city_id: RequestBody,
         @Part("area_id") area_id: RequestBody,
         @Part commercialRegister: MultipartBody.Part? = null,
+        @Part general_license: MultipartBody.Part? = null,
+        @Part municipal_license: MultipartBody.Part? = null,
+        @Part personal_licence: MultipartBody.Part? = null,
+        @Part national_identity: MultipartBody.Part? = null,
         @Part("services_from_home") services_from_home: RequestBody,
         @Part("transporter_id") transporter_id: RequestBody ? =null,
         @Part("categories[]") categories: List<Int>

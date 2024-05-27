@@ -37,6 +37,7 @@ import com.sa.nafhasehaprovider.entity.response.cityResponse.CityResponseData
 import com.sa.nafhasehaprovider.entity.response.vehicleTransporterResponse.DataVehicleTransporterResponse
 import com.sa.nafhasehaprovider.interfaces.CheckCategory
 import com.sa.nafhasehaprovider.interfaces.ClickItemFilterService
+import com.sa.nafhasehaprovider.ui.activity.MainActivity
 import com.sa.nafhasehaprovider.ui.activity.MapsActivity
 import com.sa.nafhasehaprovider.ui.generalViewModel.AreasViewModel
 import com.sa.nafhasehaprovider.ui.generalViewModel.AuthenticationViewModel
@@ -75,13 +76,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
     var lat = 0.0
     var long: Double = 0.0
     var request_code = 22
-    var request_path = 23
     var mProfileUri: Uri? = null
-    private val GALLERY_IMAGE_REQ_CODE = 102
-    private val CAMERA_IMAGE_REQ_CODE = 103
+    private val GALLERY_IMAGE_COMMERCAL_REGISTER_REQ_CODE = 102
+    private val CAMERA_IMAGE_COMMERCAL_REGISTER_REQ_CODE = 103
+
+    private val GALLERY_IMAGE_NATIONAL_IDENTITY_REQ_CODE = 104
+    private val CAMERA_IMAGE_NATIONAL_IDENTITY_REQ_CODE = 105
+
+    private val GALLERY_IMAGE_DRIVING_LICENSE_REQ_CODE = 106
+    private val CAMERA_IMAGE_DRIVING_LICENSE_REQ_CODE = 107
+
+    private val GALLERY_IMAGE_GENERAL_LICENSE_REQ_CODE = 108
+    private val CAMERA_IMAGE_GENERAL_LICENSE_REQ_CODE = 109
+
+    private val GALLERY_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE = 110
+    private val CAMERA_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE = 111
+
+
+
     private lateinit var dialogImage: Dialog
 
-    private val REQUEST_CODE_CHOOSE = 100
     private var imagePath = ""
 
     lateinit var vehicleTransporterAdapter: VehicleTransporterAdapter
@@ -435,19 +449,52 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
             )
         }
 
-        mViewDataBinding.ivImage.setOnClickListener {
+
+
+
+        mViewDataBinding.ivCommercialRegister.setOnClickListener {
             Utilities.onPermission(requireActivity())
-            showDialogImage()
+            showDialogImage(  GALLERY_IMAGE_COMMERCAL_REGISTER_REQ_CODE ,CAMERA_IMAGE_COMMERCAL_REGISTER_REQ_CODE )
+        }
+
+        mViewDataBinding.ivImageNationalIdentity.setOnClickListener {
+            Utilities.onPermission(requireActivity())
+            showDialogImage(  GALLERY_IMAGE_NATIONAL_IDENTITY_REQ_CODE ,CAMERA_IMAGE_NATIONAL_IDENTITY_REQ_CODE )
         }
 
 
-        mViewDataBinding.radioGroupTypeAccount.setOnCheckedChangeListener { group, checkedId ->
+        mViewDataBinding.ivImageDrivingLicense.setOnClickListener {
+            Utilities.onPermission(requireActivity())
+            showDialogImage(  GALLERY_IMAGE_DRIVING_LICENSE_REQ_CODE ,CAMERA_IMAGE_DRIVING_LICENSE_REQ_CODE )
+        }
+
+        mViewDataBinding.ivImageGeneralLicense.setOnClickListener {
+            Utilities.onPermission(requireActivity())
+            showDialogImage(GALLERY_IMAGE_GENERAL_LICENSE_REQ_CODE,CAMERA_IMAGE_GENERAL_LICENSE_REQ_CODE)
+        }
+
+        mViewDataBinding.ivImageMunicipalityLicense.setOnClickListener{
+            Utilities.onPermission(requireActivity())
+            showDialogImage(GALLERY_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE,CAMERA_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE)
+        }
+
+
+        mViewDataBinding.radioGroupTypeAccount.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_center -> {
                     typeAccount = "ProviderCenter"
+                    mViewDataBinding.layoutCommercialRegister.visibility=View.VISIBLE
+                    mViewDataBinding.layoutNationalIdentity.visibility=View.VISIBLE
+                    mViewDataBinding.layoutDrivingLicense.visibility=View.GONE
+                    mViewDataBinding.layoutMunicipalityLicense.visibility=View.VISIBLE
                 }
                 R.id.radio_person -> {
                     typeAccount = "Provider"
+                    mViewDataBinding.layoutCommercialRegister.visibility=View.GONE
+                    mViewDataBinding.layoutNationalIdentity.visibility=View.VISIBLE
+                    mViewDataBinding.layoutDrivingLicense.visibility=View.VISIBLE
+                    mViewDataBinding.layoutMunicipalityLicense.visibility=View.GONE
+
                 }
             }
         }
@@ -486,16 +533,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
 
 
 
-
-
-
-//                                for (i in listCategory.indices) {
-//                                    if (listCategory[i].id == categoriesID) {
-//
-////                                        listCategory.add(DataCategoriesResponse(
-////                                            listCategory[i].id, "", null,"",true))
-//                                    }
-//                                }
+        mViewDataBinding.cbIAgreeToThePrivacyPolicy.setOnClickListener {
+        val intent=Intent(requireActivity(),MainActivity::class.java)
+            intent.putExtra("type","PrivacyPolicy")
+            requireActivity().startActivity(intent)
+        }
 
 
         mViewDataBinding.btnCreateAnAccount.setOnClickListener {
@@ -557,6 +599,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                     convertToRequestBody(mViewDataBinding.spCity.selectedItemPosition.toString()),
                     convertToRequestBody(mViewDataBinding.spAreas.selectedItemPosition.toString()),
                     convertFileToMultipart(imageFile!!, "commercial_register"),
+                    convertFileToMultipart(imageFile!!, "general_license"),
+                    convertFileToMultipart(imageFile!!, "municipal_license"),
+                    convertFileToMultipart(imageFile!!, "personal_licence"),
+                    convertFileToMultipart(imageFile!!, "national_identity"),
                     convertToRequestBody(homeService.toString()),
                     convertToRequestBody(vehicleTransporterID!!.toString()),
                     categoriesAdapter.idCategory)
@@ -573,21 +619,85 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                 // Uri object will not be null for RESULT_OK
                 val uri = data!!.data
                 when (requestCode) {
-                    GALLERY_IMAGE_REQ_CODE -> {
+                    GALLERY_IMAGE_COMMERCAL_REGISTER_REQ_CODE -> {
                         mProfileUri = uri!!
                         imageFile = File(mProfileUri!!.path)
                         imagePath = mProfileUri!!.path.toString()
 
-                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImage)
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivCommercialRegister)
                     }
-                    CAMERA_IMAGE_REQ_CODE -> {
+                    CAMERA_IMAGE_COMMERCAL_REGISTER_REQ_CODE -> {
                         mProfileUri = uri!!
                         imageFile = File(mProfileUri!!.path)
                         imagePath = mProfileUri!!.path.toString()
 
-                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImage)
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivCommercialRegister)
 
                     }
+                    GALLERY_IMAGE_NATIONAL_IDENTITY_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageNationalIdentity)
+                    }
+                    CAMERA_IMAGE_NATIONAL_IDENTITY_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageNationalIdentity)
+
+                    }
+
+                    GALLERY_IMAGE_DRIVING_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageDrivingLicense)
+                    }
+                    CAMERA_IMAGE_DRIVING_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageDrivingLicense)
+
+                    }
+                    GALLERY_IMAGE_GENERAL_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageGeneralLicense)
+                    }
+                    CAMERA_IMAGE_GENERAL_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageGeneralLicense)
+
+                    }
+
+                    GALLERY_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageMunicipalityLicense)
+                    }
+                    CAMERA_IMAGE_MUNICIPALITY_LICENSE_REQ_CODE -> {
+                        mProfileUri = uri!!
+                        imageFile = File(mProfileUri!!.path)
+                        imagePath = mProfileUri!!.path.toString()
+
+                        Glide.with(requireActivity()).load(imagePath).into(mViewDataBinding.ivImageMunicipalityLicense)
+
+                    }
+
+
                     request_code -> {
                         addressStr = data!!.getStringExtra("ADDRESS")!!
                         city = data.getStringExtra("CITY")!!
@@ -609,7 +719,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
     }
 
 
-    fun showDialogImage() {
+    fun showDialogImage(CAMERA_IMAGE:Int,GALLERY_IMAGE:Int) {
         dialogImage = Dialog(requireActivity(), R.style.customDialogTheme)
         dialogImage.setCancelable(false)
         val inflater = requireActivity().layoutInflater
@@ -634,7 +744,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                 .cameraOnly()
                 // Image resolution will be less than 1080 x 1920
                 .maxResultSize(500, 500) // .saveDir(getExternalFilesDir(null))
-                .start(CAMERA_IMAGE_REQ_CODE)
+                .start(CAMERA_IMAGE)
 
             dialogImage.dismiss()
         }
@@ -647,7 +757,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
                     arrayOf<String>("image/png", "image/jpg", "image/jpeg")
                 ) // Image resolution will be less than 1080 x 1920
                 .maxResultSize(500, 500) // .saveDir(getExternalFilesDir(null))
-                .start(GALLERY_IMAGE_REQ_CODE)
+                .start(GALLERY_IMAGE)
             dialogImage.dismiss()
         }
 
@@ -667,9 +777,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() ,
         if (selected == true){
             viewModel.vehicleTransporter()
             mViewDataBinding.constraintVehicleTransporter.visibility= View.VISIBLE
+            mViewDataBinding.layoutGeneralLicense.visibility= View.VISIBLE
         }
         else{
             mViewDataBinding.constraintVehicleTransporter.visibility= View.GONE
+            mViewDataBinding.layoutGeneralLicense.visibility= View.GONE
             vehicleTransporterID=0
         }
     }

@@ -168,7 +168,7 @@
     <string name="center">مركز</string>
     <string name="account_type">نوع الحساب</string>
     <string name="choose_the_service">إختر الخدمة</string>
-    <string name="a_copy_of_the_commercial_register_or_national_id">صوره السجل التجاري او الهوية الوطنية</string>
+    <string name="a_copy_of_the_commercial_register_or_national_id">السجل التجاري</string>
     <string name="i_declare_that_i_have_read_the_mentioned_conditions_and_agreed_to_them">اقر باني قد قرات الشروط المذكورة ووافقت عليها.</string>
     <string name="person">فرد</string>
     <string name="title_activity_maps2">MapsActivity2</string>
@@ -273,6 +273,10 @@
     <string name="invalid_iban">IBAN غير صحيح</string>
     <string name="valid">صحيح</string>
     <string name="the_reason_of_refuse">سبب الرفض</string>
+    <string name="national_identity">صورة هوية المالك</string>
+    <string name="driving_license">رخصة قيادة</string>
+    <string name="general_license">رخصة عمومية</string>
+    <string name="municipality_license">رخصة البلدية</string>
 
 
 </resources>

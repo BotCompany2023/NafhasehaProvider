@@ -3,10 +3,8 @@ package com.sa.nafhasehaprovider.ui.repository
 import com.sa.nafhasehaprovider.network.APIEndPoint
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Part
 
 class MainRepo(private val api: APIEndPoint) {
-
 
 
     suspend fun city(countryId: Int, countPaginate: String) = api.cities(countryId, countPaginate)
@@ -24,8 +22,8 @@ class MainRepo(private val api: APIEndPoint) {
     ) = api.login(phone, password, firebase_token)
 
     suspend fun contactUs(
-        title: String, country_id: Int, phone: String,notes: String
-    ) = api.contactUs(title,country_id,phone,notes)
+        title: String, country_id: Int, phone: String, notes: String
+    ) = api.contactUs(title, country_id, phone, notes)
 
 
     suspend fun registerUser(
@@ -41,13 +39,27 @@ class MainRepo(private val api: APIEndPoint) {
         city_id: RequestBody,
         area_id: RequestBody,
         commercialRegister: MultipartBody.Part? = null,
+        general_license: MultipartBody.Part? = null,
+        municipal_license: MultipartBody.Part? = null,
+        personal_licence: MultipartBody.Part? = null,
+        national_identity: MultipartBody.Part? = null,
         services_from_home: RequestBody,
         transporter_id: RequestBody,
         categories: List<Int>
-    ) = api.register(provider_type,
+    ) = api.register(
+        provider_type,
         name,
-        country_id,phone,email,password,address,lat,long,city_id,area_id,commercialRegister,
-        services_from_home,transporter_id,categories)
+        country_id,
+        phone,
+        email,
+        password,
+        address,
+        lat,
+        long,
+        city_id,
+        area_id,
+        commercialRegister,
+        general_license, municipal_license, personal_licence, national_identity, services_from_home, transporter_id, categories)
 
     suspend fun checkPhoneUser(
         phone: String, countryId: Int
@@ -55,7 +67,7 @@ class MainRepo(private val api: APIEndPoint) {
 
 
     suspend fun changePassword(
-        oldPassword: String,newPassword: String
+        oldPassword: String, newPassword: String
     ) = api.changePassword(oldPassword, newPassword)
 
     suspend fun checkOtpCode(
@@ -93,12 +105,26 @@ class MainRepo(private val api: APIEndPoint) {
         transporter_id: RequestBody,
         categories: List<Int>
     ) = api.editProfile(
-        image,provider_type,name,country_id,
-        phone,email,address,lat,long,city_id,area_id, services_from_home,transporter_id, categories
+        image,
+        provider_type,
+        name,
+        country_id,
+        phone,
+        email,
+        address,
+        lat,
+        long,
+        city_id,
+        area_id,
+        services_from_home,
+        transporter_id,
+        categories
     )
 
-    suspend fun notification(page: Int, countPaginate: Int) = api.getNotification(page,countPaginate)
-    suspend fun saveToken(fcmToken:String) = api.saveToken(fcmToken)
+    suspend fun notification(page: Int, countPaginate: Int) =
+        api.getNotification(page, countPaginate)
+
+    suspend fun saveToken(fcmToken: String) = api.saveToken(fcmToken)
     suspend fun showAllNotification() = api.showAllNotification()
 
 
@@ -111,7 +137,9 @@ class MainRepo(private val api: APIEndPoint) {
 
     suspend fun wallet(page: Int, countPaginate: Int) = api.myWallet(page, countPaginate)
     suspend fun getBanks() = api.getBanks()
-    suspend fun requestWithdrawal(bank_id:Int,full_name:String,Iban:String,amount:Int) = api.requestWithdrawal(bank_id, full_name,Iban, amount)
+    suspend fun requestWithdrawal(bank_id: Int, full_name: String, Iban: String, amount: Int) =
+        api.requestWithdrawal(bank_id, full_name, Iban, amount)
+
     suspend fun getCar(page: Int, countPaginate: Int) = api.getCar(page, countPaginate)
     suspend fun getCarType(page: Int, countPaginate: String) = api.getCarType(page, countPaginate)
 
@@ -124,44 +152,46 @@ class MainRepo(private val api: APIEndPoint) {
     suspend fun getCarYears(page: Int, countPaginate: String) = api.getCarYears(page, countPaginate)
 
 
-
     suspend fun categories(page: Int) = api.getCategories(page)
 
 
-
     suspend fun ordersApproved(page: Int) = api.getOrdersApproved(page)
-    suspend fun ordersCompleted(page: Int, countPaginate: Int) = api.getOrdersCompleted(page, countPaginate)
+    suspend fun ordersCompleted(page: Int, countPaginate: Int) =
+        api.getOrdersCompleted(page, countPaginate)
+
     suspend fun showOrder(idOrder: Int) = api.showOrder(idOrder)
     suspend fun cancelOrderOngoing(idOrder: Int) = api.cancelOrderOngoing(idOrder)
     suspend fun changeStatusGetOrders() = api.changeStatusGetOrders()
 
-    suspend fun submitPriceOffer(idOrder: Int,price:String) = api.submitPriceOffer(idOrder,price)
+    suspend fun submitPriceOffer(idOrder: Int, price: String) = api.submitPriceOffer(idOrder, price)
 
     suspend fun getCanceledReasons() = api.getCanceledReasons()
 
-    suspend fun cancelOrder(idOrder: Int,cancelReasonId: Int) = api.cancelOrder(idOrder, cancelReasonId)
+    suspend fun cancelOrder(idOrder: Int, cancelReasonId: Int) =
+        api.cancelOrder(idOrder, cancelReasonId)
+
     suspend fun acceptedOrder(idOrder: Int) = api.acceptedOrder(idOrder)
     suspend fun storeCompletedOrder(idOrder: Int) = api.storeCompletedOrder(idOrder)
     suspend fun pickUp(idOrder: Int) = api.pickUp(idOrder)
-    suspend fun submitReportsOrder(order_id: RequestBody,
-                                  date_at: RequestBody,
-                                   time_at: RequestBody,
-                                    details: RequestBody,
-                                   price: RequestBody,
-                                   image: List<MultipartBody.Part>) = api.submitReports(order_id, date_at, time_at, details, price,image)
+    suspend fun submitReportsOrder(
+        order_id: RequestBody,
+        date_at: RequestBody,
+        time_at: RequestBody,
+        details: RequestBody,
+        price: RequestBody,
+        image: List<MultipartBody.Part>
+    ) = api.submitReports(order_id, date_at, time_at, details, price, image)
 
 
     suspend fun versionUpdate(deviceType: String, currentVersion: String) =
-        api.versionUpdate(deviceType,currentVersion)
+        api.versionUpdate(deviceType, currentVersion)
 
 
     suspend fun getVehicleTransporter() = api.getVehicleTransporter()
 
 
-
     suspend fun changeLanguage(defaultLanguage: String) =
         api.changeLanguage(defaultLanguage)
-
 
 
 }

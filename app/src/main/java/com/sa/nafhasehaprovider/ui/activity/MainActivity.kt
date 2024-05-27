@@ -85,6 +85,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             checkFragment == "SETTING" -> {
                 navController.navigate(R.id.menuSetting)
             }
+            checkFragment == "PrivacyPolicy" -> {
+                navController.navigate(R.id.privacyPolicyFragment)
+            }
             //طلب جديد
 //            checkFragment == "1" && orderStep=="New" -> {
 ////                val bundle = Bundle()

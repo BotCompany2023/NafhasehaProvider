@@ -168,7 +168,7 @@
     <string name="center">Center</string>
     <string name="account_type">Account type</string>
     <string name="choose_the_service">Choose the service</string>
-    <string name="a_copy_of_the_commercial_register_or_national_id">A copy of the commercial register or national ID</string>
+    <string name="a_copy_of_the_commercial_register_or_national_id">Commercial register</string>
     <string name="i_declare_that_i_have_read_the_mentioned_conditions_and_agreed_to_them">I declare that I have read the mentioned conditions and agreed to them.</string>
     <string name="person">Person</string>
     <string name="title_activity_maps2">MapsActivity2</string>
@@ -276,6 +276,10 @@
         <string name="valid">Valid</string>
 
     <string name="the_reason_of_refuse">The reason of refuse</string>
+    <string name="national_identity">A copy of the owner’s ID</string>
+    <string name="driving_license">Driving License</string>
+    <string name="general_license">General license</string>
+    <string name="municipality_license">Municipality License</string>
 
 
 </resources>

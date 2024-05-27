@@ -143,10 +143,10 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:src="@drawable/icon_ar"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -401,11 +401,11 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
-                    android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="@string/choose_the_service"
                     android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radio_group_type_account" />
@@ -420,17 +420,17 @@
                     app:layout_constraintEnd_toEndOf="@+id/radio_group_type_account"
                     app:layout_constraintStart_toStartOf="@+id/radio_group_type_account"
                     app:layout_constraintTop_toBottomOf="@+id/title_choose_the_service"
-                    app:spanCount="1"
+                    app:spanCount="2"
                     tools:listitem="@layout/item_service_selected" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_vehicle_transporter"
                     android:layout_width="0dp"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_all_service">
@@ -461,8 +461,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_all_transport_vehicle"
                         android:layout_width="0dp"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -475,74 +475,288 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <CheckBox
-                    android:id="@+id/cb_do_you_have_home_service"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/do_you_have_home_service"
+
+                <View
+                    android:id="@+id/view_vehicle_transporter"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey4"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_24sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_vehicle_transporter" />
 
 
-                <TextView
-                    android:id="@+id/title_image"
-                    android:layout_width="0dp"
+                <CheckBox
+                    android:id="@+id/cb_do_you_have_home_service"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="@string/a_copy_of_the_commercial_register_or_national_id"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:text="@string/do_you_have_home_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_vehicle_transporter" />
+
+
+
+                <View
+                    android:id="@+id/view_do_you_have_home_service"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey4"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_24sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb_do_you_have_home_service" />
 
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_image"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/layout_attachment"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    app:cardCornerRadius="@dimen/_10sdp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintStart_toStartOf="@+id/title_image"
-                    app:layout_constraintTop_toBottomOf="@+id/title_image">
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_do_you_have_home_service">
 
 
-                    <ImageView
-                        android:id="@+id/iv_image"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_65sdp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_defult_camera" />
+                    <LinearLayout
+                        android:id="@+id/layout_commercial_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/title_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/a_copy_of_the_commercial_register_or_national_id"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
 
 
-                </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp">
+
+
+                            <ImageView
+                                android:id="@+id/iv_commercial_register"
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_defult_camera" />
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_national_identity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/national_identity"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title_image_national_identity">
+
+                            <ImageView
+                                android:id="@+id/iv_image_national_identity"
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_defult_camera" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_driving_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/driving_license"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title_image_national_identity">
+
+                            <ImageView
+                                android:id="@+id/iv_image_driving_license"
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_defult_camera" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_general_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/general_license"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title_image_national_identity">
+
+                            <ImageView
+                                android:id="@+id/iv_image_general_license"
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_defult_camera" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_municipality_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="@string/municipality_license"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title_image_national_identity">
+
+                            <ImageView
+                                android:id="@+id/iv_image_municipality_license"
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_defult_camera" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
 
                 <CheckBox
                     android:id="@+id/cb_i_agree_to_the_privacy_policy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:fontFamily="@font/tajawal_medium"
                     android:text="@string/i_declare_that_i_have_read_the_mentioned_conditions_and_agreed_to_them"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="@+id/rv_all_service"
-                    app:layout_constraintStart_toStartOf="@+id/cv_image"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_image" />
+                    app:layout_constraintStart_toStartOf="@+id/cb_do_you_have_home_service"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_attachment" />
 
                 <Button
                     android:id="@+id/btn_create_an_account"
                     style="@style/bottom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:text="@string/create_an_account"
                     app:layout_constraintBottom_toBottomOf="parent"

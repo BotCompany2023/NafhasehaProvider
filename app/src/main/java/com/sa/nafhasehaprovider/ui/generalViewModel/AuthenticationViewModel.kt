@@ -74,6 +74,10 @@ class AuthenticationViewModel(
         area_id: RequestBody,
         city_id: RequestBody,
         commercialRegister: MultipartBody.Part? = null,
+        general_license: MultipartBody.Part? = null,
+        municipal_license: MultipartBody.Part? = null,
+        personal_licence: MultipartBody.Part? = null,
+        national_identity: MultipartBody.Part? = null,
         services_from_home: RequestBody,
         transporter_id: RequestBody,
         categories: List<Int>
@@ -87,9 +91,8 @@ class AuthenticationViewModel(
                         country_id,phone,email,password,
                         address,lat,long,city_id,area_id,
                         commercialRegister,
-                        services_from_home,
-                        transporter_id,
-                        categories)
+                        general_license, municipal_license, personal_licence, national_identity, services_from_home, transporter_id, categories)
+
                 if (response.isSuccessful) {
                     authResponse.postValue(Resource.Success(response.body()!!))
                     // handling if repsonse is succesfully
